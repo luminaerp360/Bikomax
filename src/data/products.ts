@@ -1,0 +1,337 @@
+import { Product, DeliveryZone } from '../types';
+
+export const INITIAL_PRODUCTS: Product[] = [
+  {
+    ref: "PRD-722343-8092",
+    name: "Model 66008 Matte Porcelain Tile",
+    category: "Tiles",
+    dimension: "60x60 cm",
+    pricing_type: "area",
+    price_per_sqm: 2870,
+    bulk_price_per_box: 4132.80,
+    sqm_per_box: 1.44,
+    bulk_unit: "Box",
+    stock: 76,
+    image: "/products/tile-matte-66008.jpg",
+    description: "Architectural grade matte porcelain floor tile featuring natural stone striations. Nano-sealed anti-stain technology with rectified precision edges for minimal 1.5mm grout lines.",
+    finish: "Honed Matte",
+    material: "Full Body Porcelain",
+    origin: "Italy / Spain Spec",
+    featured: true,
+    specs: [
+      { label: "Nominal Size", value: "600 x 600 mm" },
+      { label: "Thickness", value: "9.5 mm" },
+      { label: "Coverage per Box", value: "1.44 m² (4 Pieces)" },
+      { label: "Surface Slip Rating", value: "R10 / PTV 36+" },
+      { label: "Edge Profile", value: "Rectified Monocaliber" },
+      { label: "Water Absorption", value: "< 0.05%" }
+    ]
+  },
+  {
+    ref: "PRD-636920-2982",
+    name: "Model 61238 Large Format Porcelain Tile",
+    category: "Tiles",
+    dimension: "60x120 cm",
+    pricing_type: "area",
+    price_per_sqm: 3220,
+    bulk_price_per_box: 4636.80,
+    sqm_per_box: 1.44,
+    bulk_unit: "Box",
+    stock: 43,
+    image: "/products/tile-slab-61238.jpg",
+    description: "Expansive 60x120 cm architectural slab with flowing continuous veining. Creates calm, unbroken surfaces for luxury living areas, executive offices, and master en-suites.",
+    finish: "Satin Silk Finish",
+    material: "Glazed Porcelain",
+    origin: "Emil Ceramica Spec",
+    featured: true,
+    specs: [
+      { label: "Nominal Size", value: "600 x 1200 mm" },
+      { label: "Thickness", value: "10 mm" },
+      { label: "Coverage per Box", value: "1.44 m² (2 Pieces)" },
+      { label: "Edge Profile", value: "Diamond Rectified" },
+      { label: "Application", value: "Floors & Walls" },
+      { label: "Scratch Resistance", value: "MOHS 7" }
+    ]
+  },
+  {
+    ref: "PRD-941824-3110",
+    name: "Statuario Venato Bookmatched Slab Tile",
+    category: "Tiles",
+    dimension: "80x80 cm",
+    pricing_type: "area",
+    price_per_sqm: 3650,
+    bulk_price_per_box: 4672.00,
+    sqm_per_box: 1.28,
+    bulk_unit: "Box",
+    stock: 55,
+    image: "/products/tile-statuario.jpg",
+    description: "Pure Carrara white background with delicate branching quartz veins. High-gloss vitrification reflecting natural daylight across luxury interior living spaces.",
+    finish: "Mirror Polished",
+    material: "Vitrified Porcelain",
+    origin: "Bikomax Signature",
+    featured: true,
+    specs: [
+      { label: "Nominal Size", value: "800 x 800 mm" },
+      { label: "Thickness", value: "10.5 mm" },
+      { label: "Coverage per Box", value: "1.28 m² (2 Pieces)" },
+      { label: "Edge Profile", value: "Laser Rectified" },
+      { label: "Reflective Gloss", value: "98% Glossometer" }
+    ]
+  },
+  {
+    ref: "PRD-510294-1188",
+    name: "Nero Marquina Velvet Sintered Slab",
+    category: "Tiles",
+    dimension: "120x240 cm",
+    pricing_type: "area",
+    price_per_sqm: 4890,
+    bulk_price_per_box: 14083.20,
+    sqm_per_box: 2.88,
+    bulk_unit: "Box",
+    stock: 22,
+    image: "/products/tile-nero-marquina.jpg",
+    description: "Deep obsidian black canvas shot through with genuine quartz lightning veins. Ideal for double-height feature walls, master vanity backdrops, and executive facades.",
+    finish: "Velvet Satin Touch",
+    material: "Sintered Architectural Stone",
+    origin: "Bikomax Grand Format",
+    featured: false,
+    specs: [
+      { label: "Nominal Size", value: "1200 x 2400 mm" },
+      { label: "Thickness", value: "12 mm" },
+      { label: "Coverage per Box", value: "2.88 m² (1 Master Slab)" },
+      { label: "Heat Resistance", value: "Up to 600°C" },
+      { label: "Stain Resistance", value: "Class 5 (Impervious)" }
+    ]
+  },
+  {
+    ref: "PRD-339102-7744",
+    name: "Grigio Milano Outdoor Paver (20mm)",
+    category: "Tiles",
+    dimension: "60x60x2 cm",
+    pricing_type: "area",
+    price_per_sqm: 3450,
+    bulk_price_per_box: 4968.00,
+    sqm_per_box: 1.44,
+    bulk_unit: "Box",
+    stock: 60,
+    image: "/products/tile-paver-grigio.jpg",
+    description: "Extra-heavy duty 20mm outdoor vitrified stoneware engineered for patio transitions, swimming pool surrounds, and alfresco dining terraces.",
+    finish: "Flamed Structured Anti-Slip",
+    material: "Vitrified Outdoor Stoneware",
+    origin: "Bikomax Hardscape",
+    featured: false,
+    specs: [
+      { label: "Nominal Size", value: "600 x 600 mm" },
+      { label: "Thickness", value: "20 mm Structural" },
+      { label: "Coverage per Box", value: "1.44 m² (4 Pavers)" },
+      { label: "Slip Resistance", value: "R11 / Barefoot C" },
+      { label: "Load Capacity", value: "> 1,000 kg Breaking Strength" }
+    ]
+  },
+  {
+    ref: "PRD-805006-RH",
+    name: "Gun Grey Piano Shower System",
+    category: "Sanitaryware",
+    dimension: "Multi-function",
+    pricing_type: "unit",
+    price_per_unit: 35600,
+    stock: 12,
+    image: "/products/shower-piano.jpg",
+    description: "Multi-control piano key thermostatic concealed mixer. Features water-powered digital LED temperature display, overhead waterfall monsoon, and booster bidet wand.",
+    finish: "PVD Gun Grey Electroplated",
+    material: "A-Grade Solid HPb59-1 Brass",
+    origin: "German Ceramic Core Cartridge",
+    featured: true,
+    specs: [
+      { label: "Operation Type", value: "Piano Key 4-Valve Push Buttons" },
+      { label: "Overhead Shower", value: "320 x 200 mm Air-injected Rain Head" },
+      { label: "Thermostat", value: "38°C Smart Safety Lock" },
+      { label: "Display", value: "Hydroelectric LED (No batteries needed)" },
+      { label: "Working Pressure", value: "0.15 - 0.5 MPa" }
+    ]
+  },
+  {
+    ref: "PRD-220194-FL",
+    name: "Freestanding Matte Black Egg Bathtub 1700mm",
+    category: "Sanitaryware",
+    dimension: "1700x800x580 mm",
+    pricing_type: "unit",
+    price_per_unit: 118000,
+    stock: 6,
+    image: "/products/bathtub-black.jpg",
+    description: "Sculptural centerpiece freestanding soaking tub crafted from composite cast resin stone. Retains thermal warmth up to 300% longer than acrylic tubs.",
+    finish: "Velvet Matte Black",
+    material: "Engineered Mineral Composite Resin",
+    origin: "Architectural Luxury Line",
+    featured: true,
+    specs: [
+      { label: "Dimensions", value: "1700 L x 800 W x 580 H mm" },
+      { label: "Water Capacity", value: "290 Litres" },
+      { label: "Net Weight", value: "115 kg (Solid Foundation)" },
+      { label: "Overflow", value: "Integrated Concealed Slotted Overflow" }
+    ]
+  },
+  {
+    ref: "PRD-771039-BM",
+    name: "Brushed Warm Brass High-Rise Basin Mixer",
+    category: "Sanitaryware",
+    dimension: "H: 310 mm, Reach: 195 mm",
+    pricing_type: "unit",
+    price_per_unit: 14500,
+    stock: 24,
+    image: "/products/mixer-brass.jpg",
+    description: "Architectural tall counter basin mixer tap with knurled joystick handle. PVD nano-coating resists water droplet staining and fingerprints.",
+    finish: "Brushed Warm Brass",
+    material: "Dezincification Resistant (DZR) Brass",
+    origin: "Sedal Ceramic Disc Cartridge",
+    featured: false,
+    specs: [
+      { label: "Total Height", value: "310 mm" },
+      { label: "Spout Clearance", value: "240 mm (For Vessel Bowls)" },
+      { label: "Aerator", value: "Neoperl Swiss Cascade Anti-Lime" },
+      { label: "Supply Inlets", value: "Standard G1/2 Flexible Stainless Braided" }
+    ]
+  },
+  {
+    ref: "PRD-910238-WC",
+    name: "Rimless Wall-Hung Smart Bidet Toilet",
+    category: "Sanitaryware",
+    dimension: "540x360x365 mm",
+    pricing_type: "unit",
+    price_per_unit: 68500,
+    stock: 10,
+    image: "/products/toilet-wallhung.jpg",
+    description: "Minimalist wall-mounted ceramic water closet with integrated heated soft-close bidet seat, cyclonic silent flush, and antibacterial glaze.",
+    finish: "Nano-Pure Gloss White",
+    material: "Vitreous China Vitrified 1280°C",
+    origin: "Bikomax Smart Bath",
+    featured: false,
+    specs: [
+      { label: "Flush Mechanism", value: "360° Tornado Cyclonic Rimless" },
+      { label: "Dual Flush", value: "3.0L / 4.5L Water-Saving" },
+      { label: "Load Tested", value: "400 kg Structural Support" },
+      { label: "Hinges", value: "Quick-Release Stainless Steel" }
+    ]
+  },
+  {
+    ref: "PRD-158493-6323",
+    name: "Heavy Duty DP Switch (40A)",
+    category: "Electrical",
+    dimension: "Standard Faceplate 86x86 mm",
+    pricing_type: "unit",
+    price_per_unit: 1300,
+    stock: 48,
+    image: "/products/switch-40a.jpg",
+    description: "40 Amp Double Pole heavy-duty cooker and water heater switch with discrete micro-neon pilot indicator. Flame retardant Bayer polycarbonate housing with solid silver-alloy contacts.",
+    finish: "Brushed Gunmetal / Matte Graphite",
+    material: "Flame Retardant Bayer PC + Solid Copper Terminals",
+    origin: "British Standard (BS EN 60669-1)",
+    featured: true,
+    specs: [
+      { label: "Rating", value: "40A 250V AC" },
+      { label: "Plate Dimensions", value: "86 x 86 mm (1-Gang Box)" },
+      { label: "Indicator", value: "Neon Load Pilot Lamp" },
+      { label: "Application", value: "Instant Showers, Cookers, Water Heaters" },
+      { label: "Compliance", value: "KEBS / British Standard Certified" }
+    ]
+  },
+  {
+    ref: "PRD-449102-SW",
+    name: "Champagne Gold 2-Gang 2-Way Dimmer",
+    category: "Electrical",
+    dimension: "86x86 mm Frameless Plate",
+    pricing_type: "unit",
+    price_per_unit: 2450,
+    stock: 35,
+    image: "/products/dimmer-champagne.jpg",
+    description: "Frameless brushed aluminum champagne gold plate with soft-glow rotary dimming module. Engineered for architectural recessed spotlights.",
+    finish: "Anodized Champagne Gold",
+    material: "Aviation-Grade Brushed Aluminum",
+    origin: "Bikomax Luxe Electrical",
+    featured: false,
+    specs: [
+      { label: "Dimming Range", value: "0 - 100% Flicker-Free Trailing Edge" },
+      { label: "Max Load", value: "300W LED / 500W Halogen per Gang" },
+      { label: "Installation", value: "Standard 35mm Deep Back Box" }
+    ]
+  },
+  {
+    ref: "PRD-882019-SK",
+    name: "Matte Onyx 13A Twin Socket + 45W Type-C PD",
+    category: "Electrical",
+    dimension: "146x86 mm (2-Gang)",
+    pricing_type: "unit",
+    price_per_unit: 2850,
+    stock: 50,
+    image: "/products/socket-onyx.jpg",
+    description: "Twin 13A switched British 3-pin socket with integrated high-speed 45W USB-C Power Delivery port for laptops and devices.",
+    finish: "Matte Onyx Slate",
+    material: "Polycarbonate with Child-Safe Shutter",
+    origin: "Bikomax Pro Series",
+    featured: false,
+    specs: [
+      { label: "AC Outlets", value: "2 x 13A 250V 3-Pin BS1363" },
+      { label: "USB Ports", value: "1x Type-C (45W PD) + 1x Type-A (18W QC)" },
+      { label: "Surge Protection", value: "Integrated Metal Oxide Varistor" }
+    ]
+  }
+];
+
+export const KENYA_DELIVERY_ZONES: DeliveryZone[] = [
+  {
+    id: "pickup-eldoret",
+    name: "Showroom Pickup (Rupa's Godowns, Unit G48)",
+    description: "Collect directly at our Eldoret warehouse. Forklift loading provided.",
+    fee: 0,
+    estimatedDays: "Ready Within 2 Hours"
+  },
+  {
+    id: "eldoret-cbd",
+    name: "Eldoret Town & CBD",
+    description: "Town Centre, Uganda Road corridor, Oginga Odinga St, West Indies.",
+    fee: 1500,
+    estimatedDays: "Same Day / Next Day Morning"
+  },
+  {
+    id: "eldoret-suburbs",
+    name: "Eldoret Prime Suburbs (Annex, Kapsoya, Elgon View, Pioneer)",
+    description: "Site delivery to Elgon View, Annex, Racecourse, Kapsoya, Pioneer, Kenmosa.",
+    fee: 2200,
+    estimatedDays: "Next Business Day"
+  },
+  {
+    id: "outskirts-uasin-gishu",
+    name: "Greater Uasin Gishu (Turbo, Moiben, Burnt Forest)",
+    description: "Flatbed or pickup delivery directly to building site.",
+    fee: 4500,
+    estimatedDays: "1 - 2 Business Days"
+  },
+  {
+    id: "rift-valley-express",
+    name: "North Rift & Western Corridor (Kitale, Kapsabet, Iten, Bungoma)",
+    description: "Regional transit with strapped pallet packaging.",
+    fee: 6800,
+    estimatedDays: "2 - 3 Business Days"
+  }
+];
+
+export const SHOWROOM_CONTACT = {
+  brandName: "BIKOMAX",
+  tagline: "Flawless • Functional • Refined",
+  showroomLocation: "Rupa’s Godowns, Unit G48, Eldoret, Kenya",
+  phone: "+254 20 230 859",
+  phoneRaw: "+25420230859",
+  whatsappPhone: "25420230859",
+  email: "orders@bikomax.co.ke",
+  openingHours: "Mon – Fri: 8:00 AM – 6:00 PM | Sat: 8:30 AM – 4:00 PM | Sun: Closed",
+  paybill: "522123",
+  paybillAccount: "BIKOMAX-ELD",
+  tillNumber: "849201",
+  bankDetails: {
+    bankName: "Stanbic Bank Kenya",
+    branch: "Eldoret Branch",
+    accountName: "BIKOMAX ARCHITECTURAL SUPPLIES LTD",
+    accountNumber: "0100 894 201 940",
+    swiftCode: "SBICKENA"
+  }
+};

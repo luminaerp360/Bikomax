@@ -1,0 +1,6 @@
+{
+  "name": "BIKOMAX - Luxury Architectural Building Supply",
+  "description": "Flawless • Functional • Refined. Premium porcelain tiles, designer sanitaryware, and luxury electrical fittings in Eldoret, Kenya.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
