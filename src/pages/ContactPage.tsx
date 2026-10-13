@@ -49,7 +49,7 @@ export const ContactPage: React.FC = () => {
       <section className="bg-white bg-arch-grid border-b border-neutral-200/60 py-16 sm:py-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-white/95 via-white/80 to-white pointer-events-none" />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
           <div className="max-w-3xl space-y-3">
             <AnimatedReveal>
               <span className="text-[11px] font-mono tracking-widest uppercase text-[#C2A26F] font-medium block">
@@ -73,7 +73,7 @@ export const ContactPage: React.FC = () => {
       </section>
 
       {/* Quick Contact Cards */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
+      <section className="w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 pt-10">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <AnimatedReveal delay={0.1}>
             <div className="bg-white p-7 border border-neutral-200/80 arch-crosshair shadow-2xs hover:shadow-md transition-shadow duration-300 space-y-2.5">
@@ -134,7 +134,7 @@ export const ContactPage: React.FC = () => {
       </section>
 
       {/* Main Content Grid: Appointment Booking & Directions */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <section className="w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
           {/* Left Column: Interactive Appointment Booking */}
           <AnimatedReveal delay={0.15} className="lg:col-span-7 bg-white p-7 sm:p-9 border border-neutral-200 shadow-sm arch-crosshair">

@@ -1,23 +1,16 @@
 import React from 'react';
-import { motion } from 'motion/react';
 import { Product } from '../types';
 import { Hero } from '../components/Hero';
-import { ProductCard } from '../components/ProductCard';
-import { SHOWROOM_CONTACT } from '../data/products';
+import { CollectionsCarousel } from '../components/CollectionsCarousel';
+import { EditorialInspirationBlocks } from '../components/EditorialInspirationBlocks';
+import { LooksBrowser } from '../components/LooksBrowser';
+import { RoomVisualizerSection } from '../components/RoomVisualizerSection';
+import { DestinationGrid } from '../components/DestinationGrid';
+import { AdvancedTileFinder } from '../components/AdvancedTileFinder';
+import { ShowroomsSpotlight } from '../components/ShowroomsSpotlight';
+import { ProjectsSection } from '../components/ProjectsSection';
 import { AnimatedReveal, ScrollRevealText, PatternDivider } from '../components/AnimatedReveal';
-import {
-  Ruler,
-  Boxes,
-  ArrowRight,
-  Calculator,
-  MapPin,
-  MessageCircle,
-  Compass,
-  Layers,
-  Sparkles,
-  ShieldCheck,
-  CheckCircle2,
-} from 'lucide-react';
+import { Ruler, Boxes, ArrowRight, Calculator, Compass } from 'lucide-react';
 
 interface HomePageProps {
   products: Product[];
@@ -29,6 +22,13 @@ interface HomePageProps {
   onSelectProduct: (product: Product) => void;
   onOpenCalculatorWithProduct: (product: Product) => void;
   onSelectCategory: (category: string) => void;
+  onFilterCatalogue?: (filters: {
+    category?: string;
+    technology?: string;
+    look?: string;
+    destination?: string;
+    size?: string;
+  }) => void;
 }
 
 export const HomePage: React.FC<HomePageProps> = ({
@@ -41,12 +41,27 @@ export const HomePage: React.FC<HomePageProps> = ({
   onSelectProduct,
   onOpenCalculatorWithProduct,
   onSelectCategory,
+  onFilterCatalogue,
 }) => {
-  const featuredProducts = products.filter((p) => p.featured).slice(0, 6);
+  const handleApplyFilter = (filters: {
+    category?: string;
+    technology?: string;
+    look?: string;
+    destination?: string;
+    size?: string;
+  }) => {
+    if (onFilterCatalogue) {
+      onFilterCatalogue(filters);
+    } else {
+      if (filters.category) onSelectCategory(filters.category);
+      onNavigateToCatalogue();
+    }
+  };
 
   return (
     <div className="bg-[#FAFAFA] text-neutral-950 font-sans">
-      {/* Editorial Hero with scroll/load staggered animations and interactive dual pricing preview */}
+      
+      {/* 1. EDITORIAL HERO STAGE: Full ambient architectural slider & dual pricing */}
       <Hero
         products={products}
         onSelectProduct={onSelectProduct}
@@ -58,14 +73,21 @@ export const HomePage: React.FC<HomePageProps> = ({
         }}
       />
 
-      {/* DUAL PRICING ARCHITECTURAL EXPLAINER (Scroll Animated with Blueprint & Fluted Textures) */}
-      <section className="relative py-20 sm:py-28 border-b border-neutral-200/80 bg-white overflow-hidden">
-        {/* Subtle architectural fluted striation pattern on edge */}
-        <div className="absolute inset-y-0 right-0 w-1/3 bg-arch-grid opacity-40 pointer-events-none" />
+      {/* 2. CLEOPATRA "FEATURED COLLECTIONS" HORIZONTAL CAROUSEL */}
+      <CollectionsCarousel
+        products={products}
+        onSelectProduct={onSelectProduct}
+        onExploreCatalogue={onNavigateToCatalogue}
+      />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* 3. DUAL PRICING ARCHITECTURAL EXPLAINER (Square Meter & Bulk Box) */}
+      <section className="relative py-20 sm:py-28 border-b border-neutral-200/80 bg-white overflow-hidden">
+        <div className="absolute inset-y-0 right-0 w-1/3 bg-arch-grid opacity-35 pointer-events-none" />
+
+        <div className="relative w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-            {/* Left Narrative with Staggered Scroll Reveal */}
+            
+            {/* Left Narrative */}
             <div className="lg:col-span-6 space-y-6">
               <AnimatedReveal delay={0.05}>
                 <div className="inline-flex items-center gap-2 text-[11px] font-mono uppercase tracking-widest text-[#C2A26F] font-semibold">
@@ -74,7 +96,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                 </div>
               </AnimatedReveal>
 
-              <AnimatedReveal delay={0.15}>
+              <AnimatedReveal delay={0.12}>
                 <h2 className="text-3xl sm:text-5xl font-light font-heading text-neutral-950 leading-tight">
                   Dual Pricing: <br />
                   <span className="font-semibold text-neutral-900">Square Meter</span> & <span className="font-semibold text-[#C2A26F]">Bulk Box</span>
@@ -82,38 +104,38 @@ export const HomePage: React.FC<HomePageProps> = ({
               </AnimatedReveal>
 
               <ScrollRevealText
-                text="Estimating begins with square meters from architectural blueprints, but factory palletizing demands sealed cartons to protect rectified porcelain edges. Bikomax computes both metrics in real-time with an intelligent cutting wastage allowance."
+                text="Architectural estimation begins with square meters from site blueprints, but factory palletizing demands sealed whole cartons to protect rectified porcelain edges. Bikomax computes both metrics in real-time with an intelligent +10% cutting wastage allowance."
                 className="text-sm text-neutral-600 leading-relaxed"
                 delay={0.2}
               />
 
               <div className="space-y-3.5 pt-2 text-xs text-neutral-700">
-                <AnimatedReveal delay={0.3}>
-                  <div className="flex items-start gap-3.5 p-4 bg-[#FAF9F7] border border-neutral-200/80 arch-crosshair hover:border-neutral-950 transition-colors">
+                <AnimatedReveal delay={0.25}>
+                  <div className="flex items-start gap-3.5 p-4 bg-[#FAF9F7] border border-neutral-200/80 hover:border-neutral-950 transition-colors">
                     <Ruler className="w-4 h-4 text-[#C2A26F] shrink-0 mt-0.5" />
                     <div>
                       <strong className="text-neutral-950 block font-semibold">Area Metric (m²):</strong>
                       <span className="text-neutral-500 leading-relaxed">
-                        Matches your quantity surveyor schedules and Bill of Quantities floor plans directly.
+                        Matches your quantity surveyor schedules and Bill of Quantities (BQ) floor plans directly.
                       </span>
                     </div>
                   </div>
                 </AnimatedReveal>
 
-                <AnimatedReveal delay={0.4}>
-                  <div className="flex items-start gap-3.5 p-4 bg-[#FAF9F7] border border-neutral-200/80 arch-crosshair hover:border-neutral-950 transition-colors">
+                <AnimatedReveal delay={0.35}>
+                  <div className="flex items-start gap-3.5 p-4 bg-[#FAF9F7] border border-neutral-200/80 hover:border-neutral-950 transition-colors">
                     <Boxes className="w-4 h-4 text-[#C2A26F] shrink-0 mt-0.5" />
                     <div>
                       <strong className="text-neutral-950 block font-semibold">Factory Box Packaging:</strong>
                       <span className="text-neutral-500 leading-relaxed">
-                        Calculates exact whole cartons needed, plus recommended +10% tile cutting wastage for perimeter trims.
+                        Calculates exact whole cartons needed, plus recommended +10% tile cutting allowance for perimeter trims.
                       </span>
                     </div>
                   </div>
                 </AnimatedReveal>
               </div>
 
-              <AnimatedReveal delay={0.5} className="pt-2">
+              <AnimatedReveal delay={0.45} className="pt-2">
                 <button
                   type="button"
                   onClick={onOpenCalculator}
@@ -126,10 +148,9 @@ export const HomePage: React.FC<HomePageProps> = ({
               </AnimatedReveal>
             </div>
 
-            {/* Specimen Visual Card (Scroll-revealed with scale) */}
+            {/* Specimen Card */}
             <AnimatedReveal delay={0.25} direction="left" className="lg:col-span-6">
               <div className="bg-[#121212] bg-arch-dark-grid text-white p-7 sm:p-9 border border-neutral-800 shadow-2xl space-y-6 relative">
-                {/* Calibration drafting watermark */}
                 <div className="absolute top-4 right-4 text-[9px] font-mono tracking-widest uppercase text-neutral-500 border border-neutral-800 px-2 py-0.5">
                   CALIBRATED ALGORITHM
                 </div>
@@ -184,119 +205,50 @@ export const HomePage: React.FC<HomePageProps> = ({
                 </button>
               </div>
             </AnimatedReveal>
+
           </div>
         </div>
       </section>
 
-      {/* Pattern Divider */}
-      <PatternDivider label="Signature Architectural Specifications" />
+      {/* 4. CLEOPATRA "FIND YOUR INSPIRATION" EDITORIAL SPLIT-BLOCKS */}
+      <EditorialInspirationBlocks
+        onNavigateToCategory={(techFilter) => handleApplyFilter({ technology: techFilter })}
+      />
 
-      {/* FEATURED SELECTION (Staggered Grid Reveal) */}
-      <section className="relative py-14 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
-          <AnimatedReveal>
-            <div>
-              <span className="text-[11px] font-mono uppercase tracking-widest text-[#C2A26F] font-semibold block">
-                Curated Highlights
-              </span>
-              <h2 className="text-3xl sm:text-5xl font-light font-heading text-neutral-950 mt-1">
-                Signature Architectural Pieces
-              </h2>
-            </div>
-          </AnimatedReveal>
+      {/* 5. CLEOPATRA "SEARCH BY LOOK" (Marble, Wood, Stone, Concrete, Sugar Effect, Terrazzo) */}
+      <LooksBrowser
+        onSelectLook={(look) => handleApplyFilter({ look })}
+      />
 
-          <AnimatedReveal delay={0.15}>
-            <button
-              type="button"
-              onClick={onNavigateToCatalogue}
-              className="text-xs font-bold uppercase tracking-widest text-neutral-950 hover:text-[#C2A26F] flex items-center gap-1.5 transition-colors cursor-pointer group"
-            >
-              <span>View Full Catalogue</span>
-              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform text-[#C2A26F]" />
-            </button>
-          </AnimatedReveal>
-        </div>
+      {/* 6. CLEOPATRA ROOM CONFIGURATOR / VISUALIZER */}
+      <RoomVisualizerSection
+        products={products}
+        onOpenCalculatorWithProduct={onOpenCalculatorWithProduct}
+        onExploreCatalogue={onNavigateToCatalogue}
+      />
 
-        {/* Staggered cards reveal on scroll */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          {featuredProducts.map((product) => (
-            <ProductCard
-              key={product.ref}
-              product={product}
-              onSelect={onSelectProduct}
-            />
-          ))}
-        </div>
-      </section>
+      {/* 7. CLEOPATRA "SEARCH YOUR DESTINATION" (Bathroom, Living, Kitchen, Bedroom, Outdoor, Commercial) */}
+      <DestinationGrid
+        onSelectDestination={(dest) => handleApplyFilter({ destination: dest })}
+      />
 
-      {/* SHOWROOM CALLOUT (Animated Dark Stage with Blueprint Grid Pattern) */}
-      <section className="relative bg-[#0A0A0A] bg-arch-blueprint text-white py-20 sm:py-28 border-t border-neutral-800 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/80 to-black/70 pointer-events-none" />
+      {/* 8. CLEOPATRA ADVANCED ARCHITECTURAL TILE FINDER (4-step dropdown search) */}
+      <AdvancedTileFinder
+        products={products}
+        onApplyAdvancedFilter={(filters) => handleApplyFilter(filters)}
+      />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            <div className="lg:col-span-7 space-y-5">
-              <AnimatedReveal>
-                <div className="inline-flex items-center gap-2 text-[11px] font-mono uppercase tracking-widest text-[#C2A26F] font-semibold">
-                  <MapPin className="w-3.5 h-3.5 text-[#C2A26F]" />
-                  <span>Physical Experience Center</span>
-                </div>
-              </AnimatedReveal>
+      {/* 9. CLEOPATRA SHOWROOM & DESIGN CENTER SPOTLIGHT */}
+      <ShowroomsSpotlight
+        onNavigateToContact={onNavigateToContact}
+        onNavigateToTrade={onNavigateToTrade}
+      />
 
-              <AnimatedReveal delay={0.12}>
-                <h2 className="text-3xl sm:text-5xl font-light font-heading text-white leading-tight">
-                  Visit Our Design Depot in Eldoret
-                </h2>
-              </AnimatedReveal>
+      {/* 10. CLEOPATRA PROJECTS SECTION (Landmark Villas & Commercial Plazas) */}
+      <ProjectsSection
+        onExploreProjects={onNavigateToTrade}
+      />
 
-              <ScrollRevealText
-                text="Experience full porcelain slabs under natural daylight, inspect sample boards, and review live water pressure trials on concealed piano shower systems at Unit G48, Rupa's Godowns, Eldoret. Forklift loading ready for all vehicles."
-                className="text-sm text-neutral-300 leading-relaxed max-w-xl"
-                delay={0.2}
-              />
-
-              <AnimatedReveal delay={0.32} className="pt-3 flex flex-wrap gap-4">
-                <button
-                  type="button"
-                  onClick={onNavigateToContact}
-                  className="px-7 py-3.5 bg-[#C2A26F] hover:bg-[#b0905e] text-neutral-950 text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer shadow-xs"
-                >
-                  Showroom Details
-                </button>
-                <button
-                  type="button"
-                  onClick={onNavigateToTrade}
-                  className="px-7 py-3.5 border border-neutral-700 hover:border-white text-white text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer"
-                >
-                  Trade & BQ Desk
-                </button>
-              </AnimatedReveal>
-            </div>
-
-            <AnimatedReveal delay={0.25} direction="left" className="lg:col-span-5">
-              <div className="bg-neutral-900/95 backdrop-blur-xs border border-neutral-800 p-8 space-y-4 arch-crosshair shadow-2xl">
-                <span className="text-xs uppercase font-mono tracking-wider text-neutral-400 block">
-                  Direct Inquiries Hotline
-                </span>
-                <div className="text-3xl font-bold font-mono text-white tracking-tight">
-                  {SHOWROOM_CONTACT.phone}
-                </div>
-                <p className="text-xs text-neutral-400 leading-relaxed">
-                  Direct WhatsApp and voice assistance for site delivery quotes, trade accounts, and tile batch reservations.
-                </p>
-                <a
-                  href={`https://wa.me/${SHOWROOM_CONTACT.whatsappPhone}?text=Hello%20Bikomax%20Eldoret`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-emerald-400 hover:text-emerald-300 hover:underline pt-2"
-                >
-                  <MessageCircle className="w-4 h-4" /> Message on WhatsApp Concierge
-                </a>
-              </div>
-            </AnimatedReveal>
-          </div>
-        </div>
-      </section>
     </div>
   );
 };

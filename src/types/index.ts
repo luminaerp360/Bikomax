@@ -17,6 +17,12 @@ export interface Product {
   origin?: string;
   specs?: { label: string; value: string }[];
   featured?: boolean;
+  look?: 'Marble' | 'Wood' | 'Stone' | 'Concrete' | 'Sugar Effect' | 'Pattern' | 'Color';
+  destinations?: ('Living' | 'Bathroom' | 'Kitchen' | 'Bedroom' | 'Outdoor' | 'Commercial')[];
+  technology?: 'Porcelain' | 'Ceramic' | 'XXL' | '2cm' | 'Sanitaryware' | 'Electrical';
+  collection?: string;
+  surfaceType?: 'Floor' | 'Wall' | 'Floor & Wall';
+  thickness?: string;
 }
 
 export type TileOrderMode = 'coverage' | 'box';
