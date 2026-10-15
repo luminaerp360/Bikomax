@@ -10,7 +10,7 @@ import { SHOWROOM_CONTACT } from '../data/products';
 const envUrl = (import.meta.env.VITE_API_BASE_URL as string | undefined)?.trim();
 export const API_BASE_URL = envUrl 
   ? envUrl.replace(/\/+$/, '') 
-  : (import.meta.env.DEV ? 'http://localhost:3000' : '');
+  : (import.meta.env.DEV ? 'http://localhost:3000' : 'https://ecommerse.lumina360.tech');
 
 export const TENANT_ID = ((import.meta.env.VITE_TENANT_ID as string | undefined)?.trim()) || 'bikomax';
 
