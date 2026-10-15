@@ -488,7 +488,7 @@ export const CataloguePage: React.FC<CataloguePageProps> = ({
       <section className="bg-[#111111] text-white pt-6 sm:pt-8 pb-10 sm:pb-14 border-b border-neutral-800">
         <div className="w-full px-4 sm:px-6 lg:px-8">
           
-          {/* Sub-brand Centered Category Navigation (Cleopatra Style) */}
+          {/* Sub-brand Centered Category Navigation */}
           <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-8 pb-6 border-b border-white/10 text-xs sm:text-sm font-semibold tracking-wider uppercase text-neutral-300">
             <button
               type="button"
@@ -497,58 +497,46 @@ export const CataloguePage: React.FC<CataloguePageProps> = ({
                 handleSetTech('All');
               }}
               className={`hover:text-[#C2A26F] transition-colors cursor-pointer ${
-                selectedCategory === 'All' && activeTech === 'All' ? 'text-[#C2A26F] font-bold' : ''
+                selectedCategory === 'All' ? 'text-[#C2A26F] font-bold border-b-2 border-[#C2A26F] pb-1' : ''
               }`}
             >
-              The Master Collections
+              All Collections
             </button>
             <button
               type="button"
               onClick={() => {
                 onCategoryChange('Tiles');
-                handleSetTech('Ceramic');
+                handleSetTech('All');
               }}
               className={`hover:text-[#C2A26F] transition-colors cursor-pointer ${
-                activeTech === 'Ceramic' ? 'text-[#C2A26F] font-bold' : ''
+                selectedCategory === 'Tiles' ? 'text-[#C2A26F] font-bold border-b-2 border-[#C2A26F] pb-1' : ''
               }`}
             >
-              Ceramic Tiles
+              Tiles
             </button>
             <button
               type="button"
               onClick={() => {
-                onCategoryChange('Tiles');
-                handleSetTech('Porcelain');
+                onCategoryChange('Sanitaryware');
+                handleSetTech('All');
               }}
               className={`hover:text-[#C2A26F] transition-colors cursor-pointer ${
-                activeTech === 'Porcelain' ? 'text-[#C2A26F] font-bold' : ''
+                selectedCategory === 'Sanitaryware' ? 'text-[#C2A26F] font-bold border-b-2 border-[#C2A26F] pb-1' : ''
               }`}
             >
-              Porcelain Tiles
+              Sanitaryware
             </button>
             <button
               type="button"
               onClick={() => {
-                onCategoryChange('Tiles');
-                handleSetTech('XXL');
+                onCategoryChange('Electrical');
+                handleSetTech('All');
               }}
               className={`hover:text-[#C2A26F] transition-colors cursor-pointer ${
-                activeTech === 'XXL' ? 'text-[#C2A26F] font-bold' : ''
+                selectedCategory === 'Electrical' ? 'text-[#C2A26F] font-bold border-b-2 border-[#C2A26F] pb-1' : ''
               }`}
             >
-              XXL Tiles
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                onCategoryChange('Tiles');
-                handleSetTech('2cm');
-              }}
-              className={`hover:text-[#C2A26F] transition-colors cursor-pointer ${
-                activeTech === '2cm' ? 'text-[#C2A26F] font-bold' : ''
-              }`}
-            >
-              2 CM Outdoor
+              Electrical
             </button>
           </div>
 

@@ -58,7 +58,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   const { totalItemsCount, subtotal, openCart } = useCart();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDepartment, setActiveDepartment] = useState<
-    'tiles' | 'bathrooms' | 'taps' | 'electrical' | 'looks' | 'destinations' | null
+    'tiles' | 'sanitaryware' | 'electrical' | null
   >(null);
   
   // Search state
@@ -82,10 +82,8 @@ export const Navbar: React.FC<NavbarProps> = ({
     if (!searchQuery.trim() || searchQuery.trim().length < 2) return [];
     const query = searchQuery.toLowerCase().trim();
     return products.filter((p) => {
-      if (searchCategory !== 'All') {
-        if (searchCategory === 'Tiles' && p.category !== 'Tiles') return false;
-        if (searchCategory === 'Bathrooms' && p.category !== 'Sanitaryware') return false;
-        if (searchCategory === 'Electrical' && p.category !== 'Electrical') return false;
+      if (searchCategory !== 'All' && p.category !== searchCategory) {
+        return false;
       }
       return (
         p.name.toLowerCase().includes(query) ||
@@ -96,7 +94,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         (p.collection && p.collection.toLowerCase().includes(query))
       );
     }).slice(0, 5);
-  }, [searchQuery, searchCategory]);
+  }, [searchQuery, searchCategory, products]);
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -216,9 +214,9 @@ export const Navbar: React.FC<NavbarProps> = ({
                   onChange={(e) => setSearchCategory(e.target.value)}
                   className="pl-3 pr-6 py-2 text-xs font-semibold text-neutral-700 bg-transparent focus:outline-hidden cursor-pointer appearance-none"
                 >
-                  <option value="All">All Items</option>
-                  <option value="Tiles">Tiles & Slabs</option>
-                  <option value="Bathrooms">Bathrooms</option>
+                  <option value="All">All Categories</option>
+                  <option value="Tiles">Tiles</option>
+                  <option value="Sanitaryware">Sanitaryware</option>
                   <option value="Electrical">Electrical</option>
                 </select>
                 <ChevronDown className="w-3 h-3 text-neutral-400 absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none" />
@@ -411,9 +409,9 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 type="button"
                 onClick={() => handleFilterClick({ category: 'Tiles' })}
-                className="py-3 px-3 transition-colors cursor-pointer flex items-center gap-1 text-neutral-700 hover:text-neutral-950"
+                className="py-3 px-3 xl:px-4 transition-colors cursor-pointer flex items-center gap-1 text-neutral-700 hover:text-neutral-950"
               >
-                <span>Tiles & Slabs</span>
+                <span>Tiles</span>
                 <ChevronDown className="w-3 h-3 text-neutral-400" />
               </button>
 
@@ -604,24 +602,25 @@ export const Navbar: React.FC<NavbarProps> = ({
               )}
             </div>
 
-            {/* DEPARTMENT 2: BATHROOMS & SANITARY (CTM Core) */}
+            {/* DEPARTMENT 2: SANITARYWARE */}
             <div
               className="relative"
-              onMouseEnter={() => setActiveDepartment('bathrooms')}
+              onMouseEnter={() => setActiveDepartment('sanitaryware')}
               onMouseLeave={() => setActiveDepartment(null)}
             >
               <button
                 type="button"
                 onClick={() => handleFilterClick({ category: 'Sanitaryware' })}
-                className="py-3 px-3 transition-colors cursor-pointer flex items-center gap-1 text-neutral-700 hover:text-neutral-950"
+                className="py-3 px-3 xl:px-4 transition-colors cursor-pointer flex items-center gap-1 text-neutral-700 hover:text-neutral-950"
               >
-                <span>Bathrooms & Sanitary</span>
+                <span>Sanitaryware</span>
                 <ChevronDown className="w-3 h-3 text-neutral-400" />
               </button>
 
               {/* Mega Dropdown */}
-              {activeDepartment === 'bathrooms' && (
-                <div className="absolute top-full left-0 w-[640px] bg-white border border-neutral-200 shadow-2xl p-6 grid grid-cols-3 gap-6 z-50 text-left">
+              {activeDepartment === 'sanitaryware' && (
+                <div className="absolute top-full left-0 w-[840px] bg-white border border-neutral-200 shadow-2xl p-6 grid grid-cols-4 gap-6 z-50 text-left">
+                  {/* Column 1: Toilets & Bidets */}
                   <div>
                     <h4 className="text-[10px] font-mono uppercase tracking-widest text-[#C2A26F] font-bold mb-3 border-b border-neutral-100 pb-1">
                       Toilets & Bidets
@@ -651,12 +650,13 @@ export const Navbar: React.FC<NavbarProps> = ({
                           onClick={() => handleFilterClick({ category: 'Sanitaryware' })}
                           className="hover:text-black hover:font-bold transition-all text-left"
                         >
-                          Matte Black Sanitary Sets
+                          Rimless Bidet Systems
                         </button>
                       </li>
                     </ul>
                   </div>
 
+                  {/* Column 2: Baths & Basins */}
                   <div>
                     <h4 className="text-[10px] font-mono uppercase tracking-widest text-[#C2A26F] font-bold mb-3 border-b border-neutral-100 pb-1">
                       Baths & Basins
@@ -692,57 +692,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                     </ul>
                   </div>
 
-                  {/* Visual Card with Bathtub Photo */}
-                  <div className="bg-[#FAF9F7] p-3 border border-neutral-200/90 flex flex-col justify-between">
-                    <div>
-                      <span className="text-[9px] font-mono uppercase text-[#C2A26F] font-bold block mb-1">
-                        Featured Bath
-                      </span>
-                      <img
-                        src="/products/bathtub-black.jpg"
-                        alt="Freestanding Soaking Bathtub"
-                        className="w-full aspect-4/3 object-cover border border-neutral-300 mb-2"
-                      />
-                      <h5 className="text-[11px] font-bold text-neutral-950 truncate">
-                        Freestanding Soaking Tub
-                      </h5>
-                      <span className="text-[10px] font-mono text-neutral-500 block">
-                        Double-Ended · KES 78,500
-                      </span>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => handleFilterClick({ category: 'Sanitaryware' })}
-                      className="mt-2 text-[10px] font-bold uppercase tracking-wider text-neutral-950 underline hover:text-[#C2A26F] text-left"
-                    >
-                      View Sanitaryware →
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* DEPARTMENT 3: TAPS & SHOWERS (CTM Core) */}
-            <div
-              className="relative"
-              onMouseEnter={() => setActiveDepartment('taps')}
-              onMouseLeave={() => setActiveDepartment(null)}
-            >
-              <button
-                type="button"
-                onClick={() => handleFilterClick({ category: 'Sanitaryware' })}
-                className="py-3 px-3 transition-colors cursor-pointer flex items-center gap-1 text-neutral-700 hover:text-neutral-950"
-              >
-                <span>Taps & Showers</span>
-                <ChevronDown className="w-3 h-3 text-neutral-400" />
-              </button>
-
-              {/* Mega Dropdown */}
-              {activeDepartment === 'taps' && (
-                <div className="absolute top-full left-0 w-[640px] bg-white border border-neutral-200 shadow-2xl p-6 grid grid-cols-3 gap-6 z-50 text-left">
+                  {/* Column 3: Showers & Taps */}
                   <div>
                     <h4 className="text-[10px] font-mono uppercase tracking-widest text-[#C2A26F] font-bold mb-3 border-b border-neutral-100 pb-1">
-                      Shower Systems
+                      Showers & Taps
                     </h4>
                     <ul className="space-y-2 text-xs text-neutral-700 font-normal">
                       <li>
@@ -751,7 +704,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                           onClick={() => handleFilterClick({ category: 'Sanitaryware' })}
                           className="hover:text-black hover:font-bold transition-all text-left"
                         >
-                          Concealed Piano Valve Sets
+                          Piano Shower Systems
                         </button>
                       </li>
                       <li>
@@ -760,7 +713,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                           onClick={() => handleFilterClick({ category: 'Sanitaryware' })}
                           className="hover:text-black hover:font-bold transition-all text-left"
                         >
-                          Hydroelectric LED Displays
+                          High-Rise Basin Mixers
                         </button>
                       </li>
                       <li>
@@ -775,46 +728,11 @@ export const Navbar: React.FC<NavbarProps> = ({
                     </ul>
                   </div>
 
-                  <div>
-                    <h4 className="text-[10px] font-mono uppercase tracking-widest text-[#C2A26F] font-bold mb-3 border-b border-neutral-100 pb-1">
-                      Mixers & Taps
-                    </h4>
-                    <ul className="space-y-2 text-xs text-neutral-700 font-normal">
-                      <li>
-                        <button
-                          type="button"
-                          onClick={() => handleFilterClick({ category: 'Sanitaryware' })}
-                          className="hover:text-black hover:font-bold transition-all text-left"
-                        >
-                          Brushed Champagne Brass
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          type="button"
-                          onClick={() => handleFilterClick({ category: 'Sanitaryware' })}
-                          className="hover:text-black hover:font-bold transition-all text-left"
-                        >
-                          Tall Countertop Mixers
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          type="button"
-                          onClick={() => handleFilterClick({ category: 'Sanitaryware' })}
-                          className="hover:text-black hover:font-bold transition-all text-left"
-                        >
-                          Kitchen Sink Faucets
-                        </button>
-                      </li>
-                    </ul>
-                  </div>
-
-                  {/* Visual Card with Piano Shower Photo */}
+                  {/* Column 4: Visual Card */}
                   <div className="bg-[#FAF9F7] p-3 border border-neutral-200/90 flex flex-col justify-between">
                     <div>
                       <span className="text-[9px] font-mono uppercase text-[#C2A26F] font-bold block mb-1">
-                        Featured Shower
+                        Featured Sanitaryware
                       </span>
                       <img
                         src="/products/shower-piano.jpg"
@@ -825,7 +743,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                         Piano Shower System
                       </h5>
                       <span className="text-[10px] font-mono text-neutral-500 block">
-                        Gun Grey PVD · KES 24,500
+                        PVD Gun Grey · Digital Display
                       </span>
                     </div>
                     <button
@@ -833,14 +751,14 @@ export const Navbar: React.FC<NavbarProps> = ({
                       onClick={() => handleFilterClick({ category: 'Sanitaryware' })}
                       className="mt-2 text-[10px] font-bold uppercase tracking-wider text-neutral-950 underline hover:text-[#C2A26F] text-left"
                     >
-                      View Showers →
+                      View All Sanitaryware →
                     </button>
                   </div>
                 </div>
               )}
             </div>
 
-            {/* DEPARTMENT 4: ELECTRICAL & LIGHTING */}
+            {/* DEPARTMENT 3: ELECTRICAL */}
             <div
               className="relative"
               onMouseEnter={() => setActiveDepartment('electrical')}
@@ -849,15 +767,15 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 type="button"
                 onClick={() => handleFilterClick({ category: 'Electrical' })}
-                className="py-3 px-3 transition-colors cursor-pointer flex items-center gap-1 text-neutral-700 hover:text-neutral-950"
+                className="py-3 px-3 xl:px-4 transition-colors cursor-pointer flex items-center gap-1 text-neutral-700 hover:text-neutral-950"
               >
-                <span>Electrical & Fittings</span>
+                <span>Electrical</span>
                 <ChevronDown className="w-3 h-3 text-neutral-400" />
               </button>
 
               {/* Mega Dropdown */}
               {activeDepartment === 'electrical' && (
-                <div className="absolute top-full left-0 w-[540px] bg-white border border-neutral-200 shadow-2xl p-6 grid grid-cols-2 gap-6 z-50 text-left">
+                <div className="absolute top-full left-0 w-[580px] bg-white border border-neutral-200 shadow-2xl p-6 grid grid-cols-3 gap-6 z-50 text-left">
                   <div>
                     <h4 className="text-[10px] font-mono uppercase tracking-widest text-[#C2A26F] font-bold mb-3 border-b border-neutral-100 pb-1">
                       Switches & Dimmers
@@ -869,7 +787,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                           onClick={() => handleFilterClick({ category: 'Electrical' })}
                           className="hover:text-black hover:font-bold transition-all text-left"
                         >
-                          40A DP High-Load Cooker Switch
+                          40A DP High-Load Switches
                         </button>
                       </li>
                       <li>
@@ -878,7 +796,24 @@ export const Navbar: React.FC<NavbarProps> = ({
                           onClick={() => handleFilterClick({ category: 'Electrical' })}
                           className="hover:text-black hover:font-bold transition-all text-left"
                         >
-                          Smart Champagne Rotary Dimmers
+                          Smart Rotary Dimmers
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h4 className="text-[10px] font-mono uppercase tracking-widest text-[#C2A26F] font-bold mb-3 border-b border-neutral-100 pb-1">
+                      Sockets & Power
+                    </h4>
+                    <ul className="space-y-2 text-xs text-neutral-700 font-normal">
+                      <li>
+                        <button
+                          type="button"
+                          onClick={() => handleFilterClick({ category: 'Electrical' })}
+                          className="hover:text-black hover:font-bold transition-all text-left"
+                        >
+                          13A Twin USB-C PD Sockets
                         </button>
                       </li>
                       <li>
@@ -887,7 +822,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                           onClick={() => handleFilterClick({ category: 'Electrical' })}
                           className="hover:text-black hover:font-bold transition-all text-left"
                         >
-                          13A Twin Switched Sockets (Onyx)
+                          British Standard Plates
                         </button>
                       </li>
                     </ul>
@@ -897,7 +832,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   <div className="bg-[#FAF9F7] p-3 border border-neutral-200/90 flex flex-col justify-between">
                     <div>
                       <span className="text-[9px] font-mono uppercase text-[#C2A26F] font-bold block mb-1">
-                        Featured Switch
+                        Featured Electrical
                       </span>
                       <img
                         src="/products/switch-40a.jpg"
@@ -905,10 +840,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                         className="w-full aspect-4/3 object-cover border border-neutral-300 mb-2"
                       />
                       <h5 className="text-[11px] font-bold text-neutral-950 truncate">
-                        40A DP Cooker Switch
+                        40A DP Switch
                       </h5>
                       <span className="text-[10px] font-mono text-neutral-500 block">
-                        Gunmetal Gray · KES 2,150
+                        Gunmetal Gray · Neon Indicator
                       </span>
                     </div>
                     <button
@@ -916,92 +851,14 @@ export const Navbar: React.FC<NavbarProps> = ({
                       onClick={() => handleFilterClick({ category: 'Electrical' })}
                       className="mt-2 text-[10px] font-bold uppercase tracking-wider text-neutral-950 underline hover:text-[#C2A26F] text-left"
                     >
-                      View Electrical →
+                      View All Electrical →
                     </button>
                   </div>
                 </div>
               )}
             </div>
 
-            {/* DEPARTMENT 5: SEARCH BY LOOK (Cleopatra Signature) */}
-            <div
-              className="relative"
-              onMouseEnter={() => setActiveDepartment('looks')}
-              onMouseLeave={() => setActiveDepartment(null)}
-            >
-              <button
-                type="button"
-                className="py-3 px-3 transition-colors cursor-pointer flex items-center gap-1 text-neutral-700 hover:text-neutral-950"
-              >
-                <span>Search by Look</span>
-                <ChevronDown className="w-3 h-3 text-neutral-400" />
-              </button>
-
-              {activeDepartment === 'looks' && (
-                <div className="absolute top-full left-0 w-[500px] bg-white border border-neutral-200 shadow-2xl p-6 z-50 text-left">
-                  <h4 className="text-[10px] font-mono uppercase tracking-widest text-[#C2A26F] font-bold mb-3 border-b border-neutral-100 pb-1">
-                    Architectural Aesthetic Looks
-                  </h4>
-                  <div className="grid grid-cols-2 gap-3 text-xs text-neutral-700 font-normal">
-                    {[
-                      { look: 'Marble', desc: 'Calacatta & Statuario' },
-                      { look: 'Wood', desc: 'French Oak Parquet' },
-                      { look: 'Stone', desc: 'Alpine Slate & Paving' },
-                      { look: 'Concrete', desc: 'Industrial Minimalist' },
-                      { look: 'Color', desc: 'Mediterranean Ripple Glaze' },
-                      { look: 'Pattern', desc: 'Venetian Terrazzo' },
-                    ].map((item) => (
-                      <button
-                        key={item.look}
-                        type="button"
-                        onClick={() => handleFilterClick({ look: item.look })}
-                        className="p-2 border border-neutral-200 hover:border-neutral-950 hover:bg-neutral-50 text-left transition-colors"
-                      >
-                        <strong className="block text-neutral-950">{item.look} Look</strong>
-                        <span className="text-[10px] text-neutral-500">{item.desc}</span>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* DEPARTMENT 6: DESTINATIONS (Cleopatra Signature) */}
-            <div
-              className="relative"
-              onMouseEnter={() => setActiveDepartment('destinations')}
-              onMouseLeave={() => setActiveDepartment(null)}
-            >
-              <button
-                type="button"
-                className="py-3 px-3 transition-colors cursor-pointer flex items-center gap-1 text-neutral-700 hover:text-neutral-950"
-              >
-                <span>Destinations</span>
-                <ChevronDown className="w-3 h-3 text-neutral-400" />
-              </button>
-
-              {activeDepartment === 'destinations' && (
-                <div className="absolute top-full left-0 w-[420px] bg-white border border-neutral-200 shadow-2xl p-5 z-50 text-left">
-                  <h4 className="text-[10px] font-mono uppercase tracking-widest text-[#C2A26F] font-bold mb-3 border-b border-neutral-100 pb-1">
-                    Select Your Room Space
-                  </h4>
-                  <div className="grid grid-cols-2 gap-2 text-xs">
-                    {['Bathroom', 'Living', 'Kitchen', 'Bedroom', 'Outdoor', 'Commercial'].map((dest) => (
-                      <button
-                        key={dest}
-                        type="button"
-                        onClick={() => handleFilterClick({ destination: dest })}
-                        className="py-2 px-3 border border-neutral-200 hover:border-neutral-950 hover:bg-neutral-950 hover:text-white transition-colors text-left"
-                      >
-                        {dest === 'Living' ? 'Living Room' : dest}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Cleopatra 3D Room Visualizer Jump */}
+            {/* Room Visualizer */}
             <a
               href="#hp_visualize"
               className="py-1 px-3 bg-[#FAF9F7] border border-neutral-300 hover:border-neutral-950 text-neutral-900 text-[10px] xl:text-[11px] font-bold flex items-center gap-1.5 transition-colors shrink-0"
@@ -1010,11 +867,11 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span>Room Simulator</span>
             </a>
 
-            {/* Showroom & Brand links */}
+            {/* Showroom & Brand */}
             <button
               type="button"
               onClick={() => onNavigate('contact')}
-              className={`py-3 px-2 transition-colors cursor-pointer text-[11px] shrink-0 ${
+              className={`py-3 px-3 transition-colors cursor-pointer text-[11px] shrink-0 ${
                 currentPage === 'contact' ? 'text-neutral-950 font-bold border-b-2 border-neutral-950' : 'text-neutral-600 hover:text-neutral-950'
               }`}
             >
@@ -1024,7 +881,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               type="button"
               onClick={() => onNavigate('about')}
-              className={`py-3 px-2 transition-colors cursor-pointer text-[11px] shrink-0 ${
+              className={`py-3 px-3 transition-colors cursor-pointer text-[11px] shrink-0 ${
                 currentPage === 'about' ? 'text-neutral-950 font-bold border-b-2 border-neutral-950' : 'text-neutral-600 hover:text-neutral-950'
               }`}
             >
@@ -1066,32 +923,25 @@ export const Navbar: React.FC<NavbarProps> = ({
             <h4 className="text-[10px] font-mono uppercase tracking-widest text-[#C2A26F] font-bold">
               E-Commerce Departments
             </h4>
-            <div className="grid grid-cols-2 gap-2 text-xs font-bold uppercase tracking-wider">
+            <div className="grid grid-cols-3 gap-2 text-xs font-bold uppercase tracking-wider">
               <button
                 type="button"
                 onClick={() => handleFilterClick({ category: 'Tiles' })}
-                className="p-3 bg-neutral-50 border border-neutral-200 text-left hover:border-neutral-950"
+                className="p-3 bg-neutral-50 border border-neutral-200 text-center hover:border-neutral-950"
               >
-                Tiles & Slabs
+                Tiles
               </button>
               <button
                 type="button"
                 onClick={() => handleFilterClick({ category: 'Sanitaryware' })}
-                className="p-3 bg-neutral-50 border border-neutral-200 text-left hover:border-neutral-950"
+                className="p-3 bg-neutral-50 border border-neutral-200 text-center hover:border-neutral-950"
               >
-                Bathrooms
-              </button>
-              <button
-                type="button"
-                onClick={() => handleFilterClick({ category: 'Sanitaryware' })}
-                className="p-3 bg-neutral-50 border border-neutral-200 text-left hover:border-neutral-950"
-              >
-                Taps & Showers
+                Sanitaryware
               </button>
               <button
                 type="button"
                 onClick={() => handleFilterClick({ category: 'Electrical' })}
-                className="p-3 bg-neutral-50 border border-neutral-200 text-left hover:border-neutral-950"
+                className="p-3 bg-neutral-50 border border-neutral-200 text-center hover:border-neutral-950"
               >
                 Electrical
               </button>
