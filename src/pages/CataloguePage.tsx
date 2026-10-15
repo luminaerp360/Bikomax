@@ -35,6 +35,8 @@ interface CataloguePageProps {
   onTechnologyChange?: (tech: string) => void;
   selectedDestination?: string;
   onDestinationChange?: (dest: string) => void;
+  backendError?: string | null;
+  onRetry?: () => void;
 }
 
 export const CataloguePage: React.FC<CataloguePageProps> = ({
@@ -52,6 +54,8 @@ export const CataloguePage: React.FC<CataloguePageProps> = ({
   onTechnologyChange,
   selectedDestination = 'All',
   onDestinationChange,
+  backendError,
+  onRetry,
 }) => {
   const { addBatchToCart, addTileToCart } = useCart();
   const [sortBy, setSortBy] = useState<'featured' | 'price-asc' | 'price-desc'>('featured');
@@ -847,7 +851,28 @@ export const CataloguePage: React.FC<CataloguePageProps> = ({
             {/* ========================================================
                 GRID RENDER: IMMEDIATE TILES & COLLECTIONS
                ======================================================== */}
-            {filteredProducts.length === 0 ? (
+            {backendError ? (
+              <div className="bg-red-50 border border-red-200 p-12 sm:p-16 text-center space-y-4">
+                <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto text-red-600">
+                  <X className="w-6 h-6" />
+                </div>
+                <h3 className="text-lg font-bold font-heading text-red-950">
+                  Backend API Connection Error
+                </h3>
+                <p className="text-xs text-red-700 max-w-lg mx-auto font-mono">
+                  {backendError}
+                </p>
+                {onRetry && (
+                  <button
+                    type="button"
+                    onClick={onRetry}
+                    className="px-6 py-2.5 bg-red-900 hover:bg-red-800 text-white text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer"
+                  >
+                    Retry Connection
+                  </button>
+                )}
+              </div>
+            ) : filteredProducts.length === 0 ? (
               <div className="bg-white border border-neutral-200 p-12 sm:p-16 text-center space-y-4">
                 <Layers className="w-10 h-10 text-neutral-300 mx-auto" />
                 <h3 className="text-lg font-bold font-heading text-neutral-900">
