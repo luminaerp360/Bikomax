@@ -21,7 +21,7 @@ import { CartDrawer } from './components/CartDrawer';
 import { CheckoutModal } from './components/CheckoutModal';
 import { CartToastNotification } from './components/CartToastNotification';
 import { Footer } from './components/Footer';
-import { MessageCircle } from 'lucide-react';
+import { MessageCircle, AlertTriangle, RefreshCw } from 'lucide-react';
 import { SHOWROOM_CONTACT } from './data/products';
 
 function MainApp() {
@@ -53,26 +53,34 @@ function MainApp() {
   };
 
   // Catalogue filters
-  const [products, setProducts] = useState<Product[]>(INITIAL_PRODUCTS);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [isLoadingProducts, setIsLoadingProducts] = useState<boolean>(true);
+  const [backendError, setBackendError] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedLook, setSelectedLook] = useState<string>('All');
   const [selectedTechnology, setSelectedTechnology] = useState<string>('All');
   const [selectedDestination, setSelectedDestination] = useState<string>('All');
 
-  // Load products dynamically from stockify backend
-  useEffect(() => {
-    let isMounted = true;
+  const fetchBackendProducts = () => {
+    setIsLoadingProducts(true);
+    setBackendError(null);
     getProducts()
       .then((data) => {
-        if (isMounted && data && data.length > 0) {
-          setProducts(data);
-        }
+        setProducts(data);
+        setBackendError(null);
       })
-      .catch((err) => console.warn('[Bikomax] Using initial products cache:', err));
-    return () => {
-      isMounted = false;
-    };
+      .catch((err: any) => {
+        setProducts([]);
+        setBackendError(err.message || 'Failed to fetch products from backend server.');
+      })
+      .finally(() => {
+        setIsLoadingProducts(false);
+      });
+  };
+
+  useEffect(() => {
+    fetchBackendProducts();
   }, []);
 
   const handleFilterNavigate = (filters: {
@@ -116,6 +124,36 @@ function MainApp() {
         onSelectProduct={(p) => setSelectedProduct(p)}
         products={products}
       />
+
+      {/* Prominent Backend Error Banner (Strict: No mock fallback) */}
+      {backendError && (
+        <div className="bg-red-950 text-white border-b-2 border-red-700 px-4 py-3 sm:px-6 z-30 shadow-md">
+          <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
+            <div className="flex items-start gap-2.5">
+              <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+              <div>
+                <p className="font-bold text-red-200 uppercase tracking-wider text-[11px]">
+                  Backend API Offline or Unreachable
+                </p>
+                <p className="text-red-300 text-[11px] font-mono mt-0.5 break-all">
+                  {backendError}
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 self-end sm:self-center shrink-0">
+              <button
+                type="button"
+                onClick={fetchBackendProducts}
+                disabled={isLoadingProducts}
+                className="px-3 py-1.5 bg-red-800 hover:bg-red-700 text-white font-bold uppercase tracking-wider text-[10px] transition-colors shadow-xs cursor-pointer flex items-center gap-1.5 disabled:opacity-50"
+              >
+                <RefreshCw className={`w-3 h-3 ${isLoadingProducts ? 'animate-spin' : ''}`} />
+                <span>{isLoadingProducts ? 'Connecting...' : 'Retry Connection'}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Main Routed Page Content */}
       <main className="flex-1">
@@ -167,6 +205,8 @@ function MainApp() {
                   setCalculatorSelectedProduct(undefined);
                   setIsCalculatorOpen(true);
                 }}
+                backendError={backendError}
+                onRetry={fetchBackendProducts}
               />
             )}
 

@@ -1,5 +1,5 @@
 import { Product, OrderReceipt, DeliveryZone } from '../types';
-import { INITIAL_PRODUCTS, SHOWROOM_CONTACT, KENYA_DELIVERY_ZONES } from '../data/products';
+import { SHOWROOM_CONTACT } from '../data/products';
 
 /**
  * Automatically determine backend API base URL:
@@ -71,146 +71,129 @@ function mapBackendProductToFrontend(raw: any): Product {
 }
 
 /**
- * Fetch products from backend with graceful fallback to INITIAL_PRODUCTS
+ * Fetch products from backend strictly without mock fallback
  */
 export async function getProducts(filters?: FetchProductsFilter): Promise<Product[]> {
-  try {
-    const params = new URLSearchParams();
-    if (filters?.category && filters.category !== 'All') {
-      params.append('categories', filters.category);
-    }
-    if (filters?.search) {
-      params.append('search', filters.search);
-    }
-    if (filters?.look) {
-      params.append('look', filters.look);
-    }
-    if (filters?.technology) {
-      params.append('technology', filters.technology);
-    }
-    if (filters?.surfaceType) {
-      params.append('surfaceType', filters.surfaceType);
-    }
-    if (filters?.destination) {
-      params.append('destination', filters.destination);
-    }
-    if (filters?.pricingType) {
-      params.append('pricingType', filters.pricingType);
-    }
+  if (!API_BASE_URL) {
+    throw new Error('Backend URL is not configured. Please define VITE_API_BASE_URL.');
+  }
 
-    const queryString = params.toString() ? `?${params.toString()}` : '';
-    const res = await fetch(`${API_BASE_URL}/products${queryString}`, {
+  const params = new URLSearchParams();
+  if (filters?.category && filters.category !== 'All') {
+    params.append('categories', filters.category);
+  }
+  if (filters?.search) {
+    params.append('search', filters.search);
+  }
+  if (filters?.look) {
+    params.append('look', filters.look);
+  }
+  if (filters?.technology) {
+    params.append('technology', filters.technology);
+  }
+  if (filters?.surfaceType) {
+    params.append('surfaceType', filters.surfaceType);
+  }
+  if (filters?.destination) {
+    params.append('destination', filters.destination);
+  }
+  if (filters?.pricingType) {
+    params.append('pricingType', filters.pricingType);
+  }
+
+  const queryString = params.toString() ? `?${params.toString()}` : '';
+  const requestUrl = `${API_BASE_URL}/products${queryString}`;
+
+  try {
+    const res = await fetch(requestUrl, {
       method: 'GET',
       headers: defaultHeaders,
-      signal: AbortSignal.timeout(3500),
+      signal: AbortSignal.timeout(6000),
     });
 
     if (!res.ok) {
-      console.warn(`[Bikomax API] Backend returned status ${res.status}. Using fallback products.`);
-      return filterLocalProducts(INITIAL_PRODUCTS, filters);
+      const errBody = await res.text().catch(() => '');
+      throw new Error(`Backend error (${res.status} ${res.statusText}): ${errBody || 'Failed to fetch products'}`);
     }
 
     const data = await res.json();
-    if (Array.isArray(data) && data.length > 0) {
-      return data.map(mapBackendProductToFrontend);
+    if (!Array.isArray(data)) {
+      throw new Error('Invalid backend data format: expected an array of products');
     }
-    return filterLocalProducts(INITIAL_PRODUCTS, filters);
-  } catch (err) {
-    console.warn('[Bikomax API] Backend unreachable or timed out. Using fallback products cache.', err);
-    return filterLocalProducts(INITIAL_PRODUCTS, filters);
+
+    return data.map(mapBackendProductToFrontend);
+  } catch (err: any) {
+    if (err.name === 'TimeoutError' || err.message?.includes('timeout')) {
+      throw new Error(`Connection timed out while contacting backend at ${API_BASE_URL}. The server may be waking up or unreachable.`);
+    }
+    if (err.message?.includes('Failed to fetch') || err.name === 'TypeError') {
+      throw new Error(`Cannot reach backend at ${API_BASE_URL}. Please ensure the backend is deployed, running, and CORS is enabled.`);
+    }
+    throw err;
   }
 }
 
 /**
- * Client-side filter fallback
- */
-function filterLocalProducts(products: Product[], filters?: FetchProductsFilter): Product[] {
-  if (!filters) return products;
-  return products.filter((p) => {
-    if (filters.category && filters.category !== 'All' && p.category !== filters.category) {
-      return false;
-    }
-    if (filters.look && p.look !== filters.look) {
-      return false;
-    }
-    if (filters.technology && p.technology !== filters.technology) {
-      return false;
-    }
-    if (filters.surfaceType && p.surfaceType && !p.surfaceType.includes(filters.surfaceType)) {
-      return false;
-    }
-    if (filters.destination && p.destinations && !p.destinations.includes(filters.destination as any)) {
-      return false;
-    }
-    if (filters.search) {
-      const q = filters.search.toLowerCase();
-      const match =
-        p.name.toLowerCase().includes(q) ||
-        p.description.toLowerCase().includes(q) ||
-        p.dimension.toLowerCase().includes(q) ||
-        (p.look && p.look.toLowerCase().includes(q));
-      if (!match) return false;
-    }
-    return true;
-  });
-}
-
-/**
- * Fetch categories from backend with fallback
+ * Fetch categories strictly from backend
  */
 export async function getCategories(): Promise<string[]> {
-  try {
-    const res = await fetch(`${API_BASE_URL}/categories`, {
-      method: 'GET',
-      headers: defaultHeaders,
-      signal: AbortSignal.timeout(3000),
-    });
-    if (!res.ok) return ['Tiles', 'Sanitaryware', 'Electrical'];
-    const data = await res.json();
-    if (Array.isArray(data) && data.length > 0) {
-      return data.map((c: any) => c.name || c);
-    }
-    return ['Tiles', 'Sanitaryware', 'Electrical'];
-  } catch {
-    return ['Tiles', 'Sanitaryware', 'Electrical'];
+  if (!API_BASE_URL) {
+    throw new Error('Backend URL is not configured.');
   }
+  const res = await fetch(`${API_BASE_URL}/categories`, {
+    method: 'GET',
+    headers: defaultHeaders,
+    signal: AbortSignal.timeout(6000),
+  });
+  if (!res.ok) {
+    throw new Error(`Failed to load categories: HTTP ${res.status}`);
+  }
+  const data = await res.json();
+  if (Array.isArray(data)) {
+    return data.map((c: any) => c.name || c);
+  }
+  return [];
 }
 
 /**
- * Fetch settings / showroom contact with fallback
+ * Fetch settings / showroom contact strictly from backend
  */
 export async function getStoreSettings(): Promise<typeof SHOWROOM_CONTACT> {
-  try {
-    const res = await fetch(`${API_BASE_URL}/settings`, {
-      method: 'GET',
-      headers: defaultHeaders,
-      signal: AbortSignal.timeout(3000),
-    });
-    if (!res.ok) return SHOWROOM_CONTACT;
-    const data = await res.json();
-    if (data?.general) {
-      return {
-        ...SHOWROOM_CONTACT,
-        brandName: data.general.storeName || SHOWROOM_CONTACT.brandName,
-        tagline: data.general.storeTagline || SHOWROOM_CONTACT.tagline,
-        showroomLocation: data.general.storeAddress || SHOWROOM_CONTACT.showroomLocation,
-        phone: data.general.supportPhone || SHOWROOM_CONTACT.phone,
-        phoneRaw: (data.general.supportPhone || SHOWROOM_CONTACT.phoneRaw).replace(/[^0-9+]/g, ''),
-        whatsappPhone: data.social?.whatsapp || SHOWROOM_CONTACT.whatsappPhone,
-        email: data.general.supportEmail || SHOWROOM_CONTACT.email,
-        openingHours: data.general.openingHours || SHOWROOM_CONTACT.openingHours,
-      };
-    }
-    return SHOWROOM_CONTACT;
-  } catch {
+  if (!API_BASE_URL) {
     return SHOWROOM_CONTACT;
   }
+  const res = await fetch(`${API_BASE_URL}/settings`, {
+    method: 'GET',
+    headers: defaultHeaders,
+    signal: AbortSignal.timeout(6000),
+  });
+  if (!res.ok) {
+    throw new Error(`Failed to load settings: HTTP ${res.status}`);
+  }
+  const data = await res.json();
+  if (data?.general) {
+    return {
+      ...SHOWROOM_CONTACT,
+      brandName: data.general.storeName || SHOWROOM_CONTACT.brandName,
+      tagline: data.general.storeTagline || SHOWROOM_CONTACT.tagline,
+      showroomLocation: data.general.storeAddress || SHOWROOM_CONTACT.showroomLocation,
+      phone: data.general.supportPhone || SHOWROOM_CONTACT.phone,
+      phoneRaw: (data.general.supportPhone || SHOWROOM_CONTACT.phoneRaw).replace(/[^0-9+]/g, ''),
+      whatsappPhone: data.social?.whatsapp || SHOWROOM_CONTACT.whatsappPhone,
+      email: data.general.supportEmail || SHOWROOM_CONTACT.email,
+      openingHours: data.general.openingHours || SHOWROOM_CONTACT.openingHours,
+    };
+  }
+  return SHOWROOM_CONTACT;
 }
 
 /**
  * Create Order in backend
  */
-export async function submitOrderToBackend(receipt: OrderReceipt): Promise<{ success: boolean; orderId: string; rawResponse?: any }> {
+export async function submitOrderToBackend(receipt: OrderReceipt): Promise<{ success: boolean; orderId: string; rawResponse?: any; error?: string }> {
+  if (!API_BASE_URL) {
+    return { success: false, orderId: receipt.orderId, error: 'Backend API URL is not configured.' };
+  }
   try {
     const payload = {
       items: receipt.items.map((item) => ({
@@ -251,8 +234,7 @@ export async function submitOrderToBackend(receipt: OrderReceipt): Promise<{ suc
 
     if (!res.ok) {
       const errBody = await res.text();
-      console.warn('[Bikomax API] Order submission failed:', res.status, errBody);
-      return { success: false, orderId: receipt.orderId, rawResponse: errBody };
+      return { success: false, orderId: receipt.orderId, error: `Order failed: ${res.status} ${errBody}` };
     }
 
     const created = await res.json();
@@ -261,8 +243,7 @@ export async function submitOrderToBackend(receipt: OrderReceipt): Promise<{ suc
       orderId: created.id || created._id || receipt.orderId,
       rawResponse: created,
     };
-  } catch (error) {
-    console.warn('[Bikomax API] Network error during order creation:', error);
-    return { success: false, orderId: receipt.orderId, rawResponse: error };
+  } catch (error: any) {
+    return { success: false, orderId: receipt.orderId, error: error.message || 'Network error while connecting to backend.' };
   }
 }
