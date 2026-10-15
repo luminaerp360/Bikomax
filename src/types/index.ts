@@ -1,4 +1,5 @@
 export interface Product {
+  id?: string;
   ref: string;
   name: string;
   category: 'Tiles' | 'Sanitaryware' | 'Electrical';

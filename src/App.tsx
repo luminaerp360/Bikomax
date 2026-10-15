@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { CartProvider } from './context/CartContext';
 import { INITIAL_PRODUCTS } from './data/products';
 import { Product } from './types';
+import { getProducts } from './services/api';
 import { Navbar, NavPage } from './components/Navbar';
 import { HomePage } from './pages/HomePage';
 import { CataloguePage } from './pages/CataloguePage';
@@ -52,11 +53,27 @@ function MainApp() {
   };
 
   // Catalogue filters
+  const [products, setProducts] = useState<Product[]>(INITIAL_PRODUCTS);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedLook, setSelectedLook] = useState<string>('All');
   const [selectedTechnology, setSelectedTechnology] = useState<string>('All');
   const [selectedDestination, setSelectedDestination] = useState<string>('All');
+
+  // Load products dynamically from stockify backend
+  useEffect(() => {
+    let isMounted = true;
+    getProducts()
+      .then((data) => {
+        if (isMounted && data && data.length > 0) {
+          setProducts(data);
+        }
+      })
+      .catch((err) => console.warn('[Bikomax] Using initial products cache:', err));
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const handleFilterNavigate = (filters: {
     category?: string;
@@ -97,6 +114,7 @@ function MainApp() {
         }}
         onFilterNavigate={handleFilterNavigate}
         onSelectProduct={(p) => setSelectedProduct(p)}
+        products={products}
       />
 
       {/* Main Routed Page Content */}
@@ -111,7 +129,7 @@ function MainApp() {
           >
             {currentPage === 'home' && (
               <HomePage
-                products={INITIAL_PRODUCTS}
+                products={products}
                 onNavigateToCatalogue={() => navigateTo('catalogue')}
                 onNavigateToAbout={() => navigateTo('about')}
                 onNavigateToContact={() => navigateTo('contact')}
@@ -132,7 +150,7 @@ function MainApp() {
 
             {currentPage === 'catalogue' && (
               <CataloguePage
-                products={INITIAL_PRODUCTS}
+                products={products}
                 searchQuery={searchQuery}
                 onSearchChange={setSearchQuery}
                 selectedCategory={selectedCategory}
@@ -211,7 +229,7 @@ function MainApp() {
       <CoverageCalculatorModal
         isOpen={isCalculatorOpen}
         onClose={() => setIsCalculatorOpen(false)}
-        products={INITIAL_PRODUCTS}
+        products={products}
         selectedProduct={calculatorSelectedProduct}
       />
 

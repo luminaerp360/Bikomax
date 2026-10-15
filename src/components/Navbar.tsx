@@ -35,6 +35,7 @@ interface NavbarProps {
   searchQuery: string;
   onSearchChange: (query: string) => void;
   onOpenCalculator: () => void;
+  products?: Product[];
   onFilterNavigate?: (filters: {
     category?: string;
     technology?: string;
@@ -50,6 +51,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   searchQuery,
   onSearchChange,
   onOpenCalculator,
+  products = INITIAL_PRODUCTS,
   onFilterNavigate,
   onSelectProduct,
 }) => {
@@ -79,7 +81,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   const liveSearchResults = React.useMemo(() => {
     if (!searchQuery.trim() || searchQuery.trim().length < 2) return [];
     const query = searchQuery.toLowerCase().trim();
-    return INITIAL_PRODUCTS.filter((p) => {
+    return products.filter((p) => {
       if (searchCategory !== 'All') {
         if (searchCategory === 'Tiles' && p.category !== 'Tiles') return false;
         if (searchCategory === 'Bathrooms' && p.category !== 'Sanitaryware') return false;

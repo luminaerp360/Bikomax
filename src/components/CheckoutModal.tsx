@@ -10,6 +10,7 @@ import {
 import { KENYA_DELIVERY_ZONES, SHOWROOM_CONTACT } from '../data/products';
 import { formatKES, generateWhatsAppOrderMessage } from '../utils/formatters';
 import { PrintInvoiceModal } from './PrintInvoiceModal';
+import { submitOrderToBackend } from '../services/api';
 import {
   X,
   Check,
@@ -175,6 +176,13 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
     setConfirmedReceipt(receipt);
     setCurrentStep(4);
     clearCart();
+
+    // Async sync with stockify backend
+    submitOrderToBackend(receipt).then((res) => {
+      if (res.success && res.orderId) {
+        setConfirmedReceipt((prev) => (prev ? { ...prev, orderId: res.orderId } : receipt));
+      }
+    });
   };
 
   return (
