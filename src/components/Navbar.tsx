@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { BikomaxLogo } from './BikomaxLogo';
-import { SHOWROOM_CONTACT, INITIAL_PRODUCTS } from '../data/products';
+import { SHOWROOM_CONTACT } from '../data/products';
 import { useCart } from '../context/CartContext';
 import { Product } from '../types';
 import { formatKES } from '../utils/formatters';
@@ -51,7 +51,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   searchQuery,
   onSearchChange,
   onOpenCalculator,
-  products = INITIAL_PRODUCTS,
+  products = [],
   onFilterNavigate,
   onSelectProduct,
 }) => {

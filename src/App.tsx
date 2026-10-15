@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { CartProvider } from './context/CartContext';
-import { INITIAL_PRODUCTS } from './data/products';
+import { BikomaxLogo } from './components/BikomaxLogo';
 import { Product } from './types';
 import { getProducts } from './services/api';
 import { Navbar, NavPage } from './components/Navbar';
@@ -108,6 +108,91 @@ function MainApp() {
     setIsCalculatorOpen(true);
   };
 
+  // 1. Strict Error Guard: If backend error exists, show ONLY the full-screen error screen
+  if (backendError) {
+    return (
+      <div className="min-h-screen bg-[#0C0D0F] text-white flex flex-col items-center justify-center p-6 text-center select-none font-sans">
+        <div className="max-w-md w-full bg-[#15161A] border border-red-900/60 rounded-xl p-8 shadow-2xl flex flex-col items-center animate-fade-in">
+          {/* Logo */}
+          <div className="mb-6">
+            <BikomaxLogo variant="light" size="lg" className="w-auto" />
+          </div>
+
+          {/* Error Icon */}
+          <div className="w-16 h-16 rounded-full bg-red-950/80 border border-red-700/50 flex items-center justify-center text-red-500 mb-5 shadow-inner">
+            <AlertTriangle className="w-8 h-8" />
+          </div>
+
+          <h1 className="text-xl font-bold tracking-tight text-white mb-2">
+            Something Went Wrong
+          </h1>
+          <p className="text-xs text-neutral-400 mb-5 leading-relaxed">
+            We are unable to load store specifications and product data from the backend server. The website cannot be displayed until backend data is successfully retrieved.
+          </p>
+
+          <div className="w-full bg-[#0C0D0F] border border-neutral-800 rounded p-3 text-left font-mono text-xs text-red-400 mb-6 break-words overflow-x-auto max-h-36">
+            <span className="text-neutral-500 block text-[10px] uppercase font-sans font-semibold mb-1">
+              Error Details:
+            </span>
+            {backendError}
+          </div>
+
+          <button
+            type="button"
+            onClick={fetchBackendProducts}
+            disabled={isLoadingProducts}
+            className="w-full py-3 px-6 bg-red-700 hover:bg-red-600 disabled:bg-neutral-800 disabled:text-neutral-500 text-white font-semibold text-xs uppercase tracking-wider rounded transition-all flex items-center justify-center gap-2 shadow-lg cursor-pointer"
+          >
+            <RefreshCw className={`w-4 h-4 ${isLoadingProducts ? 'animate-spin' : ''}`} />
+            <span>{isLoadingProducts ? 'Reconnecting to Backend...' : 'Retry Connection'}</span>
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // 2. Initial Loading Guard: Show ONLY a full-screen loading screen until data arrives
+  if (isLoadingProducts && products.length === 0) {
+    return (
+      <div className="min-h-screen bg-[#0C0D0F] text-white flex flex-col items-center justify-center p-6 text-center font-sans">
+        <div className="flex flex-col items-center max-w-sm">
+          <BikomaxLogo variant="light" size="lg" className="w-auto mb-8 animate-pulse" />
+          <div className="w-9 h-9 border-2 border-neutral-700 border-t-amber-500 rounded-full animate-spin mb-4" />
+          <h2 className="text-xs font-semibold tracking-widest text-neutral-200 uppercase">
+            Connecting to Bikomax Depot
+          </h2>
+          <p className="text-[11px] text-neutral-500 mt-1">
+            Loading live architectural catalogue specifications...
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // 3. Empty Data Guard: If loaded but 0 products returned and no error, do not render broken shell
+  if (!isLoadingProducts && products.length === 0) {
+    return (
+      <div className="min-h-screen bg-[#0C0D0F] text-white flex flex-col items-center justify-center p-6 text-center font-sans">
+        <div className="max-w-md w-full bg-[#15161A] border border-neutral-800 rounded-xl p-8 shadow-2xl flex flex-col items-center">
+          <BikomaxLogo variant="light" size="lg" className="w-auto mb-6" />
+          <AlertTriangle className="w-12 h-12 text-amber-500 mb-4" />
+          <h2 className="text-lg font-bold text-white mb-2">No Product Data Found</h2>
+          <p className="text-xs text-neutral-400 mb-6">
+            The backend is reachable, but no product records were found for this store.
+          </p>
+          <button
+            type="button"
+            onClick={fetchBackendProducts}
+            className="w-full py-3 px-6 bg-neutral-800 hover:bg-neutral-700 text-white font-semibold text-xs uppercase tracking-wider rounded transition-all flex items-center justify-center gap-2 cursor-pointer"
+          >
+            <RefreshCw className="w-4 h-4" />
+            <span>Reload Store</span>
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-[#FAFAFA] text-[#0A0A0A] flex flex-col font-sans">
       {/* Sticky Top Header Navigation with Cleopatra Mega-Menus */}
@@ -124,36 +209,6 @@ function MainApp() {
         onSelectProduct={(p) => setSelectedProduct(p)}
         products={products}
       />
-
-      {/* Prominent Backend Error Banner (Strict: No mock fallback) */}
-      {backendError && (
-        <div className="bg-red-950 text-white border-b-2 border-red-700 px-4 py-3 sm:px-6 z-30 shadow-md">
-          <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
-            <div className="flex items-start gap-2.5">
-              <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-              <div>
-                <p className="font-bold text-red-200 uppercase tracking-wider text-[11px]">
-                  Backend API Offline or Unreachable
-                </p>
-                <p className="text-red-300 text-[11px] font-mono mt-0.5 break-all">
-                  {backendError}
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2 self-end sm:self-center shrink-0">
-              <button
-                type="button"
-                onClick={fetchBackendProducts}
-                disabled={isLoadingProducts}
-                className="px-3 py-1.5 bg-red-800 hover:bg-red-700 text-white font-bold uppercase tracking-wider text-[10px] transition-colors shadow-xs cursor-pointer flex items-center gap-1.5 disabled:opacity-50"
-              >
-                <RefreshCw className={`w-3 h-3 ${isLoadingProducts ? 'animate-spin' : ''}`} />
-                <span>{isLoadingProducts ? 'Connecting...' : 'Retry Connection'}</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Main Routed Page Content */}
       <main className="flex-1">
