@@ -54,6 +54,23 @@ function MainApp() {
   // Catalogue filters
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedLook, setSelectedLook] = useState<string>('All');
+  const [selectedTechnology, setSelectedTechnology] = useState<string>('All');
+  const [selectedDestination, setSelectedDestination] = useState<string>('All');
+
+  const handleFilterNavigate = (filters: {
+    category?: string;
+    technology?: string;
+    look?: string;
+    destination?: string;
+    size?: string;
+  }) => {
+    if (filters.category) setSelectedCategory(filters.category);
+    if (filters.technology) setSelectedTechnology(filters.technology);
+    if (filters.look) setSelectedLook(filters.look);
+    if (filters.destination) setSelectedDestination(filters.destination);
+    navigateTo('catalogue');
+  };
 
   // Modals & Drawers
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
@@ -68,7 +85,7 @@ function MainApp() {
 
   return (
     <div className="min-h-screen bg-[#FAFAFA] text-[#0A0A0A] flex flex-col font-sans">
-      {/* Sticky Top Header Navigation */}
+      {/* Sticky Top Header Navigation with Cleopatra Mega-Menus */}
       <Navbar
         currentPage={currentPage}
         onNavigate={navigateTo}
@@ -78,6 +95,8 @@ function MainApp() {
           setCalculatorSelectedProduct(undefined);
           setIsCalculatorOpen(true);
         }}
+        onFilterNavigate={handleFilterNavigate}
+        onSelectProduct={(p) => setSelectedProduct(p)}
       />
 
       {/* Main Routed Page Content */}
@@ -107,6 +126,7 @@ function MainApp() {
                   setSelectedCategory(cat);
                   navigateTo('catalogue');
                 }}
+                onFilterCatalogue={handleFilterNavigate}
               />
             )}
 
@@ -117,6 +137,12 @@ function MainApp() {
                 onSearchChange={setSearchQuery}
                 selectedCategory={selectedCategory}
                 onCategoryChange={setSelectedCategory}
+                selectedLook={selectedLook}
+                onLookChange={setSelectedLook}
+                selectedTechnology={selectedTechnology}
+                onTechnologyChange={setSelectedTechnology}
+                selectedDestination={selectedDestination}
+                onDestinationChange={setSelectedDestination}
                 onSelectProduct={(p) => setSelectedProduct(p)}
                 onOpenCalculatorWithProduct={handleOpenCalculatorWithProduct}
                 onOpenCalculator={() => {
