@@ -322,31 +322,31 @@ export const Hero: React.FC<HeroProps> = ({
               </AnimatePresence>
             </div>
 
-            {/* Steady Iconic Brand Trinity in Eurostile (One Unified Color) */}
-            <div className="space-y-1 sm:space-y-2 select-none">
+            {/* Steady Iconic Brand Trinity in Eurostile (Medium weight, reduced size, one color) */}
+            <div className="space-y-1 sm:space-y-1.5 select-none">
               <motion.h1
-                initial={{ opacity: 0, y: 16 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-[#0A0A0A] font-heading uppercase leading-none"
+                className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-wider text-[#0A0A0A] font-heading uppercase leading-[1.05]"
               >
                 FLAWLESS.
               </motion.h1>
 
               <motion.div
-                initial={{ opacity: 0, y: 16 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-                className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-[#0A0A0A] font-heading uppercase leading-none"
+                className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-wider text-[#0A0A0A] font-heading uppercase leading-[1.05]"
               >
                 FUNCTIONAL.
               </motion.div>
 
               <motion.div
-                initial={{ opacity: 0, y: 16 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
-                className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-[#0A0A0A] font-heading uppercase leading-none"
+                className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-wider text-[#0A0A0A] font-heading uppercase leading-[1.05]"
               >
                 REFINED.
               </motion.div>
@@ -787,9 +787,9 @@ export const Hero: React.FC<HeroProps> = ({
         </div>
 
         {/* ======================================================== */}
-        {/* BOTTOM: 3 Foundation Category Cards (Surface, Water, Power) */}
+        {/* BOTTOM: 4 Foundation Category Cards (Surface, SPC, Water, Power) */}
         {/* ======================================================== */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-10 mt-10 border-t border-neutral-200/80">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-10 mt-10 border-t border-neutral-200/80">
           <button
             type="button"
             onClick={() => {
@@ -823,6 +823,36 @@ export const Hero: React.FC<HeroProps> = ({
           <button
             type="button"
             onClick={() => {
+              onSelectCategory('SPC Flooring');
+              onExploreClick();
+            }}
+            className={`p-5 bg-white border text-left transition-all duration-300 group cursor-pointer shadow-2xs hover:shadow-sm ${
+              currentSlide.category === 'SPC Flooring'
+                ? 'border-neutral-950 ring-1 ring-neutral-950/10'
+                : 'border-neutral-200/80 hover:border-neutral-950'
+            }`}
+          >
+            <div className="flex items-center justify-between">
+              <span className="text-[#C2A26F] text-[11px] font-mono uppercase tracking-wider font-semibold">
+                02 · Rigid Core
+              </span>
+              {currentSlide.category === 'SPC Flooring' && (
+                <span className="text-[9px] font-mono px-1.5 py-0.5 bg-neutral-900 text-white uppercase">
+                  Active in Carousel
+                </span>
+              )}
+            </div>
+            <div className="text-base font-bold text-neutral-950 mt-1 font-heading group-hover:text-neutral-700 transition-colors">
+              SPC Flooring
+            </div>
+            <p className="text-xs text-neutral-500 mt-1 leading-relaxed">
+              6.5mm acoustic vinyl planks with IXPE pad and matching 2.4m waterproof skirting.
+            </p>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => {
               onSelectCategory('Sanitaryware');
               onExploreClick();
             }}
@@ -834,7 +864,7 @@ export const Hero: React.FC<HeroProps> = ({
           >
             <div className="flex items-center justify-between">
               <span className="text-[#C2A26F] text-[11px] font-mono uppercase tracking-wider font-semibold">
-                02 · Water & Wellness
+                03 · Water & Wellness
               </span>
               {currentSlide.category === 'Sanitaryware' && (
                 <span className="text-[9px] font-mono px-1.5 py-0.5 bg-neutral-900 text-white uppercase">
@@ -864,7 +894,7 @@ export const Hero: React.FC<HeroProps> = ({
           >
             <div className="flex items-center justify-between">
               <span className="text-[#C2A26F] text-[11px] font-mono uppercase tracking-wider font-semibold">
-                03 · Architectural Power
+                04 · Architectural Power
               </span>
               {currentSlide.category === 'Electrical' && (
                 <span className="text-[9px] font-mono px-1.5 py-0.5 bg-neutral-900 text-white uppercase">

@@ -37,9 +37,11 @@ function mapBackendProductToFrontend(raw: any): Product {
     ? raw.categories[0] 
     : (raw.category || 'Tiles');
 
-  const category = (['Tiles', 'Sanitaryware', 'Electrical'].includes(categoryRaw))
-    ? (categoryRaw as 'Tiles' | 'Sanitaryware' | 'Electrical')
+  const category = (['Tiles', 'Sanitaryware', 'Electrical', 'SPC Flooring'].includes(categoryRaw))
+    ? (categoryRaw as 'Tiles' | 'Sanitaryware' | 'Electrical' | 'SPC Flooring')
     : 'Tiles';
+
+  const isArea = raw.pricingType === 'area' || (['Tiles', 'SPC Flooring'].includes(category) && raw.pricingType !== 'unit');
 
   return {
     id: raw.id || raw._id,
@@ -47,8 +49,8 @@ function mapBackendProductToFrontend(raw: any): Product {
     name: raw.name || 'Architectural Product',
     category,
     dimension: raw.dimension || 'Standard',
-    pricing_type: (raw.pricingType || (category === 'Tiles' ? 'area' : 'unit')) as 'area' | 'unit',
-    price_per_sqm: raw.pricePerSqm || (category === 'Tiles' ? raw.price : undefined),
+    pricing_type: (raw.pricingType || (isArea ? 'area' : 'unit')) as 'area' | 'unit',
+    price_per_sqm: raw.pricePerSqm || (isArea ? raw.price : undefined),
     bulk_price_per_box: raw.bulkPricePerBox || (raw.pricePerSqm && raw.sqmPerBox ? raw.pricePerSqm * raw.sqmPerBox : undefined),
     sqm_per_box: raw.sqmPerBox || 1.44,
     bulk_unit: raw.bulkUnit || 'Box',
