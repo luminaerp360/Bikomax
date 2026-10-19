@@ -60,7 +60,7 @@ export interface DeliveryZone {
   estimatedDays: string;
 }
 
-export type PaymentMethodType = 'mpesa' | 'bank_transfer' | 'showroom_cash';
+export type PaymentMethodType = 'whatsapp' | 'email' | 'call' | 'mpesa' | 'bank_transfer' | 'showroom_cash';
 
 export interface OrderReceipt {
   orderId: string;
@@ -75,6 +75,6 @@ export interface OrderReceipt {
   vatAmount: number;
   total: number;
   paymentMethod: PaymentMethodType;
-  paymentStatus: 'Paid via M-Pesa' | 'Pending EFT Verification' | 'Pay upon Showroom Collection';
+  paymentStatus: string;
   mpesaReceiptNumber?: string;
 }
