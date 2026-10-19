@@ -96,7 +96,7 @@ export const SpcFlooringSection: React.FC<SpcFlooringSectionProps> = ({
           <div className="flex flex-wrap items-center gap-4 shrink-0">
             <button
               type="button"
-              onClick={() => onExploreCatalogue({ search: 'SPC' })}
+              onClick={() => onExploreCatalogue({ category: 'SPC Flooring' })}
               className="px-6 py-3.5 bg-white text-neutral-950 hover:bg-[#C2A26F] hover:text-white text-xs font-bold uppercase tracking-widest transition-all duration-200 flex items-center gap-2 shadow-md cursor-pointer"
             >
               <span>Explore All SPC Finishes</span>

@@ -86,10 +86,12 @@ export const HomePage: React.FC<HomePageProps> = ({
         products={products}
         onSelectProduct={onSelectProduct}
         onExploreCatalogue={(filter) => {
-          if (filter?.search && onFilterCatalogue) {
-            onFilterCatalogue({ category: 'Tiles' });
+          if (onFilterCatalogue) {
+            onFilterCatalogue({ category: filter?.category || 'SPC Flooring' });
+          } else {
+            onSelectCategory('SPC Flooring');
+            onNavigateToCatalogue();
           }
-          onNavigateToCatalogue();
         }}
         onOpenCalculatorWithProduct={onOpenCalculatorWithProduct}
       />

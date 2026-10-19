@@ -90,10 +90,16 @@ function MainApp() {
     destination?: string;
     size?: string;
   }) => {
-    if (filters.category) setSelectedCategory(filters.category);
-    if (filters.technology) setSelectedTechnology(filters.technology);
-    if (filters.look) setSelectedLook(filters.look);
-    if (filters.destination) setSelectedDestination(filters.destination);
+    if (filters.category) {
+      setSelectedCategory(filters.category);
+      setSelectedTechnology(filters.technology || 'All');
+      setSelectedLook(filters.look || 'All');
+      setSelectedDestination(filters.destination || 'All');
+    } else {
+      if (filters.technology) setSelectedTechnology(filters.technology);
+      if (filters.look) setSelectedLook(filters.look);
+      if (filters.destination) setSelectedDestination(filters.destination);
+    }
     navigateTo('catalogue');
   };
 
@@ -235,6 +241,9 @@ function MainApp() {
                 onOpenCalculatorWithProduct={handleOpenCalculatorWithProduct}
                 onSelectCategory={(cat) => {
                   setSelectedCategory(cat);
+                  setSelectedTechnology('All');
+                  setSelectedLook('All');
+                  setSelectedDestination('All');
                   navigateTo('catalogue');
                 }}
                 onFilterCatalogue={handleFilterNavigate}
@@ -247,7 +256,12 @@ function MainApp() {
                 searchQuery={searchQuery}
                 onSearchChange={setSearchQuery}
                 selectedCategory={selectedCategory}
-                onCategoryChange={setSelectedCategory}
+                onCategoryChange={(cat) => {
+                  setSelectedCategory(cat);
+                  setSelectedTechnology('All');
+                  setSelectedLook('All');
+                  setSelectedDestination('All');
+                }}
                 selectedLook={selectedLook}
                 onLookChange={setSelectedLook}
                 selectedTechnology={selectedTechnology}

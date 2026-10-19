@@ -217,6 +217,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 >
                   <option value="All">All Categories</option>
                   <option value="Tiles">Tiles</option>
+                  <option value="SPC Flooring">SPC Flooring</option>
                   <option value="Sanitaryware">Sanitaryware</option>
                   <option value="Electrical">Electrical</option>
                 </select>
@@ -601,26 +602,187 @@ export const Navbar: React.FC<NavbarProps> = ({
               )}
             </div>
 
-            {/* DEDICATED SPC FLOORING DIRECT BUTTON */}
-            <button
-              type="button"
-              onClick={() => {
-                if (currentPage !== 'home') {
-                  onNavigate('home');
-                  setTimeout(() => {
-                    const el = document.getElementById('spc-flooring');
-                    if (el) el.scrollIntoView({ behavior: 'smooth' });
-                  }, 120);
-                } else {
-                  const el = document.getElementById('spc-flooring');
-                  if (el) el.scrollIntoView({ behavior: 'smooth' });
-                }
-              }}
-              className="py-3 px-2 xl:px-3 transition-colors cursor-pointer flex items-center gap-1 text-neutral-700 hover:text-neutral-950 shrink-0 font-bold"
+            {/* DEPARTMENT 2: SPC FLOORING (Mega Dropdown) */}
+            <div
+              className="relative shrink-0"
+              onMouseEnter={() => setActiveDepartment('spc-flooring')}
+              onMouseLeave={() => setActiveDepartment(null)}
             >
-              <Layers className="w-3.5 h-3.5 text-[#C2A26F]" />
-              <span>SPC Flooring</span>
-            </button>
+              <button
+                type="button"
+                onClick={() => handleFilterClick({ category: 'SPC Flooring' })}
+                className="py-3 px-2 xl:px-3 transition-colors cursor-pointer flex items-center gap-1 text-neutral-700 hover:text-neutral-950 font-bold"
+              >
+                <Layers className="w-3.5 h-3.5 text-[#C2A26F]" />
+                <span>SPC Flooring</span>
+                <ChevronDown className="w-3 h-3 text-neutral-400" />
+              </button>
+
+              {/* Mega Menu Dropdown */}
+              {activeDepartment === 'spc-flooring' && (
+                <div className="absolute top-full left-0 w-[780px] bg-white border border-neutral-200 shadow-2xl p-6 grid grid-cols-4 gap-6 z-50 text-left">
+                  {/* Column 1: Core Technology */}
+                  <div>
+                    <h4 className="text-[10px] font-mono uppercase tracking-widest text-[#C2A26F] font-bold mb-3 border-b border-neutral-100 pb-1">
+                      Rigid Core Engineering
+                    </h4>
+                    <ul className="space-y-2 text-xs text-neutral-700 font-normal">
+                      <li>
+                        <button
+                          type="button"
+                          onClick={() => handleFilterClick({ category: 'SPC Flooring' })}
+                          className="hover:text-black hover:font-bold transition-all text-left"
+                        >
+                          6.5mm Stone Polymer Core
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          type="button"
+                          onClick={() => handleFilterClick({ category: 'SPC Flooring' })}
+                          className="hover:text-black hover:font-bold transition-all text-left"
+                        >
+                          Integrated IXPE Acoustic Pad
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          type="button"
+                          onClick={() => handleFilterClick({ category: 'SPC Flooring' })}
+                          className="hover:text-black hover:font-bold transition-all text-left"
+                        >
+                          0.55mm Commercial Wear Shield
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          type="button"
+                          onClick={() => handleFilterClick({ category: 'SPC Flooring' })}
+                          className="hover:text-black hover:font-bold transition-all text-left"
+                        >
+                          Uniclic Glueless Interlocking
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+
+                  {/* Column 2: Specimen Planks */}
+                  <div>
+                    <h4 className="text-[10px] font-mono uppercase tracking-widest text-[#C2A26F] font-bold mb-3 border-b border-neutral-100 pb-1">
+                      Flooring Planks
+                    </h4>
+                    <ul className="space-y-2 text-xs text-neutral-700 font-normal">
+                      <li>
+                        <button
+                          type="button"
+                          onClick={() => handleFilterClick({ category: 'SPC Flooring' })}
+                          className="hover:text-black hover:font-bold transition-all text-left"
+                        >
+                          Model J5011 Luxury Plank
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          type="button"
+                          onClick={() => handleFilterClick({ category: 'SPC Flooring' })}
+                          className="hover:text-black hover:font-bold transition-all text-left"
+                        >
+                          Model J5015 Luxury Plank
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          type="button"
+                          onClick={() => handleFilterClick({ category: 'SPC Flooring' })}
+                          className="hover:text-black hover:font-bold transition-all text-left"
+                        >
+                          Model J5012 Luxury Plank
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          type="button"
+                          onClick={() => handleFilterClick({ category: 'SPC Flooring' })}
+                          className="hover:text-black hover:font-bold transition-all text-left"
+                        >
+                          Woodgrain & Natural Oak
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+
+                  {/* Column 3: Waterproof Skirting */}
+                  <div>
+                    <h4 className="text-[10px] font-mono uppercase tracking-widest text-[#C2A26F] font-bold mb-3 border-b border-neutral-100 pb-1">
+                      Waterproof Skirting
+                    </h4>
+                    <ul className="space-y-2 text-xs text-neutral-700 font-normal">
+                      <li>
+                        <button
+                          type="button"
+                          onClick={() => handleFilterClick({ category: 'SPC Flooring' })}
+                          className="hover:text-black hover:font-bold transition-all text-left"
+                        >
+                          2.4m Architectural Baseboards
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          type="button"
+                          onClick={() => handleFilterClick({ category: 'SPC Flooring' })}
+                          className="hover:text-black hover:font-bold transition-all text-left"
+                        >
+                          Profile A850 / A805
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          type="button"
+                          onClick={() => handleFilterClick({ category: 'SPC Flooring' })}
+                          className="hover:text-black hover:font-bold transition-all text-left"
+                        >
+                          Profile A853 / A807
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          type="button"
+                          onClick={() => handleFilterClick({ category: 'SPC Flooring' })}
+                          className="hover:text-black hover:font-bold transition-all text-left"
+                        >
+                          Profile A801 / A803 / A838
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+
+                  {/* Column 4: Architectural Spotlight Card */}
+                  <div className="bg-[#FAF9F7] p-3 border border-neutral-200">
+                    <span className="text-[9px] font-mono text-[#C2A26F] uppercase tracking-wider block font-bold mb-1">
+                      SPC Spotlight
+                    </span>
+                    <img
+                      src="/products/tile-matte-66008.jpg"
+                      alt="SPC Luxury Vinyl Plank"
+                      className="w-full aspect-4/3 object-cover border border-neutral-300 mb-2"
+                    />
+                    <h5 className="text-[11px] font-bold text-neutral-950 truncate">
+                      Model J5011 Acoustic Plank
+                    </h5>
+                    <span className="text-[10px] font-mono text-neutral-500 block">
+                      6.5mm Rigid Core · KES 3,000/m²
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => handleFilterClick({ category: 'SPC Flooring' })}
+                      className="mt-2 text-[10px] font-bold uppercase tracking-wider text-neutral-950 underline hover:text-[#C2A26F] text-left block"
+                    >
+                      View All SPC Products →
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
 
             {/* DEPARTMENT 2: SANITARYWARE */}
             <div
@@ -954,19 +1116,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             </button>
             <button
               type="button"
-              onClick={() => {
-                setMobileMenuOpen(false);
-                if (currentPage !== 'home') {
-                  onNavigate('home');
-                  setTimeout(() => {
-                    const el = document.getElementById('spc-flooring');
-                    if (el) el.scrollIntoView({ behavior: 'smooth' });
-                  }, 120);
-                } else {
-                  const el = document.getElementById('spc-flooring');
-                  if (el) el.scrollIntoView({ behavior: 'smooth' });
-                }
-              }}
+              onClick={() => handleFilterClick({ category: 'SPC Flooring' })}
               className="p-3 bg-white border border-neutral-300 text-neutral-900 flex items-center justify-center gap-2 hover:border-neutral-950 cursor-pointer shadow-xs"
             >
               <Layers className="w-4 h-4 text-[#C2A26F]" />
@@ -979,13 +1129,20 @@ export const Navbar: React.FC<NavbarProps> = ({
             <h4 className="text-[10px] font-mono uppercase tracking-widest text-[#C2A26F] font-bold">
               E-Commerce Departments
             </h4>
-            <div className="grid grid-cols-3 gap-2 text-xs font-bold uppercase tracking-wider">
+            <div className="grid grid-cols-2 gap-2 text-xs font-bold uppercase tracking-wider">
               <button
                 type="button"
                 onClick={() => handleFilterClick({ category: 'Tiles' })}
                 className="p-3 bg-neutral-50 border border-neutral-200 text-center hover:border-neutral-950"
               >
                 Tiles
+              </button>
+              <button
+                type="button"
+                onClick={() => handleFilterClick({ category: 'SPC Flooring' })}
+                className="p-3 bg-neutral-50 border border-neutral-200 text-center hover:border-neutral-950"
+              >
+                SPC Flooring
               </button>
               <button
                 type="button"

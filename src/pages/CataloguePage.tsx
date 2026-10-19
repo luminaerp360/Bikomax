@@ -68,6 +68,7 @@ export const CataloguePage: React.FC<CataloguePageProps> = ({
 
   // Accordion section collapse state
   const [openSections, setOpenSections] = useState<{ [key: string]: boolean }>({
+    category: true,
     type: true,
     looks: true,
     destination: true,
@@ -251,6 +252,59 @@ export const CataloguePage: React.FC<CataloguePageProps> = ({
   const renderFilterAccordions = () => (
     <div className="divide-y divide-neutral-100 text-xs">
       
+      {/* SECTION 0: DEPARTMENT / CATEGORY */}
+      <div className="py-4">
+        <button
+          type="button"
+          onClick={() => toggleSection('category')}
+          className="w-full flex items-center justify-between font-bold text-neutral-900 uppercase tracking-wider text-[11px] cursor-pointer"
+        >
+          <span>Department / Category</span>
+          {openSections.category ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+        </button>
+
+        {openSections.category && (
+          <div className="mt-3 space-y-2.5 pl-1">
+            {[
+              { id: 'All', label: 'All Collections' },
+              { id: 'Tiles', label: 'Tiles' },
+              { id: 'SPC Flooring', label: 'SPC Flooring' },
+              { id: 'Sanitaryware', label: 'Sanitaryware' },
+              { id: 'Electrical', label: 'Electrical' },
+            ].map((cat) => {
+              const isSelected = selectedCategory === cat.id;
+              return (
+                <label
+                  key={cat.id}
+                  onClick={() => {
+                    onCategoryChange(cat.id);
+                    handleSetTech('All');
+                    handleSetLook('All');
+                    handleSetDest('All');
+                    setActiveSurfaceType('All');
+                    setActiveDimension('All');
+                  }}
+                  className="flex items-center gap-2.5 text-neutral-600 hover:text-neutral-950 cursor-pointer select-none transition-colors"
+                >
+                  <span
+                    className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center transition-all ${
+                      isSelected
+                        ? 'border-neutral-950 bg-neutral-950'
+                        : 'border-neutral-300 hover:border-neutral-500'
+                    }`}
+                  >
+                    {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
+                  </span>
+                  <span className={isSelected ? 'font-bold text-neutral-950' : 'font-normal'}>
+                    {cat.label}
+                  </span>
+                </label>
+              );
+            })}
+          </div>
+        )}
+      </div>
+
       {/* SECTION A: TYPE / SURFACE */}
       <div className="py-4">
         <button
@@ -538,18 +592,54 @@ export const CataloguePage: React.FC<CataloguePageProps> = ({
             >
               Electrical
             </button>
+            <button
+              type="button"
+              onClick={() => {
+                onCategoryChange('SPC Flooring');
+                handleSetTech('All');
+              }}
+              className={`hover:text-[#C2A26F] transition-colors cursor-pointer ${
+                selectedCategory === 'SPC Flooring' ? 'text-[#C2A26F] font-bold border-b-2 border-[#C2A26F] pb-1' : ''
+              }`}
+            >
+              SPC Flooring
+            </button>
           </div>
 
           {/* Large Cleopatra Centered Editorial Banner */}
           <div className="pt-6 sm:pt-10 text-center max-w-3xl mx-auto space-y-2">
             <span className="text-[10px] sm:text-[11px] font-mono tracking-widest uppercase text-[#C2A26F] font-semibold block">
-              Architectural Surfaces & Living Spaces
+              {selectedCategory === 'SPC Flooring'
+                ? 'Rigid Core Surface Engineering'
+                : selectedCategory === 'Tiles'
+                ? 'Architectural Porcelain & Ceramics'
+                : selectedCategory === 'Sanitaryware'
+                ? 'European Luxury Water & Wellness'
+                : selectedCategory === 'Electrical'
+                ? 'British Standard Architectural Power'
+                : 'Architectural Surfaces & Living Spaces'}
             </span>
             <h1 className="text-2xl sm:text-4xl lg:text-5xl font-light tracking-tight font-heading text-white">
-              Experiencing the energy of colors & surfaces
+              {selectedCategory === 'SPC Flooring'
+                ? 'SPC Rigid Core Luxury Vinyl Flooring'
+                : selectedCategory === 'Tiles'
+                ? 'Experiencing the energy of colors & surfaces'
+                : selectedCategory === 'Sanitaryware'
+                ? 'Precision Engineered Sanitaryware'
+                : selectedCategory === 'Electrical'
+                ? 'Architectural Switches & Power Fittings'
+                : 'Experiencing the energy of colors & surfaces'}
             </h1>
             <p className="text-xs sm:text-sm text-neutral-400 font-light leading-relaxed max-w-xl mx-auto pt-1">
-              From mirror-polished Calacatta marbles to handcrafted Mediterranean glazed ceramics and 20mm outdoor pavers.
+              {selectedCategory === 'SPC Flooring'
+                ? '100% waterproof 6.5mm acoustic interlocking planks with pre-attached IXPE pads and matching 2.4m baseboard skirting.'
+                : selectedCategory === 'Tiles'
+                ? 'From mirror-polished Calacatta marbles to handcrafted Mediterranean glazed ceramics and 20mm outdoor pavers.'
+                : selectedCategory === 'Sanitaryware'
+                ? 'Wall-hung rimless bidet toilets, PVD gunmetal piano showers, and freestanding composite stone soaking tubs.'
+                : selectedCategory === 'Electrical'
+                ? 'British-standard 40A DP cooker switches, brushed champagne dimmers, and 45W Type-C fast-charging ports.'
+                : 'Complete architectural inventory spanning porcelain slabs, SPC acoustic flooring, luxury sanitaryware, and electrical fittings.'}
             </p>
           </div>
 

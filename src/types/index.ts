@@ -2,7 +2,7 @@ export interface Product {
   id?: string;
   ref: string;
   name: string;
-  category: 'Tiles' | 'Sanitaryware' | 'Electrical';
+  category: 'Tiles' | 'Sanitaryware' | 'Electrical' | 'SPC Flooring';
   dimension: string;
   pricing_type: 'area' | 'unit';
   price_per_sqm?: number;
