@@ -170,12 +170,81 @@ export const Hero: React.FC<HeroProps> = ({
   const [isHovered, setIsHovered] = useState(false);
   const [showDualPricingDemo, setShowDualPricingDemo] = useState(false);
 
+  // Dynamically derive hero slides from live database products
+  const slides: HeroCarouselSlide[] = React.useMemo(() => {
+    if (!products || products.length === 0) {
+      return CAROUSEL_SLIDES;
+    }
+
+    // 1. Pick featured products that have images
+    const featuredProds = products.filter((p) => p.featured && p.image);
+    
+    // Select up to 5 items across categories for a balanced showcase
+    let selected: Product[] = [];
+    if (featuredProds.length >= 3) {
+      selected = featuredProds.slice(0, 5);
+    } else {
+      selected = products.filter((p) => p.image).slice(0, 5);
+    }
+
+    if (selected.length === 0) {
+      return CAROUSEL_SLIDES;
+    }
+
+    return selected.map((prod, idx) => {
+      const slideNum = String(idx + 1).padStart(2, '0');
+      const isArea = prod.pricing_type === 'area';
+      const unitPrice = isArea ? (prod.price_per_sqm || prod.price) : (prod.price_per_unit || prod.price);
+      const bulkPrice = prod.bulk_price_per_box;
+      const unitLabel = isArea ? 'm²' : 'Piece';
+
+      const formatSpec =
+        prod.specs?.find((s) => s.label.toLowerCase().includes('size') || s.label.toLowerCase().includes('format') || s.label.toLowerCase().includes('dimension'))?.value ||
+        prod.dimension ||
+        'Standard Format';
+      const engineeringSpec =
+        prod.specs?.find((s) => s.label.toLowerCase().includes('surface') || s.label.toLowerCase().includes('finish') || s.label.toLowerCase().includes('engineering'))?.value ||
+        prod.finish ||
+        'Architectural Specification';
+      const complianceSpec =
+        prod.specs?.find((s) => s.label.toLowerCase().includes('standard') || s.label.toLowerCase().includes('compliance') || s.label.toLowerCase().includes('body'))?.value ||
+        prod.material ||
+        'Certified Grade';
+
+      return {
+        id: prod.id || `slide-${prod.ref}`,
+        ref: prod.ref,
+        category: (prod.category as 'Tiles' | 'Sanitaryware' | 'Electrical') || 'Tiles',
+        slideNumber: slideNum,
+        eyebrow: `${slideNum} / ${prod.category.toUpperCase()} · BIKOMAX SPEC`,
+        title: prod.name,
+        specSummary: `${prod.dimension || 'Standard'} · ${prod.finish || prod.material || 'Architectural Grade'}`,
+        image: prod.image, // <-- Directly from MongoDB backend
+        dynamicLead: prod.description || 'Architectural grade finish crafted with precision engineering and uncompromising material standards.',
+        pricingLabel: isArea
+          ? `Dual Pricing: KES ${formatKES(unitPrice)} / m²${bulkPrice ? ` or KES ${formatKES(bulkPrice)} / Box` : ''}`
+          : `Standard Unit: KES ${formatKES(unitPrice)} · VAT Inclusive`,
+        unitPrice,
+        bulkPrice,
+        sqmPerBox: prod.sqm_per_box,
+        unitLabel,
+        specs: {
+          format: formatSpec,
+          engineering: engineeringSpec,
+          compliance: complianceSpec,
+        },
+      };
+    });
+  }, [products]);
+
+  // Ensure activeIndex is within bounds of current slides
+  const safeIndex = activeIndex % slides.length;
+  const currentSlide = slides[safeIndex] || CAROUSEL_SLIDES[0];
+
   // Interactive dual-pricing state for tile slides
   const [heroPricingMode, setHeroPricingMode] = useState<'coverage' | 'box'>('coverage');
   const [heroCoverage, setHeroCoverage] = useState<number>(25); // 25 m²
   const [heroBoxes, setHeroBoxes] = useState<number>(18);
-
-  const currentSlide = CAROUSEL_SLIDES[activeIndex];
 
   // Dual pricing math based on active slide (or fallback)
   const currentSqmPerBox = currentSlide.sqmPerBox || 1.44;
@@ -193,18 +262,18 @@ export const Hero: React.FC<HeroProps> = ({
     if (!isPlaying || isHovered) return;
 
     const timer = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % CAROUSEL_SLIDES.length);
+      setActiveIndex((prev) => (prev + 1) % slides.length);
     }, AUTO_INTERVAL);
 
     return () => clearInterval(timer);
-  }, [isPlaying, isHovered, activeIndex]);
+  }, [isPlaying, isHovered, slides.length]);
 
   const handlePrev = () => {
-    setActiveIndex((prev) => (prev === 0 ? CAROUSEL_SLIDES.length - 1 : prev - 1));
+    setActiveIndex((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
   };
 
   const handleNext = () => {
-    setActiveIndex((prev) => (prev + 1) % CAROUSEL_SLIDES.length);
+    setActiveIndex((prev) => (prev + 1) % slides.length);
   };
 
   // Locate matched product in full catalog if available
@@ -476,7 +545,7 @@ export const Hero: React.FC<HeroProps> = ({
                     </button>
                     <span className="text-[#C2A26F] font-bold">{currentSlide.slideNumber}</span>
                     <span className="text-white/40">/</span>
-                    <span className="text-white/80">0{CAROUSEL_SLIDES.length}</span>
+                    <span className="text-white/80">0{slides.length}</span>
                   </div>
                 </div>
 
@@ -566,7 +635,7 @@ export const Hero: React.FC<HeroProps> = ({
                 </div>
 
                 <div className="grid grid-cols-5 gap-1.5">
-                  {CAROUSEL_SLIDES.map((slide, idx) => {
+                  {slides.map((slide, idx) => {
                     const isSelected = activeIndex === idx;
                     return (
                       <button
