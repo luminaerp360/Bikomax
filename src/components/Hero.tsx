@@ -322,31 +322,31 @@ export const Hero: React.FC<HeroProps> = ({
               </AnimatePresence>
             </div>
 
-            {/* Steady Iconic Brand Trinity in Eurostile (One Unified Color) */}
-            <div className="space-y-1 sm:space-y-2 select-none">
+            {/* Steady Iconic Brand Trinity in Eurostile (Medium weight, reduced size, one color) */}
+            <div className="space-y-1 sm:space-y-1.5 select-none">
               <motion.h1
-                initial={{ opacity: 0, y: 16 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-[#0A0A0A] font-heading uppercase leading-none"
+                className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-wider text-[#0A0A0A] font-heading uppercase leading-[1.05]"
               >
                 FLAWLESS.
               </motion.h1>
 
               <motion.div
-                initial={{ opacity: 0, y: 16 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-                className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-[#0A0A0A] font-heading uppercase leading-none"
+                className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-wider text-[#0A0A0A] font-heading uppercase leading-[1.05]"
               >
                 FUNCTIONAL.
               </motion.div>
 
               <motion.div
-                initial={{ opacity: 0, y: 16 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
-                className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-[#0A0A0A] font-heading uppercase leading-none"
+                className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-wider text-[#0A0A0A] font-heading uppercase leading-[1.05]"
               >
                 REFINED.
               </motion.div>

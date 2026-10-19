@@ -2,6 +2,7 @@ import React from 'react';
 import { Product } from '../types';
 import { Hero } from '../components/Hero';
 import { CollectionsCarousel } from '../components/CollectionsCarousel';
+import { SpcFlooringSection } from '../components/SpcFlooringSection';
 import { EditorialInspirationBlocks } from '../components/EditorialInspirationBlocks';
 import { LooksBrowser } from '../components/LooksBrowser';
 import { RoomVisualizerSection } from '../components/RoomVisualizerSection';
@@ -80,7 +81,20 @@ export const HomePage: React.FC<HomePageProps> = ({
         onExploreCatalogue={onNavigateToCatalogue}
       />
 
-      {/* 3. DUAL PRICING ARCHITECTURAL EXPLAINER (Square Meter & Bulk Box) */}
+      {/* 3. DEDICATED SPC RIGID CORE LUXURY VINYL FLOORING SECTION */}
+      <SpcFlooringSection
+        products={products}
+        onSelectProduct={onSelectProduct}
+        onExploreCatalogue={(filter) => {
+          if (filter?.search && onFilterCatalogue) {
+            onFilterCatalogue({ category: 'Tiles' });
+          }
+          onNavigateToCatalogue();
+        }}
+        onOpenCalculatorWithProduct={onOpenCalculatorWithProduct}
+      />
+
+      {/* 4. DUAL PRICING ARCHITECTURAL EXPLAINER (Square Meter & Bulk Box) */}
       <section className="relative py-20 sm:py-28 border-b border-neutral-200/80 bg-white overflow-hidden">
         <div className="absolute inset-y-0 right-0 w-1/3 bg-arch-grid opacity-35 pointer-events-none" />
 
