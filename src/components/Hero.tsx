@@ -289,85 +289,71 @@ export const Hero: React.FC<HeroProps> = ({
   };
 
   return (
-    <section className="relative bg-[#FAFAFA] bg-arch-grid border-b border-neutral-200/80 overflow-hidden">
-      {/* Delicate gradient wash over architectural grid */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#FAFAFA]/95 via-[#FAFAFA]/70 to-[#FAFAFA] pointer-events-none" />
-
-      {/* Blueprint calibration markers */}
-      <div className="absolute top-4 left-6 text-neutral-400 font-mono text-[9px] uppercase tracking-widest hidden lg:flex items-center gap-2 pointer-events-none select-none">
-        <span className="w-1.5 h-1.5 bg-[#C2A26F] rotate-45 inline-block"></span>
-        <span>BIKOMAX SPECIFICATION DEPOT · UNIT G48, RUPA&apos;S GODOWNS</span>
-      </div>
-      <div className="absolute top-4 right-6 text-neutral-400 font-mono text-[9px] uppercase tracking-widest hidden lg:flex items-center gap-2 pointer-events-none select-none text-right">
-        <span>ELDORET, KENYA · DUAL PRICING ARCHITECTURE</span>
-        <span className="w-1.5 h-1.5 bg-neutral-900 rotate-45 inline-block"></span>
-      </div>
-
-      <div className="relative w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 pt-10 sm:pt-14 pb-14 lg:pb-20">
+    <section className="relative bg-[#FAFAFA] border-b border-neutral-200/80 overflow-hidden">
+      <div className="relative w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 pt-8 sm:pt-12 pb-14 lg:pb-20">
         {/* Main Hero Split Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           
           {/* ======================================================== */}
-          {/* LEFT COLUMN: Steady Brand Trinity + Synchronized Changing Texts */}
+          {/* LEFT COLUMN: Clean Brand Trinity + Dynamic Product Meta */}
           {/* ======================================================== */}
-          <div className="lg:col-span-6 space-y-5">
-            {/* Showroom location tag + Dynamic Carousel Stage Eyebrow */}
+          <div className="lg:col-span-6 space-y-6">
+            {/* Showroom location tag + Category Indicator */}
             <div className="flex flex-wrap items-center gap-2">
-              <div className="inline-flex items-center gap-2 px-3 py-1 bg-white border border-neutral-200/90 text-[10px] font-mono tracking-widest uppercase text-neutral-700 shadow-2xs">
-                <MapPin className="w-3 h-3 text-[#C2A26F]" />
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-white border border-neutral-200 text-[10px] font-mono tracking-widest uppercase text-neutral-600 shadow-2xs">
+                <MapPin className="w-3 h-3 text-[#0A0A0A]" />
                 <span>Eldoret Showroom · Rupa&apos;s Godowns G48</span>
               </div>
 
-              {/* DYNAMIC CHANGING EYEBROW: Synchronized with the active carousel product */}
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentSlide.id}
-                  initial={{ opacity: 0, y: -6 }}
+                  initial={{ opacity: 0, y: -4 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 6 }}
-                  transition={{ duration: 0.3 }}
+                  exit={{ opacity: 0, y: 4 }}
+                  transition={{ duration: 0.25 }}
                   className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-neutral-900 text-white text-[10px] font-mono tracking-wider uppercase"
                 >
-                  <span className="w-1 h-1 bg-[#C2A26F] rounded-full animate-pulse"></span>
-                  <span className="text-[#C2A26F] font-bold">{currentSlide.slideNumber}</span>
-                  <span className="text-neutral-400">/</span>
-                  <span className="text-neutral-200 font-medium">{currentSlide.category}</span>
+                  <span className="w-1.5 h-1.5 bg-white rounded-full"></span>
+                  <span className="font-bold">{currentSlide.slideNumber}</span>
+                  <span className="text-neutral-500">/</span>
+                  <span className="text-neutral-200">{currentSlide.category}</span>
                 </motion.div>
               </AnimatePresence>
             </div>
 
-            {/* Steady Iconic Brand Trinity (Flawless · Functional · Refined) */}
-            <div className="space-y-1">
+            {/* Steady Iconic Brand Trinity in Eurostile (One Unified Color) */}
+            <div className="space-y-1 sm:space-y-2 select-none">
               <motion.h1
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className="text-4xl sm:text-5xl lg:text-6xl font-extralight tracking-tight text-neutral-950 font-heading leading-[1.02]"
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-[#0A0A0A] font-heading uppercase leading-none"
               >
                 FLAWLESS.
               </motion.h1>
 
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-                className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-[#0A0A0A] font-heading leading-[1.02]"
+                transition={{ duration: 0.5, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+                className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-[#0A0A0A] font-heading uppercase leading-none"
               >
                 FUNCTIONAL.
               </motion.div>
 
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                className="text-4xl sm:text-5xl lg:text-6xl font-light font-editorial-serif italic text-[#C2A26F] leading-[1.02]"
+                transition={{ duration: 0.5, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
+                className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-[#0A0A0A] font-heading uppercase leading-none"
               >
-                Refined.
+                REFINED.
               </motion.div>
             </div>
 
             {/* DYNAMIC CHANGING FOCAL TEXT: Relevant description updating per active slide */}
-            <div className="min-h-[76px] sm:min-h-[82px] relative">
+            <div className="min-h-[64px] sm:min-h-[72px] relative">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentSlide.id}
