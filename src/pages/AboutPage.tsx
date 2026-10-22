@@ -22,7 +22,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
         <div className="relative w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
           <div className="max-w-3xl space-y-4">
             <AnimatedReveal>
-              <span className="text-[11px] font-mono tracking-widest uppercase text-[#C2A26F] font-medium block">
+              <span className="text-[11px] font-mono tracking-widest uppercase text-amber-600 font-medium block">
                 Architectural Standard
               </span>
             </AnimatedReveal>
@@ -48,7 +48,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
       <section className="py-20 sm:py-28 border-b border-neutral-200/60 bg-[#FAF9F7] relative">
         <div className="w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
           <AnimatedReveal className="max-w-2xl mb-14">
-            <span className="text-[11px] font-mono uppercase tracking-widest text-[#C2A26F] font-medium block">
+            <span className="text-[11px] font-mono uppercase tracking-widest text-amber-600 font-medium block">
               The Three Principles
             </span>
             <h2 className="text-3xl sm:text-5xl font-light font-heading text-neutral-950 mt-1">
@@ -62,7 +62,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
           >
             <StaggerItem>
               <div className="p-8 bg-white border border-neutral-200/80 arch-crosshair shadow-2xs hover:shadow-md transition-shadow duration-300 space-y-4">
-                <span className="font-mono text-xs text-[#C2A26F] font-semibold block">01 / SURFACES</span>
+                <span className="font-mono text-xs text-amber-600 font-semibold block">01 / SURFACES</span>
                 <h3 className="text-2xl font-bold font-heading text-neutral-950">
                   FLAWLESS
                 </h3>
@@ -74,7 +74,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
 
             <StaggerItem>
               <div className="p-8 bg-white border border-neutral-200/80 arch-crosshair shadow-2xs hover:shadow-md transition-shadow duration-300 space-y-4">
-                <span className="font-mono text-xs text-[#C2A26F] font-semibold block">02 / ENGINEERING</span>
+                <span className="font-mono text-xs text-amber-600 font-semibold block">02 / ENGINEERING</span>
                 <h3 className="text-2xl font-bold font-heading text-neutral-950">
                   FUNCTIONAL
                 </h3>
@@ -86,7 +86,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
 
             <StaggerItem>
               <div className="p-8 bg-white border border-neutral-200/80 arch-crosshair shadow-2xs hover:shadow-md transition-shadow duration-300 space-y-4">
-                <span className="font-mono text-xs text-[#C2A26F] font-semibold block">03 / AESTHETICS</span>
+                <span className="font-mono text-xs text-amber-600 font-semibold block">03 / AESTHETICS</span>
                 <h3 className="text-2xl font-bold font-heading text-neutral-950">
                   REFINED
                 </h3>
@@ -105,7 +105,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             <div className="lg:col-span-6 space-y-5">
               <AnimatedReveal>
-                <span className="text-[11px] font-mono uppercase tracking-widest text-[#C2A26F] font-medium block">
+                <span className="text-[11px] font-mono uppercase tracking-widest text-amber-600 font-medium block">
                   Central Logistics Facility
                 </span>
               </AnimatedReveal>
@@ -125,21 +125,21 @@ export const AboutPage: React.FC<AboutPageProps> = ({
               <div className="space-y-3 pt-2 text-xs text-neutral-700">
                 <AnimatedReveal delay={0.3}>
                   <div className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-[#C2A26F] shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
                     <span><strong>Forklift Loading:</strong> Rapid, safe palletized loading into site canters and flatbeds.</span>
                   </div>
                 </AnimatedReveal>
 
                 <AnimatedReveal delay={0.38}>
                   <div className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-[#C2A26F] shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
                     <span><strong>Batch Integrity:</strong> Strict shade and caliber tracking to ensure complete color matching across large orders.</span>
                   </div>
                 </AnimatedReveal>
 
                 <AnimatedReveal delay={0.46}>
                   <div className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-[#C2A26F] shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
                     <span><strong>Regional Transit:</strong> Prompt dispatch to Eldoret CBD, Annex, Kapsoya, Elgon View, Pioneer, Kitale, Kapsabet, and Iten.</span>
                   </div>
                 </AnimatedReveal>

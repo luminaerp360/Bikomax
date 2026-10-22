@@ -51,7 +51,7 @@ export const AdvancedTileFinder: React.FC<AdvancedTileFinderProps> = ({
       <div className="w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
         
         <div className="mb-8">
-          <span className="text-[10px] font-mono uppercase tracking-widest text-[#C2A26F] font-bold block mb-1">
+          <span className="text-[10px] font-mono uppercase tracking-widest text-amber-500 font-bold block mb-1">
             Precision Specification Tool
           </span>
           <h2 className="text-2xl sm:text-4xl font-light font-heading text-white">
@@ -73,7 +73,7 @@ export const AdvancedTileFinder: React.FC<AdvancedTileFinderProps> = ({
               <select
                 value={selectedTech}
                 onChange={(e) => setSelectedTech(e.target.value)}
-                className="w-full bg-neutral-950 border border-neutral-700 text-white text-xs px-3.5 py-3 focus:outline-hidden focus:border-[#C2A26F] cursor-pointer"
+                className="w-full bg-neutral-950 border border-neutral-700 text-white text-xs px-3.5 py-3 focus:outline-hidden focus:border-amber-500 cursor-pointer"
               >
                 <option value="All">All Substrates</option>
                 <option value="Porcelain">Porcelain Stoneware</option>
@@ -91,7 +91,7 @@ export const AdvancedTileFinder: React.FC<AdvancedTileFinderProps> = ({
               <select
                 value={selectedDest}
                 onChange={(e) => setSelectedDest(e.target.value)}
-                className="w-full bg-neutral-950 border border-neutral-700 text-white text-xs px-3.5 py-3 focus:outline-hidden focus:border-[#C2A26F] cursor-pointer"
+                className="w-full bg-neutral-950 border border-neutral-700 text-white text-xs px-3.5 py-3 focus:outline-hidden focus:border-amber-500 cursor-pointer"
               >
                 <option value="All">All Destinations</option>
                 <option value="Living">Living Room</option>
@@ -111,7 +111,7 @@ export const AdvancedTileFinder: React.FC<AdvancedTileFinderProps> = ({
               <select
                 value={selectedLook}
                 onChange={(e) => setSelectedLook(e.target.value)}
-                className="w-full bg-neutral-950 border border-neutral-700 text-white text-xs px-3.5 py-3 focus:outline-hidden focus:border-[#C2A26F] cursor-pointer"
+                className="w-full bg-neutral-950 border border-neutral-700 text-white text-xs px-3.5 py-3 focus:outline-hidden focus:border-amber-500 cursor-pointer"
               >
                 <option value="All">All Surface Looks</option>
                 <option value="Marble">Marble Look</option>
@@ -131,7 +131,7 @@ export const AdvancedTileFinder: React.FC<AdvancedTileFinderProps> = ({
               <select
                 value={selectedSize}
                 onChange={(e) => setSelectedSize(e.target.value)}
-                className="w-full bg-neutral-950 border border-neutral-700 text-white text-xs px-3.5 py-3 focus:outline-hidden focus:border-[#C2A26F] cursor-pointer"
+                className="w-full bg-neutral-950 border border-neutral-700 text-white text-xs px-3.5 py-3 focus:outline-hidden focus:border-amber-500 cursor-pointer"
               >
                 <option value="All">All Formats</option>
                 <option value="60x60 cm">60×60 cm Standard</option>
@@ -170,7 +170,7 @@ export const AdvancedTileFinder: React.FC<AdvancedTileFinderProps> = ({
 
               <button
                 type="submit"
-                className="px-7 py-3 bg-[#C2A26F] hover:bg-[#b0905e] text-neutral-950 text-xs font-bold uppercase tracking-wider transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-md"
+                className="px-7 py-3 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-neutral-950 font-bold text-xs uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer shadow-md hover:shadow-amber-500/20"
               >
                 <Search className="w-3.5 h-3.5" />
                 <span>Search Collections</span>

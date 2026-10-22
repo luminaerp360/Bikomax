@@ -32,7 +32,7 @@ export const Footer: React.FC<FooterProps> = ({
       <div className="border-b border-neutral-800 py-10 px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
         <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-8 text-xs">
           <div className="flex items-start gap-3.5">
-            <div className="p-2.5 bg-neutral-900 border border-neutral-800 text-[#C2A26F] shrink-0">
+            <div className="p-2.5 bg-neutral-900 border border-neutral-800 text-amber-500 shrink-0">
               <MapPin className="w-5 h-5" />
             </div>
             <div>
@@ -45,7 +45,7 @@ export const Footer: React.FC<FooterProps> = ({
               <button
                 type="button"
                 onClick={() => handlePageClick('contact')}
-                className="text-[#C2A26F] text-[11px] hover:underline block mt-0.5"
+                className="text-amber-400 text-[11px] hover:underline block mt-0.5"
               >
                 View Directions & Booking Form →
               </button>
@@ -53,7 +53,7 @@ export const Footer: React.FC<FooterProps> = ({
           </div>
 
           <div className="flex items-start gap-3.5">
-            <div className="p-2.5 bg-neutral-900 border border-neutral-800 text-[#C2A26F] shrink-0">
+            <div className="p-2.5 bg-neutral-900 border border-neutral-800 text-amber-500 shrink-0">
               <Phone className="w-5 h-5" />
             </div>
             <div>
@@ -76,7 +76,7 @@ export const Footer: React.FC<FooterProps> = ({
           </div>
 
           <div className="flex items-start gap-3.5">
-            <div className="p-2.5 bg-neutral-900 border border-neutral-800 text-[#C2A26F] shrink-0">
+            <div className="p-2.5 bg-neutral-900 border border-neutral-800 text-amber-500 shrink-0">
               <Clock className="w-5 h-5" />
             </div>
             <div>
@@ -247,7 +247,7 @@ export const Footer: React.FC<FooterProps> = ({
                 className="w-full py-2 px-3 border border-neutral-700 hover:border-white text-xs font-semibold text-white text-left flex items-center justify-between transition-colors"
               >
                 <span>Launch Tile Coverage Quick-Tool</span>
-                <span className="text-[#C2A26F] font-mono">→</span>
+                <span className="text-amber-400 font-mono">→</span>
               </button>
               <button
                 type="button"

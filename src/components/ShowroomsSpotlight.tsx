@@ -21,7 +21,7 @@ export const ShowroomsSpotlight: React.FC<ShowroomsSpotlightProps> = ({
           
           {/* Left Narrative */}
           <div className="lg:col-span-7 space-y-6">
-            <div className="inline-flex items-center gap-2 text-[11px] font-mono uppercase tracking-widest text-[#C2A26F] font-semibold">
+            <div className="inline-flex items-center gap-2 text-[11px] font-mono uppercase tracking-widest text-amber-400 font-semibold">
               <MapPin className="w-3.5 h-3.5" />
               <span>Architectural Experience Center</span>
             </div>
@@ -39,11 +39,11 @@ export const ShowroomsSpotlight: React.FC<ShowroomsSpotlightProps> = ({
             {/* Feature Badges */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs font-mono text-neutral-300">
               <div className="flex items-center gap-2.5 p-3 bg-neutral-900/80 border border-neutral-800">
-                <Truck className="w-4 h-4 text-[#C2A26F] shrink-0" />
+                <Truck className="w-4 h-4 text-amber-400 shrink-0" />
                 <span>Forklift pallet loading for all vehicle types</span>
               </div>
               <div className="flex items-center gap-2.5 p-3 bg-neutral-900/80 border border-neutral-800">
-                <ShieldCheck className="w-4 h-4 text-[#C2A26F] shrink-0" />
+                <ShieldCheck className="w-4 h-4 text-amber-400 shrink-0" />
                 <span>Bill of Quantities (BQ) dual-pricing trade desk</span>
               </div>
             </div>
@@ -52,7 +52,7 @@ export const ShowroomsSpotlight: React.FC<ShowroomsSpotlightProps> = ({
               <button
                 type="button"
                 onClick={onNavigateToContact}
-                className="px-8 py-3.5 bg-[#C2A26F] hover:bg-[#b0905e] text-neutral-950 text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer shadow-md"
+                className="px-8 py-3.5 bg-gradient-to-r from-amber-500 via-amber-600 to-amber-500 hover:from-amber-400 hover:to-amber-600 text-white text-xs font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer shadow-lg hover:shadow-xl hover:shadow-amber-500/30 rounded-xs active:scale-98"
               >
                 Showroom Directions & Hours
               </button>
@@ -60,7 +60,7 @@ export const ShowroomsSpotlight: React.FC<ShowroomsSpotlightProps> = ({
               <button
                 type="button"
                 onClick={onNavigateToTrade}
-                className="px-7 py-3.5 border border-neutral-700 hover:border-white text-white text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer"
+                className="px-7 py-3.5 border border-neutral-700 hover:border-amber-500 hover:text-amber-400 text-white text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer rounded-xs"
               >
                 Trade & Architect Desk
               </button>
@@ -70,7 +70,7 @@ export const ShowroomsSpotlight: React.FC<ShowroomsSpotlightProps> = ({
           {/* Right Specimen Card */}
           <div className="lg:col-span-5 bg-neutral-900/90 border border-neutral-800 p-8 space-y-6 shadow-2xl relative">
             <div className="border-b border-neutral-800 pb-4">
-              <span className="text-[10px] font-mono tracking-widest text-[#C2A26F] uppercase block font-semibold">
+              <span className="text-[10px] font-mono tracking-widest text-amber-400 uppercase block font-semibold">
                 Direct Contact & Inquiries
               </span>
               <h3 className="text-xl font-bold font-heading text-white mt-1">
@@ -83,11 +83,11 @@ export const ShowroomsSpotlight: React.FC<ShowroomsSpotlightProps> = ({
 
             <div className="space-y-3 text-xs text-neutral-300 font-mono">
               <div className="flex items-center gap-3">
-                <Clock className="w-4 h-4 text-[#C2A26F] shrink-0" />
+                <Clock className="w-4 h-4 text-amber-400 shrink-0" />
                 <span>{SHOWROOM_CONTACT.openingHours}</span>
               </div>
               <div className="flex items-center gap-3">
-                <Phone className="w-4 h-4 text-[#C2A26F] shrink-0" />
+                <Phone className="w-4 h-4 text-amber-400 shrink-0" />
                 <a href={`tel:${SHOWROOM_CONTACT.phoneRaw}`} className="hover:text-white font-bold">
                   {SHOWROOM_CONTACT.phone}
                 </a>

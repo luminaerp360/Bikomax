@@ -33,12 +33,12 @@ export const CollectionsCarousel: React.FC<CollectionsCarouselProps> = ({
   return (
     <section className="py-16 sm:py-24 bg-[#FAF9F7] border-b border-neutral-200/80 overflow-hidden">
       <div className="w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
-        {/* Header matching Cleopatra's "Featured Collections" */}
+        {/* Header: Featured Collections */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
           <div>
-            <div className="inline-flex items-center gap-2 text-[11px] font-mono uppercase tracking-widest text-[#C2A26F] font-semibold mb-2">
+            <div className="inline-flex items-center gap-2 text-[11px] font-mono uppercase tracking-widest text-amber-600 font-semibold mb-2">
               <Sparkles className="w-3.5 h-3.5" />
-              <span>Cleopatra Spec Architectural Series</span>
+              <span>Bikomax Architectural Series</span>
             </div>
             <h2 className="text-3xl sm:text-5xl font-light font-heading text-neutral-950 tracking-tight">
               <strong>Featured</strong> Collections
@@ -111,12 +111,12 @@ export const CollectionsCarousel: React.FC<CollectionsCarouselProps> = ({
                 </div>
               </div>
 
-              {/* Cleopatra Collections Recap Bar */}
+              {/* Collections Recap Bar */}
               <div className="p-4 border-b border-neutral-100 bg-[#FCFBF9]">
                 <ul className="flex flex-wrap items-center justify-between gap-1 text-[10px] font-mono uppercase tracking-wider text-neutral-500 font-semibold">
                   <li className="text-neutral-900 font-bold">{product.technology || 'PORCELAIN'}</li>
                   <span className="text-neutral-300">·</span>
-                  <li className="text-[#C2A26F] font-bold">{product.look ? `${product.look} LOOK` : 'TEXTURED'}</li>
+                  <li className="text-amber-600 font-bold">{product.look ? `${product.look} LOOK` : 'TEXTURED'}</li>
                   <span className="text-neutral-300">·</span>
                   <li>{product.surfaceType || 'FLOOR & WALL'}</li>
                 </ul>
@@ -142,10 +142,10 @@ export const CollectionsCarousel: React.FC<CollectionsCarouselProps> = ({
 
                   {product.bulk_price_per_box && (
                     <div className="text-right">
-                      <span className="text-[10px] font-mono uppercase text-[#C2A26F] block font-semibold">
+                      <span className="text-[10px] font-mono uppercase text-amber-600 block font-semibold">
                         Carton Rate
                       </span>
-                      <span className="text-sm font-bold text-[#C2A26F] font-heading">
+                      <span className="text-sm font-bold text-amber-600 font-heading">
                         {formatKES(product.bulk_price_per_box)}
                         <span className="text-[10px] font-normal text-neutral-500"> / box</span>
                       </span>
@@ -156,7 +156,7 @@ export const CollectionsCarousel: React.FC<CollectionsCarouselProps> = ({
                 {/* View Details CTA */}
                 <button
                   type="button"
-                  className="w-full py-2.5 bg-neutral-900 hover:bg-black text-white text-xs font-bold uppercase tracking-wider transition-colors flex items-center justify-center gap-2 group-hover:bg-[#C2A26F] group-hover:text-neutral-950"
+                  className="w-full py-2.5 bg-neutral-900 hover:bg-black text-white text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 group-hover:bg-gradient-to-r group-hover:from-amber-500 group-hover:to-amber-600 group-hover:text-neutral-950 shadow-xs"
                 >
                   <span>Inspect Surface</span>
                   <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />

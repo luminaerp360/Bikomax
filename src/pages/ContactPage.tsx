@@ -52,7 +52,7 @@ export const ContactPage: React.FC = () => {
         <div className="relative w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
           <div className="max-w-3xl space-y-3">
             <AnimatedReveal>
-              <span className="text-[11px] font-mono tracking-widest uppercase text-[#C2A26F] font-medium block">
+              <span className="text-[11px] font-mono tracking-widest uppercase text-amber-600 font-medium block">
                 Direct Contact & Depot
               </span>
             </AnimatedReveal>
@@ -77,7 +77,7 @@ export const ContactPage: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <AnimatedReveal delay={0.1}>
             <div className="bg-white p-7 border border-neutral-200/80 arch-crosshair shadow-2xs hover:shadow-md transition-shadow duration-300 space-y-2.5">
-              <div className="w-10 h-10 bg-neutral-950 text-[#C2A26F] flex items-center justify-center">
+              <div className="w-10 h-10 bg-neutral-950 text-amber-500 flex items-center justify-center">
                 <MapPin className="w-4 h-4" />
               </div>
               <h3 className="font-bold text-xs uppercase tracking-wider text-neutral-950 font-heading pt-1">
@@ -86,7 +86,7 @@ export const ContactPage: React.FC = () => {
               <p className="text-xs text-neutral-600 leading-relaxed">
                 {SHOWROOM_CONTACT.showroomLocation}
               </p>
-              <span className="text-[11px] text-[#C2A26F] font-mono block font-medium">
+              <span className="text-[11px] text-amber-600 font-mono block font-medium">
                 Uganda Road Axis, Eldoret
               </span>
             </div>
@@ -94,7 +94,7 @@ export const ContactPage: React.FC = () => {
 
           <AnimatedReveal delay={0.2}>
             <div className="bg-white p-7 border border-neutral-200/80 arch-crosshair shadow-2xs hover:shadow-md transition-shadow duration-300 space-y-2.5">
-              <div className="w-10 h-10 bg-neutral-950 text-[#C2A26F] flex items-center justify-center">
+              <div className="w-10 h-10 bg-neutral-950 text-amber-500 flex items-center justify-center">
                 <Phone className="w-4 h-4" />
               </div>
               <h3 className="font-bold text-xs uppercase tracking-wider text-neutral-950 font-heading pt-1">
@@ -117,7 +117,7 @@ export const ContactPage: React.FC = () => {
 
           <AnimatedReveal delay={0.3}>
             <div className="bg-white p-7 border border-neutral-200/80 arch-crosshair shadow-2xs hover:shadow-md transition-shadow duration-300 space-y-2.5">
-              <div className="w-10 h-10 bg-neutral-950 text-[#C2A26F] flex items-center justify-center">
+              <div className="w-10 h-10 bg-neutral-950 text-amber-500 flex items-center justify-center">
                 <Clock className="w-4 h-4" />
               </div>
               <h3 className="font-bold text-xs uppercase tracking-wider text-neutral-950 font-heading pt-1">
@@ -139,7 +139,7 @@ export const ContactPage: React.FC = () => {
           {/* Left Column: Interactive Appointment Booking */}
           <AnimatedReveal delay={0.15} className="lg:col-span-7 bg-white p-7 sm:p-9 border border-neutral-200 shadow-sm arch-crosshair">
             <div className="mb-6">
-              <span className="text-xs font-mono uppercase tracking-wider text-[#C2A26F] font-bold">
+              <span className="text-xs font-mono uppercase tracking-wider text-amber-600 font-bold">
                 Personalized Consultation
               </span>
               <h2 className="text-2xl sm:text-3xl font-light font-heading text-neutral-950 mt-1">
@@ -340,7 +340,7 @@ export const ContactPage: React.FC = () => {
                   className="w-full h-full object-cover opacity-80"
                 />
                 <div className="absolute inset-0 bg-black/40 flex flex-col justify-end p-4 text-white">
-                  <span className="text-[10px] uppercase font-mono tracking-wider text-[#C2A26F]">
+                  <span className="text-[10px] uppercase font-mono tracking-wider text-amber-400">
                     Central Depot
                   </span>
                   <span className="font-bold text-sm">
@@ -352,7 +352,7 @@ export const ContactPage: React.FC = () => {
 
             {/* Direct WhatsApp Callout */}
             <AnimatedReveal delay={0.35} className="bg-neutral-950 bg-arch-dark-grid text-white p-7 border border-neutral-800 space-y-3">
-              <span className="text-[10px] font-mono tracking-widest uppercase text-[#C2A26F] font-semibold block">
+              <span className="text-[10px] font-mono tracking-widest uppercase text-amber-400 font-semibold block">
                 Instant Response
               </span>
               <h4 className="font-bold text-base font-heading">

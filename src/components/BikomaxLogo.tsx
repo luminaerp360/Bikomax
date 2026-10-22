@@ -127,7 +127,7 @@ export const BikomaxLogo: React.FC<BikomaxLogoProps> = ({
         <span
           className={`leading-tight uppercase font-medium flex items-center tracking-normal ${fallbackSizes.tagline} ${taglineColor}`}
         >
-          Flawless <span className="mx-1.5 text-[#C2A26F] text-[0.8em] font-bold">·</span> Functional <span className="mx-1.5 text-[#C2A26F] text-[0.8em] font-bold">·</span> Refined
+          Flawless <span className="mx-1.5 text-amber-500 text-[0.8em] font-bold">·</span> Functional <span className="mx-1.5 text-amber-500 text-[0.8em] font-bold">·</span> Refined
         </span>
       )}
     </div>

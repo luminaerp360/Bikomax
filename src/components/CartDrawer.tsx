@@ -89,7 +89,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onProceedToCheckout }) =
               <div className="p-4 sm:p-5 border-b border-neutral-200 flex items-center justify-between bg-[#FAFAFA]">
                 <div>
                   <div className="flex items-center gap-2">
-                    <ShoppingBag className="w-4 h-4 text-[#C2A26F]" />
+                    <ShoppingBag className="w-4 h-4 text-amber-500" />
                     <h2 className="text-sm sm:text-base font-black uppercase tracking-wider text-[#0A0A0A] font-heading">
                       Architectural Cart
                     </h2>

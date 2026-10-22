@@ -32,7 +32,7 @@ export const PrintInvoiceModal: React.FC<PrintInvoiceModalProps> = ({
             <span className="text-xs uppercase tracking-wider text-neutral-400 font-semibold">
               Official Tax Invoice
             </span>
-            <span className="font-mono text-xs font-bold text-[#C2A26F]">
+            <span className="font-mono text-xs font-bold text-amber-500">
               {receipt.orderId}
             </span>
           </div>
@@ -41,7 +41,7 @@ export const PrintInvoiceModal: React.FC<PrintInvoiceModalProps> = ({
             <button
               type="button"
               onClick={handlePrint}
-              className="px-3.5 py-1.5 bg-[#C2A26F] hover:bg-[#b0905e] text-[#0A0A0A] text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 transition-colors"
+              className="px-3.5 py-1.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-neutral-950 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 transition-all shadow-sm"
             >
               <Printer className="w-3.5 h-3.5" /> Print / Save PDF
             </button>

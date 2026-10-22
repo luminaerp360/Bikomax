@@ -22,6 +22,7 @@ interface HomePageProps {
   onSelectProduct: (product: Product) => void;
   onOpenCalculatorWithProduct: (product: Product) => void;
   onSelectCategory: (category: string) => void;
+  onOpenSimulatorModal?: (tileRef?: string, roomId?: string) => void;
   onFilterCatalogue?: (filters: {
     category?: string;
     technology?: string;
@@ -41,6 +42,7 @@ export const HomePage: React.FC<HomePageProps> = ({
   onSelectProduct,
   onOpenCalculatorWithProduct,
   onSelectCategory,
+  onOpenSimulatorModal,
   onFilterCatalogue,
 }) => {
   const handleApplyFilter = (filters: {
@@ -73,14 +75,19 @@ export const HomePage: React.FC<HomePageProps> = ({
         }}
       />
 
-      {/* 2. CLEOPATRA "FEATURED COLLECTIONS" HORIZONTAL CAROUSEL */}
+      {/* 2. BIKOMAX "FEATURED COLLECTIONS" HORIZONTAL CAROUSEL */}
       <CollectionsCarousel
         products={products}
         onSelectProduct={onSelectProduct}
         onExploreCatalogue={onNavigateToCatalogue}
       />
 
-      {/* 3. DUAL PRICING ARCHITECTURAL EXPLAINER (Square Meter & Bulk Box) */}
+      {/* 3. BIKOMAX "CHOOSE YOUR SPACE" DESTINATION MOSAIC */}
+      <DestinationGrid
+        onSelectDestination={(dest) => handleApplyFilter({ destination: dest })}
+      />
+
+      {/* 4. DUAL PRICING ARCHITECTURAL EXPLAINER (Square Meter & Bulk Box) */}
       <section className="relative py-20 sm:py-28 border-b border-neutral-200/80 bg-white overflow-hidden">
         <div className="absolute inset-y-0 right-0 w-1/3 bg-arch-grid opacity-35 pointer-events-none" />
 
@@ -90,7 +97,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             {/* Left Narrative */}
             <div className="lg:col-span-6 space-y-6">
               <AnimatedReveal delay={0.05}>
-                <div className="inline-flex items-center gap-2 text-[11px] font-mono uppercase tracking-widest text-[#C2A26F] font-semibold">
+                <div className="inline-flex items-center gap-2 text-[11px] font-mono uppercase tracking-widest text-amber-600 font-semibold">
                   <Compass className="w-3.5 h-3.5" />
                   <span>Procurement Standard</span>
                 </div>
@@ -99,7 +106,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               <AnimatedReveal delay={0.12}>
                 <h2 className="text-3xl sm:text-5xl font-light font-heading text-neutral-950 leading-tight">
                   Dual Pricing: <br />
-                  <span className="font-semibold text-neutral-900">Square Meter</span> & <span className="font-semibold text-[#C2A26F]">Bulk Box</span>
+                  <span className="font-semibold text-neutral-900">Square Meter</span> & <span className="font-semibold text-amber-600">Bulk Box</span>
                 </h2>
               </AnimatedReveal>
 
@@ -112,7 +119,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               <div className="space-y-3.5 pt-2 text-xs text-neutral-700">
                 <AnimatedReveal delay={0.25}>
                   <div className="flex items-start gap-3.5 p-4 bg-[#FAF9F7] border border-neutral-200/80 hover:border-neutral-950 transition-colors">
-                    <Ruler className="w-4 h-4 text-[#C2A26F] shrink-0 mt-0.5" />
+                    <Ruler className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
                     <div>
                       <strong className="text-neutral-950 block font-semibold">Area Metric (m²):</strong>
                       <span className="text-neutral-500 leading-relaxed">
@@ -124,7 +131,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
                 <AnimatedReveal delay={0.35}>
                   <div className="flex items-start gap-3.5 p-4 bg-[#FAF9F7] border border-neutral-200/80 hover:border-neutral-950 transition-colors">
-                    <Boxes className="w-4 h-4 text-[#C2A26F] shrink-0 mt-0.5" />
+                    <Boxes className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
                     <div>
                       <strong className="text-neutral-950 block font-semibold">Factory Box Packaging:</strong>
                       <span className="text-neutral-500 leading-relaxed">
@@ -139,9 +146,9 @@ export const HomePage: React.FC<HomePageProps> = ({
                 <button
                   type="button"
                   onClick={onOpenCalculator}
-                  className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-neutral-950 hover:text-[#C2A26F] transition-colors cursor-pointer"
+                  className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-neutral-950 hover:text-amber-600 transition-colors cursor-pointer"
                 >
-                  <Calculator className="w-4 h-4 text-[#C2A26F]" />
+                  <Calculator className="w-4 h-4 text-amber-500" />
                   <span>Launch Multi-Room Coverage Calculator</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </button>
@@ -156,7 +163,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                 </div>
 
                 <div className="border-b border-neutral-800 pb-3">
-                  <span className="text-[11px] uppercase font-mono tracking-wider text-[#C2A26F] block font-semibold">
+                  <span className="text-[11px] uppercase font-mono tracking-wider text-amber-400 block font-semibold">
                     Interactive Calculation Sample
                   </span>
                   <span className="text-sm font-medium text-neutral-200 mt-0.5 block">
@@ -176,10 +183,10 @@ export const HomePage: React.FC<HomePageProps> = ({
                   </div>
 
                   <div className="p-4 bg-neutral-900/90 border border-neutral-800">
-                    <span className="text-[10px] uppercase font-mono text-[#C2A26F] block font-bold">
+                    <span className="text-[10px] uppercase font-mono text-amber-400 block font-bold">
                       Factory Box Rate
                     </span>
-                    <div className="text-2xl font-bold font-heading mt-1 text-[#C2A26F]">
+                    <div className="text-2xl font-bold font-heading mt-1 text-amber-400">
                       KES 4,132.80
                     </div>
                     <span className="text-xs text-neutral-400">per Box (1.44 m²/box)</span>
@@ -198,10 +205,10 @@ export const HomePage: React.FC<HomePageProps> = ({
                 <button
                   type="button"
                   onClick={onNavigateToCatalogue}
-                  className="w-full py-3.5 bg-white text-neutral-950 font-bold text-xs uppercase tracking-widest hover:bg-neutral-100 transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-xs"
+                  className="w-full py-3.5 bg-white hover:bg-amber-50 text-neutral-950 font-bold text-xs uppercase tracking-widest transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-xs group/cat"
                 >
                   <span>Experience Dual Pricing on Full Catalogue</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-[#C2A26F]" />
+                  <ArrowRight className="w-3.5 h-3.5 text-amber-600 transition-transform group-hover/cat:translate-x-1" />
                 </button>
               </div>
             </AnimatedReveal>
@@ -210,41 +217,37 @@ export const HomePage: React.FC<HomePageProps> = ({
         </div>
       </section>
 
-      {/* 4. CLEOPATRA "FIND YOUR INSPIRATION" EDITORIAL SPLIT-BLOCKS */}
+      {/* 4. BIKOMAX "FIND YOUR INSPIRATION" EDITORIAL SPLIT-BLOCKS */}
       <EditorialInspirationBlocks
         onNavigateToCategory={(techFilter) => handleApplyFilter({ technology: techFilter })}
       />
 
-      {/* 5. CLEOPATRA "SEARCH BY LOOK" (Marble, Wood, Stone, Concrete, Sugar Effect, Terrazzo) */}
+      {/* 5. BIKOMAX "SEARCH BY LOOK" (Marble, Wood, Stone, Concrete, Sugar Effect, Terrazzo) */}
       <LooksBrowser
         onSelectLook={(look) => handleApplyFilter({ look })}
       />
 
-      {/* 6. CLEOPATRA ROOM CONFIGURATOR / VISUALIZER */}
+      {/* 6. BIKOMAX ROOM CONFIGURATOR / VISUALIZER */}
       <RoomVisualizerSection
         products={products}
         onOpenCalculatorWithProduct={onOpenCalculatorWithProduct}
         onExploreCatalogue={onNavigateToCatalogue}
+        onOpenSimulatorModal={onOpenSimulatorModal}
       />
 
-      {/* 7. CLEOPATRA "SEARCH YOUR DESTINATION" (Bathroom, Living, Kitchen, Bedroom, Outdoor, Commercial) */}
-      <DestinationGrid
-        onSelectDestination={(dest) => handleApplyFilter({ destination: dest })}
-      />
-
-      {/* 8. CLEOPATRA ADVANCED ARCHITECTURAL TILE FINDER (4-step dropdown search) */}
+      {/* 7. BIKOMAX ADVANCED ARCHITECTURAL TILE FINDER (4-step dropdown search) */}
       <AdvancedTileFinder
         products={products}
         onApplyAdvancedFilter={(filters) => handleApplyFilter(filters)}
       />
 
-      {/* 9. CLEOPATRA SHOWROOM & DESIGN CENTER SPOTLIGHT */}
+      {/* 9. BIKOMAX SHOWROOM & DESIGN CENTER SPOTLIGHT */}
       <ShowroomsSpotlight
         onNavigateToContact={onNavigateToContact}
         onNavigateToTrade={onNavigateToTrade}
       />
 
-      {/* 10. CLEOPATRA PROJECTS SECTION (Landmark Villas & Commercial Plazas) */}
+      {/* 10. BIKOMAX PROJECTS SECTION (Landmark Villas & Commercial Plazas) */}
       <ProjectsSection
         onExploreProjects={onNavigateToTrade}
       />

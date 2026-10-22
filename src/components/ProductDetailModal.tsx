@@ -3,18 +3,20 @@ import { Product, TileOrderMode } from '../types';
 import { formatKES, generateWhatsAppInquiryMessage } from '../utils/formatters';
 import { useCart } from '../context/CartContext';
 import { SHOWROOM_CONTACT } from '../data/products';
-import { X, Check, ShoppingBag, Truck, MapPin, MessageCircle, Ruler, Box, Plus, Minus } from 'lucide-react';
+import { X, Check, ShoppingBag, Truck, MapPin, MessageCircle, Ruler, Box, Plus, Minus, Sparkles } from 'lucide-react';
 
 interface ProductDetailModalProps {
   product: Product | null;
   onClose: () => void;
   onOpenCoverageTool?: () => void;
+  onOpenSimulator?: (tileRef?: string) => void;
 }
 
 export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
   product,
   onClose,
   onOpenCoverageTool,
+  onOpenSimulator,
 }) => {
   const { addTileToCart, addUnitToCart } = useCart();
 
@@ -145,7 +147,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
               {/* Showroom Availability */}
               <div className="bg-white p-3.5 border border-neutral-200 text-xs space-y-2">
                 <div className="flex items-start gap-2.5">
-                  <MapPin className="w-4 h-4 text-[#C2A26F] shrink-0 mt-0.5" />
+                  <MapPin className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
                   <div>
                     <span className="font-bold text-neutral-950 block">
                       Physical Staging:
@@ -213,7 +215,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                     </div>
 
                     <div className="pl-1">
-                      <span className="text-[10px] uppercase tracking-wider text-[#C2A26F] font-bold block">
+                      <span className="text-[10px] uppercase tracking-wider text-amber-600 font-bold block">
                         Bulk Box Rate
                       </span>
                       <div className="text-xl sm:text-2xl font-bold text-neutral-950 mt-0.5">
@@ -449,6 +451,19 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                   Inquire on WhatsApp
                 </a>
 
+                {product.pricing_type === 'area' && onOpenSimulator && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      onClose();
+                      onOpenSimulator(product.ref);
+                    }}
+                    className="py-2.5 px-3 bg-amber-500/10 border border-amber-500/40 hover:bg-amber-500 hover:text-neutral-950 text-amber-700 text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                  >
+                    <Sparkles className="w-3.5 h-3.5" /> 3D Simulator
+                  </button>
+                )}
+
                 {product.pricing_type === 'area' && onOpenCoverageTool && (
                   <button
                     type="button"
@@ -456,9 +471,9 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                       onClose();
                       onOpenCoverageTool();
                     }}
-                    className="py-2.5 px-3 border border-neutral-300 hover:border-neutral-950 text-neutral-800 text-xs font-medium flex items-center justify-center gap-1.5 transition-colors"
+                    className="py-2.5 px-3 border border-neutral-300 hover:border-neutral-950 text-neutral-800 text-xs font-medium flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
                   >
-                    <Ruler className="w-3.5 h-3.5" /> Room Calculator
+                    <Ruler className="w-3.5 h-3.5" /> Coverage Tool
                   </button>
                 )}
               </div>

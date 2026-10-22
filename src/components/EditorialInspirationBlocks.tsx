@@ -13,7 +13,7 @@ export const EditorialInspirationBlocks: React.FC<EditorialInspirationBlocksProp
     <section className="bg-white border-b border-neutral-200/80">
       {/* Header Eyebrow */}
       <div className="py-12 border-b border-neutral-100 text-center">
-        <span className="text-[11px] font-mono uppercase tracking-[0.25em] text-[#C2A26F] font-bold block mb-1">
+        <span className="text-[11px] font-mono uppercase tracking-[0.25em] text-amber-600 font-bold block mb-1">
           Architectural Guide
         </span>
         <h2 className="text-2xl sm:text-4xl font-light font-heading text-neutral-950 uppercase tracking-widest">
@@ -42,7 +42,7 @@ export const EditorialInspirationBlocks: React.FC<EditorialInspirationBlocksProp
 
           {/* Editorial Content */}
           <div className="lg:col-span-5 p-8 sm:p-14 lg:p-16 flex flex-col justify-center bg-white border-l border-neutral-200/80 space-y-6">
-            <div className="inline-flex items-center gap-2 text-[10px] font-mono tracking-widest uppercase text-[#C2A26F] font-semibold">
+            <div className="inline-flex items-center gap-2 text-[10px] font-mono tracking-widest uppercase text-amber-600 font-semibold">
               <Sparkles className="w-3.5 h-3.5" />
               <span>Technology 01 · Monocaliber</span>
             </div>
@@ -61,7 +61,7 @@ export const EditorialInspirationBlocks: React.FC<EditorialInspirationBlocksProp
               <button
                 type="button"
                 onClick={() => onNavigateToCategory('Porcelain')}
-                className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-neutral-950 hover:text-[#C2A26F] transition-colors border-b-2 border-neutral-950 hover:border-[#C2A26F] pb-1 cursor-pointer group"
+                className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-neutral-950 hover:text-amber-600 transition-colors border-b-2 border-neutral-950 hover:border-amber-600 pb-1 cursor-pointer group"
               >
                 <span>Find your inspiration</span>
                 <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
@@ -76,7 +76,7 @@ export const EditorialInspirationBlocks: React.FC<EditorialInspirationBlocksProp
         <div className="w-full grid grid-cols-1 lg:grid-cols-12 min-h-[500px]">
           {/* Editorial Content */}
           <div className="lg:col-span-5 p-8 sm:p-14 lg:p-16 flex flex-col justify-center border-r border-neutral-200/80 space-y-6 order-2 lg:order-1">
-            <div className="inline-flex items-center gap-2 text-[10px] font-mono tracking-widest uppercase text-[#C2A26F] font-semibold">
+            <div className="inline-flex items-center gap-2 text-[10px] font-mono tracking-widest uppercase text-amber-600 font-semibold">
               <Layers className="w-3.5 h-3.5" />
               <span>Technology 02 · Wall & Floor</span>
             </div>
@@ -95,7 +95,7 @@ export const EditorialInspirationBlocks: React.FC<EditorialInspirationBlocksProp
               <button
                 type="button"
                 onClick={() => onNavigateToCategory('Ceramic')}
-                className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-neutral-950 hover:text-[#C2A26F] transition-colors border-b-2 border-neutral-950 hover:border-[#C2A26F] pb-1 cursor-pointer group"
+                className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-neutral-950 hover:text-amber-600 transition-colors border-b-2 border-neutral-950 hover:border-amber-600 pb-1 cursor-pointer group"
               >
                 <span>Explore Ceramic Wall & Floor</span>
                 <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
@@ -142,7 +142,7 @@ export const EditorialInspirationBlocks: React.FC<EditorialInspirationBlocksProp
 
           {/* Editorial Content */}
           <div className="lg:col-span-5 p-8 sm:p-14 lg:p-16 flex flex-col justify-center bg-white border-l border-neutral-200/80 space-y-6">
-            <div className="inline-flex items-center gap-2 text-[10px] font-mono tracking-widest uppercase text-[#C2A26F] font-semibold">
+            <div className="inline-flex items-center gap-2 text-[10px] font-mono tracking-widest uppercase text-amber-600 font-semibold">
               <Maximize2 className="w-3.5 h-3.5" />
               <span>Technology 03 · Grand Formats</span>
             </div>
@@ -161,7 +161,7 @@ export const EditorialInspirationBlocks: React.FC<EditorialInspirationBlocksProp
               <button
                 type="button"
                 onClick={() => onNavigateToCategory('XXL')}
-                className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-neutral-950 hover:text-[#C2A26F] transition-colors border-b-2 border-neutral-950 hover:border-[#C2A26F] pb-1 cursor-pointer group"
+                className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-neutral-950 hover:text-amber-600 transition-colors border-b-2 border-neutral-950 hover:border-amber-600 pb-1 cursor-pointer group"
               >
                 <span>Discover XXL Sizes</span>
                 <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
@@ -176,7 +176,7 @@ export const EditorialInspirationBlocks: React.FC<EditorialInspirationBlocksProp
         <div className="w-full grid grid-cols-1 lg:grid-cols-12 min-h-[500px]">
           {/* Editorial Content */}
           <div className="lg:col-span-5 p-8 sm:p-14 lg:p-16 flex flex-col justify-center border-r border-neutral-200/80 space-y-6 order-2 lg:order-1">
-            <div className="inline-flex items-center gap-2 text-[10px] font-mono tracking-widest uppercase text-[#C2A26F] font-semibold">
+            <div className="inline-flex items-center gap-2 text-[10px] font-mono tracking-widest uppercase text-amber-600 font-semibold">
               <ShieldCheck className="w-3.5 h-3.5" />
               <span>Technology 04 · Exterior Hardscaping</span>
             </div>
@@ -195,7 +195,7 @@ export const EditorialInspirationBlocks: React.FC<EditorialInspirationBlocksProp
               <button
                 type="button"
                 onClick={() => onNavigateToCategory('2cm')}
-                className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-neutral-950 hover:text-[#C2A26F] transition-colors border-b-2 border-neutral-950 hover:border-[#C2A26F] pb-1 cursor-pointer group"
+                className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-neutral-950 hover:text-amber-600 transition-colors border-b-2 border-neutral-950 hover:border-amber-600 pb-1 cursor-pointer group"
               >
                 <span>Discover 2 CM Outdoor Pavers</span>
                 <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />

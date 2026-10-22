@@ -29,6 +29,7 @@ interface CataloguePageProps {
   onSelectProduct: (product: Product) => void;
   onOpenCalculatorWithProduct: (product: Product) => void;
   onOpenCalculator: () => void;
+  onOpenSimulator?: (tileRef: string) => void;
   selectedLook?: string;
   onLookChange?: (look: string) => void;
   selectedTechnology?: string;
@@ -46,6 +47,7 @@ export const CataloguePage: React.FC<CataloguePageProps> = ({
   onSelectProduct,
   onOpenCalculatorWithProduct,
   onOpenCalculator,
+  onOpenSimulator,
   selectedLook = 'All',
   onLookChange,
   selectedTechnology = 'All',
@@ -57,7 +59,7 @@ export const CataloguePage: React.FC<CataloguePageProps> = ({
   const [sortBy, setSortBy] = useState<'featured' | 'price-asc' | 'price-desc'>('featured');
   const [activeDimension, setActiveDimension] = useState<string>('All');
   const [activeSurfaceType, setActiveSurfaceType] = useState<string>('All');
-  const [viewMode, setViewMode] = useState<'cleopatra-editorial' | 'spec-grid'>('cleopatra-editorial');
+  const [viewMode, setViewMode] = useState<'gallery-view' | 'spec-grid'>('gallery-view');
 
   // Mobile filter drawer state (CRITICAL FOR MOBILE RESPONSIVENESS)
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
@@ -325,13 +327,13 @@ export const CataloguePage: React.FC<CataloguePageProps> = ({
                   <span
                     className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center transition-all ${
                       isSelected
-                        ? 'border-[#C2A26F] bg-[#C2A26F]'
+                        ? 'border-amber-500 bg-amber-500'
                         : 'border-neutral-300 hover:border-neutral-500'
                     }`}
                   >
                     {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
                   </span>
-                  <span className={isSelected ? 'font-bold text-[#C2A26F]' : 'font-normal'}>
+                  <span className={isSelected ? 'font-bold text-amber-600' : 'font-normal'}>
                     {item.label}
                   </span>
                 </label>
@@ -480,131 +482,100 @@ export const CataloguePage: React.FC<CataloguePageProps> = ({
 
   return (
     <div className="bg-[#FAFAFA] text-neutral-950 font-sans min-h-screen pb-28">
-      {/* 1. TOP CLEOPATRA DARK BANNER & SUB-NAV */}
-      <section className="bg-[#111111] text-white pt-6 sm:pt-8 pb-10 sm:pb-14 border-b border-neutral-800">
-        <div className="w-full px-4 sm:px-6 lg:px-8">
-          
-          {/* Sub-brand Centered Category Navigation (Cleopatra Style) */}
-          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-8 pb-6 border-b border-white/10 text-xs sm:text-sm font-semibold tracking-wider uppercase text-neutral-300">
-            <button
-              type="button"
-              onClick={() => {
-                onCategoryChange('All');
-                handleSetTech('All');
-              }}
-              className={`hover:text-[#C2A26F] transition-colors cursor-pointer ${
-                selectedCategory === 'All' && activeTech === 'All' ? 'text-[#C2A26F] font-bold' : ''
-              }`}
-            >
-              The Master Collections
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                onCategoryChange('Tiles');
-                handleSetTech('Ceramic');
-              }}
-              className={`hover:text-[#C2A26F] transition-colors cursor-pointer ${
-                activeTech === 'Ceramic' ? 'text-[#C2A26F] font-bold' : ''
-              }`}
-            >
-              Ceramic Tiles
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                onCategoryChange('Tiles');
-                handleSetTech('Porcelain');
-              }}
-              className={`hover:text-[#C2A26F] transition-colors cursor-pointer ${
-                activeTech === 'Porcelain' ? 'text-[#C2A26F] font-bold' : ''
-              }`}
-            >
-              Porcelain Tiles
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                onCategoryChange('Tiles');
-                handleSetTech('XXL');
-              }}
-              className={`hover:text-[#C2A26F] transition-colors cursor-pointer ${
-                activeTech === 'XXL' ? 'text-[#C2A26F] font-bold' : ''
-              }`}
-            >
-              XXL Tiles
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                onCategoryChange('Tiles');
-                handleSetTech('2cm');
-              }}
-              className={`hover:text-[#C2A26F] transition-colors cursor-pointer ${
-                activeTech === '2cm' ? 'text-[#C2A26F] font-bold' : ''
-              }`}
-            >
-              2 CM Outdoor
-            </button>
-          </div>
-
-          {/* Large Cleopatra Centered Editorial Banner */}
-          <div className="pt-6 sm:pt-10 text-center max-w-3xl mx-auto space-y-2">
-            <span className="text-[10px] sm:text-[11px] font-mono tracking-widest uppercase text-[#C2A26F] font-semibold block">
-              Architectural Surfaces & Living Spaces
-            </span>
-            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-light tracking-tight font-heading text-white">
-              Experiencing the energy of colors & surfaces
-            </h1>
-            <p className="text-xs sm:text-sm text-neutral-400 font-light leading-relaxed max-w-xl mx-auto pt-1">
-              From mirror-polished Calacatta marbles to handcrafted Mediterranean glazed ceramics and 20mm outdoor pavers.
-            </p>
-          </div>
-
+      {/* 1. TOP SOLID ARCHITECTURAL LUXURY BANNER */}
+      <section className="bg-gradient-to-r from-neutral-950 via-neutral-900 to-neutral-950 text-white py-7 sm:py-9 text-center shadow-xs border-b border-neutral-800">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <span className="text-[10px] font-nav uppercase tracking-[0.25em] text-amber-500 font-semibold block mb-1.5">
+            Bikomax Architectural Catalog
+          </span>
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-heading font-medium tracking-wide capitalize">
+            {activeDest !== 'All'
+              ? activeDest === 'Living'
+                ? 'Living Room'
+                : activeDest
+              : selectedCategory !== 'All'
+              ? selectedCategory
+              : activeLook !== 'All'
+              ? `${activeLook} Collection`
+              : 'Architectural Collections'}
+          </h1>
         </div>
       </section>
 
+      {/* TOP ANNOUNCEMENT STRIP (Matching Image 2) */}
+      <div className="bg-white border-b border-neutral-200 py-2.5 px-4 text-center text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.2em] text-neutral-800">
+        FREE STANDARD DELIVERY INCLUDED FOR ONLINE ORDERS!
+      </div>
+
       {/* 2. MAIN 2-COLUMN LAYOUT (DESKTOP SIDEBAR + RESPONSIVE PRODUCT-FIRST MOBILE) */}
-      <div className="w-full px-4 sm:px-6 lg:px-8 pt-6 sm:pt-10">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6">
+        
+        {/* Breadcrumbs matching Image 2 */}
+        <div className="text-xs text-neutral-500 py-2 flex items-center gap-1.5 font-sans mb-4">
+          <button
+            type="button"
+            onClick={resetAllFilters}
+            className="hover:text-neutral-900 cursor-pointer transition-colors"
+          >
+            Destinations
+          </button>
+          <span>&gt;</span>
+          <span className="font-semibold text-neutral-900">
+            {activeDest !== 'All'
+              ? activeDest === 'Living'
+                ? 'Living Room'
+                : activeDest
+              : selectedCategory !== 'All'
+              ? selectedCategory
+              : 'All Products'}
+          </span>
+        </div>
+
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-10 items-start">
           
           {/* ========================================================
-              LEFT SIDEBAR: DESKTOP ONLY (HIDDEN ON MOBILE TO PREVENT LONG SCROLL)
+              LEFT SIDEBAR: DESKTOP ONLY (Matching Image 2)
              ======================================================== */}
-          <aside className="hidden lg:block w-72 shrink-0 bg-white border border-neutral-200/90 p-6 shadow-2xs lg:sticky lg:top-24">
+          <aside className="hidden lg:block w-72 shrink-0 bg-white border border-neutral-200/90 p-5 shadow-2xs lg:sticky lg:top-24">
             
-            {/* Sidebar Title */}
-            <div className="flex items-center justify-between pb-5 border-b border-neutral-100">
+            {/* Sidebar Title & Reset All button */}
+            <div className="flex items-center justify-between pb-4 border-b border-neutral-100">
               <div className="flex items-center gap-2">
-                <SlidersHorizontal className="w-4 h-4 text-neutral-900" />
-                <h2 className="text-xs sm:text-sm font-bold uppercase tracking-widest font-heading text-neutral-950">
-                  Ceramic Filters
+                <SlidersHorizontal className="w-4 h-4 text-neutral-800" />
+                <h2 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-900 font-heading">
+                  Filter by
                 </h2>
               </div>
 
-              {hasActiveSubFilters && (
-                <button
-                  type="button"
-                  onClick={resetAllFilters}
-                  className="text-[11px] font-mono text-red-600 hover:underline cursor-pointer"
-                  title="Clear all active criteria"
-                >
-                  Reset
-                </button>
-              )}
+              <button
+                type="button"
+                onClick={resetAllFilters}
+                className="px-2.5 py-1 bg-neutral-900 hover:bg-neutral-800 text-white hover:text-amber-400 text-[10px] font-bold uppercase tracking-wider rounded-xs transition-colors cursor-pointer border border-neutral-700"
+                title="Clear all active criteria"
+              >
+                Reset All
+              </button>
             </div>
 
             {/* Desktop Filter Accordions */}
             {renderFilterAccordions()}
 
-            {/* Coverage Tool Quick Trigger in Sidebar */}
-            <div className="pt-6 mt-2 border-t border-neutral-100">
+            {/* Filter Action Button */}
+            <div className="pt-4 mt-2 border-t border-neutral-100 space-y-2.5">
+              <button
+                type="button"
+                onClick={() => {}}
+                className="w-full py-2.5 bg-gradient-to-r from-amber-500 via-amber-600 to-amber-500 hover:from-amber-600 hover:to-amber-700 text-white text-xs font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer rounded-xs shadow-xs hover:shadow-md hover:shadow-amber-500/20"
+              >
+                Filter
+              </button>
+              
               <button
                 type="button"
                 onClick={onOpenCalculator}
-                className="w-full py-2.5 px-3 bg-neutral-950 hover:bg-[#C2A26F] text-white hover:text-neutral-950 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-colors cursor-pointer shadow-2xs"
+                className="w-full py-2 px-3 border border-neutral-300 hover:border-amber-500 hover:text-amber-600 text-neutral-800 text-[11px] font-medium uppercase tracking-wider flex items-center justify-center gap-1.5 transition-colors cursor-pointer rounded-xs group/calc"
               >
-                <Calculator className="w-3.5 h-3.5" />
+                <Calculator className="w-3.5 h-3.5 text-amber-500 group-hover/calc:scale-110 transition-transform" />
                 <span>Room Estimator</span>
               </button>
             </div>
@@ -631,10 +602,10 @@ export const CataloguePage: React.FC<CataloguePageProps> = ({
                   onClick={() => setMobileFilterOpen(true)}
                   className="lg:hidden inline-flex items-center gap-2 px-3 py-2 bg-neutral-950 text-white text-xs font-bold uppercase tracking-wider cursor-pointer shadow-xs active:scale-95 transition-transform"
                 >
-                  <SlidersHorizontal className="w-3.5 h-3.5 text-[#C2A26F]" />
+                  <SlidersHorizontal className="w-3.5 h-3.5 text-amber-400" />
                   <span>Filter & Refine</span>
                   {activeFilterCount > 0 && (
-                    <span className="w-5 h-5 rounded-full bg-[#C2A26F] text-neutral-950 text-[10px] font-bold flex items-center justify-center font-mono">
+                    <span className="w-5 h-5 rounded-full bg-gradient-to-r from-amber-500 to-amber-600 text-white text-[10px] font-bold flex items-center justify-center font-mono shadow-xs">
                       {activeFilterCount}
                     </span>
                   )}
@@ -676,9 +647,9 @@ export const CataloguePage: React.FC<CataloguePageProps> = ({
                 <div className="flex items-center border border-neutral-300 bg-neutral-100 p-0.5">
                   <button
                     type="button"
-                    onClick={() => setViewMode('cleopatra-editorial')}
+                    onClick={() => setViewMode('gallery-view')}
                     className={`px-2.5 py-1 text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer ${
-                      viewMode === 'cleopatra-editorial'
+                      viewMode === 'gallery-view'
                         ? 'bg-white text-neutral-950 shadow-2xs font-bold'
                         : 'text-neutral-500 hover:text-neutral-950'
                     }`}
@@ -761,7 +732,7 @@ export const CataloguePage: React.FC<CataloguePageProps> = ({
                       <button
                         type="button"
                         onClick={() => handleSetLook('All')}
-                        className="px-2 py-0.5 bg-[#C2A26F]/15 text-[#8f7447] font-semibold border border-[#C2A26F]/30 flex items-center gap-1 hover:bg-red-50"
+                        className="px-2 py-0.5 bg-amber-500/15 text-amber-700 font-semibold border border-amber-500/30 flex items-center gap-1 hover:bg-red-50"
                       >
                         <span>Look: {activeLook}</span>
                         <X className="w-2.5 h-2.5" />
@@ -819,7 +790,7 @@ export const CataloguePage: React.FC<CataloguePageProps> = ({
                 <button
                   type="button"
                   onClick={handleAddSelectedBatchToCart}
-                  className="px-4 py-1.5 bg-[#C2A26F] hover:bg-[#b0905e] text-neutral-950 font-bold uppercase tracking-wider transition-colors cursor-pointer shadow-xs flex items-center gap-1.5"
+                  className="px-4 py-1.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer shadow-xs flex items-center gap-1.5"
                 >
                   <ShoppingBag className="w-3.5 h-3.5" />
                   <span>Stage to Cart</span>
@@ -864,147 +835,67 @@ export const CataloguePage: React.FC<CataloguePageProps> = ({
                   Clear Filters
                 </button>
               </div>
-            ) : viewMode === 'cleopatra-editorial' ? (
+            ) : viewMode === 'gallery-view' ? (
               
               /* ========================================================
-                  CLEOPATRA EDITORIAL 3-COLUMN GALLERY
+                  3-COLUMN ARCHITECTURAL GALLERY
                  ======================================================== */
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-7">
                 {filteredProducts.map((product) => {
-                  const isSelected = selectedProductRefs.has(product.ref);
-                  const isTile = product.pricing_type === 'area';
-                  const sqmPerBox = product.sqm_per_box || 1.44;
-                  const boxPrice = product.bulk_price_per_box || ((product.price_per_sqm || 0) * sqmPerBox);
-
                   return (
                     <article
                       key={product.ref}
-                      onClick={() => onSelectProduct(product)}
-                      className="group bg-white border border-neutral-200/90 hover:border-neutral-950 transition-all duration-300 flex flex-col justify-between cursor-pointer overflow-hidden shadow-2xs hover:shadow-md"
+                      className="group bg-white border border-neutral-200 hover:border-neutral-400 transition-all duration-200 flex flex-col justify-between overflow-hidden shadow-2xs hover:shadow-md rounded-xs"
                     >
-                      {/* Lifestyle Room Render / Product Image */}
-                      <div className="relative aspect-4/3 w-full bg-[#EFEFEF] overflow-hidden">
+                      {/* Lifestyle Room Render / Product Image with Featured Star Badge */}
+                      <div
+                        onClick={() => onSelectProduct(product)}
+                        className="relative aspect-4/3 w-full bg-[#EFEFEF] overflow-hidden cursor-pointer"
+                      >
                         <img
                           src={product.image}
                           alt={product.name}
-                          className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+                          className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
                           loading="lazy"
                         />
 
-                        {/* Top-left: Specification badges */}
-                        <div className="absolute top-3 left-3 z-10 flex flex-wrap gap-1.5">
-                          {product.technology && (
-                            <span className="px-2 py-0.5 bg-neutral-950/85 backdrop-blur-xs text-white text-[9px] font-mono uppercase tracking-widest font-bold">
-                              {product.technology}
-                            </span>
-                          )}
-                          {product.surfaceType && (
-                            <span className="px-2 py-0.5 bg-white/90 backdrop-blur-xs text-neutral-900 text-[9px] font-mono uppercase tracking-widest font-semibold border border-neutral-300">
-                              {product.surfaceType}
-                            </span>
-                          )}
-                        </div>
-
-                        {/* Top-right: Batch select check */}
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            toggleBatchSelect(product);
-                          }}
-                          className={`absolute top-3 right-3 z-20 w-6 h-6 border flex items-center justify-center transition-colors cursor-pointer ${
-                            isSelected
-                              ? 'bg-[#C2A26F] border-[#C2A26F] text-neutral-950 font-bold'
-                              : 'bg-white/90 border-neutral-300 text-transparent hover:border-neutral-950'
-                          }`}
-                          title="Select for batch action"
-                        >
-                          <Check className="w-3.5 h-3.5" />
-                        </button>
-
-                        {/* Hover Quick View overlay */}
-                        <div className="absolute inset-0 bg-neutral-950/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
-                          <span className="px-3 py-1.5 bg-white/95 text-neutral-950 text-[11px] font-bold uppercase tracking-wider shadow-sm flex items-center gap-1.5">
-                            <Maximize2 className="w-3 h-3 text-[#C2A26F]" />
-                            <span>Quick Spec</span>
-                          </span>
+                        {/* Architectural Star Icon Badge */}
+                        <div className="absolute top-2.5 left-2.5 z-10 w-7 h-7 rounded-full bg-black/60 backdrop-blur-xs flex items-center justify-center text-white border border-white/20 shadow-xs">
+                          <svg
+                            className="w-3.5 h-3.5 fill-amber-400 text-amber-400"
+                            viewBox="0 0 24 24"
+                          >
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                          </svg>
                         </div>
                       </div>
 
-                      {/* Cleopatra Bottom Label Strip */}
-                      <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
-                        
+                      {/* Product Label Strip */}
+                      <div className="p-4 flex-1 flex flex-col justify-between bg-white">
                         <div>
-                          {/* Top row: Collection name & VIEW DETAILS underlined */}
-                          <div className="flex items-start justify-between gap-3 border-b border-neutral-100 pb-2.5">
-                            <h3 className="text-sm sm:text-base font-bold text-neutral-950 uppercase tracking-wide font-heading group-hover:text-[#C2A26F] transition-colors leading-snug">
-                              {product.name}
-                            </h3>
-                            <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-950 underline underline-offset-4 group-hover:text-[#C2A26F] transition-colors shrink-0">
-                              View Details
-                            </span>
-                          </div>
-
-                          {/* Dimensions & Surface Specs */}
-                          <div className="mt-2.5 flex items-center justify-between text-xs text-neutral-500 font-mono">
-                            <span>{product.dimension} · {product.finish || 'Polished'}</span>
-                            {product.origin && (
-                              <span className="text-[10px] text-neutral-400 uppercase">{product.origin}</span>
-                            )}
-                          </div>
-                        </div>
-
-                        {/* Dual Pricing Bar & Quick Add */}
-                        <div className="mt-4 pt-3 border-t border-neutral-100 flex items-end justify-between">
-                          {isTile ? (
-                            <div>
-                              <span className="text-[10px] font-mono text-neutral-400 uppercase block">
-                                m² Rate / Carton
-                              </span>
-                              <div className="text-sm sm:text-base font-bold text-neutral-950">
-                                {formatKES(product.price_per_sqm || 0)}
-                                <span className="text-[11px] font-normal text-neutral-500 ml-1">/ m²</span>
-                              </div>
-                              <span className="text-[10px] font-mono text-neutral-500 block">
-                                {formatKES(boxPrice)} / Box ({sqmPerBox} m²)
-                              </span>
-                            </div>
-                          ) : (
-                            <div>
-                              <span className="text-[10px] font-mono text-neutral-400 uppercase block">
-                                Unit Rate
-                              </span>
-                              <div className="text-sm sm:text-base font-bold text-neutral-950">
-                                {formatKES(product.price_per_unit || 0)}
-                                <span className="text-[11px] font-normal text-neutral-500 ml-1">/ Pc</span>
-                              </div>
-                            </div>
-                          )}
-
-                          {/* Quick Add Button */}
-                          <button
-                            type="button"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              if (isTile) {
-                                addTileToCart({
-                                  product,
-                                  mode: 'box',
-                                  boxes: 5,
-                                  coverageM2: Number((5 * sqmPerBox).toFixed(2)),
-                                  withWastage: false,
-                                  openDrawer: false,
-                                });
-                              }
-                            }}
-                            className="px-3 py-1.5 border border-neutral-300 hover:border-neutral-950 hover:bg-neutral-950 hover:text-white text-neutral-900 text-xs font-semibold transition-colors flex items-center gap-1.5 cursor-pointer"
-                            title="Add starter carton allocation to cart"
+                          {/* Product Name in clean uppercase */}
+                          <h3
+                            onClick={() => onSelectProduct(product)}
+                            className="text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-900 truncate group-hover:text-amber-600 transition-colors cursor-pointer font-heading"
+                            title={product.name}
                           >
-                            <ShoppingBag className="w-3 h-3 text-[#C2A26F]" />
-                            <span>Quick Add</span>
-                          </button>
+                            {product.name}
+                          </h3>
+
+                          {/* Price */}
+                          <p className="text-xs text-neutral-600 mt-1 font-medium font-sans">
+                            From {formatKES(product.pricing_type === 'area' ? (product.price_per_sqm || 0) : (product.price_per_unit || 0))} / {product.pricing_type === 'area' ? 'Sqm' : 'Pc'}
+                          </p>
                         </div>
 
+                        {/* Details Outline Button */}
+                        <button
+                          type="button"
+                          onClick={() => onSelectProduct(product)}
+                          className="w-full mt-3.5 py-2 border border-neutral-700 hover:border-amber-500 hover:bg-gradient-to-r hover:from-amber-500 hover:to-amber-600 hover:text-white text-neutral-900 text-xs font-medium uppercase tracking-wider transition-all duration-200 cursor-pointer text-center block rounded-xs shadow-2xs"
+                        >
+                          Details
+                        </button>
                       </div>
                     </article>
                   );
@@ -1029,7 +920,7 @@ export const CataloguePage: React.FC<CataloguePageProps> = ({
                         }}
                         className={`absolute top-3 left-3 z-20 w-6 h-6 border flex items-center justify-center transition-colors cursor-pointer ${
                           isSelected
-                            ? 'bg-[#C2A26F] border-[#C2A26F] text-neutral-950 font-bold'
+                            ? 'bg-amber-500 border-amber-500 text-white font-bold'
                             : 'bg-white/90 border-neutral-300 text-transparent hover:border-neutral-950'
                         }`}
                         title="Select for batch action"
@@ -1040,6 +931,7 @@ export const CataloguePage: React.FC<CataloguePageProps> = ({
                       <ProductCard
                         product={product}
                         onSelect={onSelectProduct}
+                        onSimulate={onOpenSimulator}
                       />
                     </div>
                   );
@@ -1087,7 +979,7 @@ export const CataloguePage: React.FC<CataloguePageProps> = ({
                     Filter & Refine
                   </h3>
                   {activeFilterCount > 0 && (
-                    <span className="w-5 h-5 rounded-full bg-[#C2A26F] text-neutral-950 text-[10px] font-bold flex items-center justify-center font-mono">
+                    <span className="w-5 h-5 rounded-full bg-gradient-to-r from-amber-500 to-amber-600 text-white text-[10px] font-bold flex items-center justify-center font-mono shadow-xs">
                       {activeFilterCount}
                     </span>
                   )}
@@ -1122,7 +1014,7 @@ export const CataloguePage: React.FC<CataloguePageProps> = ({
                 <button
                   type="button"
                   onClick={() => setMobileFilterOpen(false)}
-                  className="py-3 bg-neutral-950 text-white text-xs font-bold uppercase tracking-wider hover:bg-[#C2A26F] hover:text-neutral-950 transition-colors shadow-xs"
+                  className="py-3 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white text-xs font-bold uppercase tracking-wider transition-all duration-200 shadow-xs"
                 >
                   Show {filteredProducts.length} Items
                 </button>

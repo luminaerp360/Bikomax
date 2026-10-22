@@ -44,7 +44,7 @@ export const TradePage: React.FC = () => {
         <div className="relative w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
           <div className="max-w-3xl space-y-4">
             <AnimatedReveal>
-              <span className="text-[11px] font-mono tracking-widest uppercase text-[#C2A26F] font-medium block">
+              <span className="text-[11px] font-mono tracking-widest uppercase text-amber-600 font-medium block">
                 Architects, Quantity Surveyors & Builders
               </span>
             </AnimatedReveal>
@@ -73,7 +73,7 @@ export const TradePage: React.FC = () => {
           >
             <StaggerItem>
               <div className="p-6 bg-white border border-neutral-200/80 arch-crosshair shadow-2xs hover:shadow-md transition-shadow duration-300 space-y-2.5">
-                <Boxes className="w-5 h-5 text-[#C2A26F]" />
+                <Boxes className="w-5 h-5 text-amber-500" />
                 <h3 className="font-bold text-xs uppercase tracking-wider text-neutral-950 font-heading">
                   Palletized Wholesale
                 </h3>
@@ -85,7 +85,7 @@ export const TradePage: React.FC = () => {
 
             <StaggerItem>
               <div className="p-6 bg-white border border-neutral-200/80 arch-crosshair shadow-2xs hover:shadow-md transition-shadow duration-300 space-y-2.5">
-                <Layers className="w-5 h-5 text-[#C2A26F]" />
+                <Layers className="w-5 h-5 text-amber-500" />
                 <h3 className="font-bold text-xs uppercase tracking-wider text-neutral-950 font-heading">
                   Batch Code Guarantee
                 </h3>
@@ -97,7 +97,7 @@ export const TradePage: React.FC = () => {
 
             <StaggerItem>
               <div className="p-6 bg-white border border-neutral-200/80 arch-crosshair shadow-2xs hover:shadow-md transition-shadow duration-300 space-y-2.5">
-                <Truck className="w-5 h-5 text-[#C2A26F]" />
+                <Truck className="w-5 h-5 text-amber-500" />
                 <h3 className="font-bold text-xs uppercase tracking-wider text-neutral-950 font-heading">
                   Site Staged Delivery
                 </h3>
@@ -109,7 +109,7 @@ export const TradePage: React.FC = () => {
 
             <StaggerItem>
               <div className="p-6 bg-white border border-neutral-200/80 arch-crosshair shadow-2xs hover:shadow-md transition-shadow duration-300 space-y-2.5">
-                <FileText className="w-5 h-5 text-[#C2A26F]" />
+                <FileText className="w-5 h-5 text-amber-500" />
                 <h3 className="font-bold text-xs uppercase tracking-wider text-neutral-950 font-heading">
                   E-TIMS & KRA Invoicing
                 </h3>
@@ -128,7 +128,7 @@ export const TradePage: React.FC = () => {
           {/* Left: Form with Scroll Reveal */}
           <AnimatedReveal delay={0.15} className="lg:col-span-7 bg-white p-7 sm:p-9 border border-neutral-200 shadow-sm arch-crosshair">
             <div className="mb-6">
-              <span className="text-xs font-mono uppercase tracking-wider text-[#C2A26F] font-bold">
+              <span className="text-xs font-mono uppercase tracking-wider text-amber-600 font-bold">
                 Commercial Tender & BQ Request
               </span>
               <h2 className="text-2xl sm:text-3xl font-light font-heading text-neutral-950 mt-1">
@@ -324,7 +324,7 @@ export const TradePage: React.FC = () => {
             </AnimatedReveal>
 
             <AnimatedReveal delay={0.35} className="bg-neutral-950 bg-arch-dark-grid text-white p-7 border border-neutral-800 space-y-3">
-              <span className="text-[10px] font-mono tracking-widest uppercase text-[#C2A26F] font-semibold block">
+              <span className="text-[10px] font-mono tracking-widest uppercase text-amber-400 font-semibold block">
                 Trade WhatsApp Desk
               </span>
               <h4 className="font-bold text-base font-heading">

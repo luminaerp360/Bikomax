@@ -16,6 +16,7 @@ import { ContactPage } from './pages/ContactPage';
 import { TradePage } from './pages/TradePage';
 import { ProductDetailModal } from './components/ProductDetailModal';
 import { CoverageCalculatorModal } from './components/CoverageCalculatorModal';
+import { RoomSimulatorModal } from './components/RoomSimulatorModal';
 import { CartDrawer } from './components/CartDrawer';
 import { CheckoutModal } from './components/CheckoutModal';
 import { CartToastNotification } from './components/CartToastNotification';
@@ -77,15 +78,24 @@ function MainApp() {
   const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
   const [calculatorSelectedProduct, setCalculatorSelectedProduct] = useState<Product | undefined>(undefined);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
+  const [isSimulatorOpen, setIsSimulatorOpen] = useState(false);
+  const [simulatorTileRef, setSimulatorTileRef] = useState<string | undefined>(undefined);
+  const [simulatorRoomId, setSimulatorRoomId] = useState<string | undefined>(undefined);
 
   const handleOpenCalculatorWithProduct = (product: Product) => {
     setCalculatorSelectedProduct(product);
     setIsCalculatorOpen(true);
   };
 
+  const handleOpenSimulator = (tileRef?: string, roomId?: string) => {
+    setSimulatorTileRef(tileRef);
+    setSimulatorRoomId(roomId);
+    setIsSimulatorOpen(true);
+  };
+
   return (
     <div className="min-h-screen bg-[#FAFAFA] text-[#0A0A0A] flex flex-col font-sans">
-      {/* Sticky Top Header Navigation with Cleopatra Mega-Menus */}
+      {/* Sticky Top Header Navigation with Architectural Mega-Menus */}
       <Navbar
         currentPage={currentPage}
         onNavigate={navigateTo}
@@ -95,6 +105,7 @@ function MainApp() {
           setCalculatorSelectedProduct(undefined);
           setIsCalculatorOpen(true);
         }}
+        onOpenSimulator={handleOpenSimulator}
         onFilterNavigate={handleFilterNavigate}
         onSelectProduct={(p) => setSelectedProduct(p)}
       />
@@ -126,6 +137,7 @@ function MainApp() {
                   setSelectedCategory(cat);
                   navigateTo('catalogue');
                 }}
+                onOpenSimulatorModal={handleOpenSimulator}
                 onFilterCatalogue={handleFilterNavigate}
               />
             )}
@@ -149,6 +161,7 @@ function MainApp() {
                   setCalculatorSelectedProduct(undefined);
                   setIsCalculatorOpen(true);
                 }}
+                onOpenSimulator={handleOpenSimulator}
               />
             )}
 
@@ -205,6 +218,7 @@ function MainApp() {
           }
           setIsCalculatorOpen(true);
         }}
+        onOpenSimulator={handleOpenSimulator}
       />
 
       {/* Multi-Room Coverage Estimator Modal */}
@@ -213,6 +227,16 @@ function MainApp() {
         onClose={() => setIsCalculatorOpen(false)}
         products={INITIAL_PRODUCTS}
         selectedProduct={calculatorSelectedProduct}
+      />
+
+      {/* 3D Interactive Room Simulator Studio Modal */}
+      <RoomSimulatorModal
+        isOpen={isSimulatorOpen}
+        onClose={() => setIsSimulatorOpen(false)}
+        products={INITIAL_PRODUCTS}
+        initialTileRef={simulatorTileRef}
+        initialRoomId={simulatorRoomId}
+        onOpenCalculatorWithProduct={handleOpenCalculatorWithProduct}
       />
 
       {/* Footer */}

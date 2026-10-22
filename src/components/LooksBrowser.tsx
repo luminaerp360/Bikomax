@@ -68,7 +68,7 @@ export const LooksBrowser: React.FC<LooksBrowserProps> = ({ onSelectLook }) => {
       <div className="relative w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
         {/* Section Heading */}
         <div className="text-center max-w-2xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 text-[11px] font-mono uppercase tracking-widest text-[#C2A26F] font-semibold mb-2">
+          <div className="inline-flex items-center gap-2 text-[11px] font-mono uppercase tracking-widest text-amber-400 font-semibold mb-2">
             <Compass className="w-3.5 h-3.5" />
             <span>Material Aesthetics</span>
           </div>
@@ -88,7 +88,7 @@ export const LooksBrowser: React.FC<LooksBrowserProps> = ({ onSelectLook }) => {
               whileHover={{ y: -6 }}
               transition={{ duration: 0.25 }}
               onClick={() => onSelectLook(cat.id)}
-              className="group relative aspect-4/5 sm:aspect-3/4 rounded-none overflow-hidden cursor-pointer border border-neutral-800 hover:border-[#C2A26F] transition-all duration-300 shadow-xl"
+              className="group relative aspect-4/5 sm:aspect-3/4 rounded-none overflow-hidden cursor-pointer border border-neutral-800 hover:border-amber-500 transition-all duration-300 shadow-xl"
             >
               {/* Background Image with Zoom */}
               <img
@@ -108,7 +108,7 @@ export const LooksBrowser: React.FC<LooksBrowserProps> = ({ onSelectLook }) => {
 
               {/* Bottom Details */}
               <div className="absolute bottom-4 left-3 right-3 text-left">
-                <span className="text-[10px] font-mono tracking-wider text-[#C2A26F] uppercase block font-semibold">
+                <span className="text-[10px] font-mono tracking-wider text-amber-400 uppercase block font-semibold">
                   Aesthetic
                 </span>
                 <h3 className="text-white text-base sm:text-lg font-bold font-heading group-hover:text-amber-100 transition-colors">
@@ -118,7 +118,7 @@ export const LooksBrowser: React.FC<LooksBrowserProps> = ({ onSelectLook }) => {
                   {cat.subtitle}
                 </p>
 
-                <div className="mt-2.5 inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-widest text-[#C2A26F] group-hover:translate-x-1 transition-transform">
+                <div className="mt-2.5 inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-widest text-amber-400 group-hover:text-amber-300 group-hover:translate-x-1 transition-all">
                   <span>Explore</span>
                   <ArrowRight className="w-3 h-3" />
                 </div>

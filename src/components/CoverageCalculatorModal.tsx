@@ -118,7 +118,7 @@ export const CoverageCalculatorModal: React.FC<CoverageCalculatorModalProps> = (
         {/* Header */}
         <div className="p-5 sm:p-6 bg-neutral-900 text-white flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="p-2.5 bg-neutral-800 border border-neutral-700 text-[#C2A26F]">
+            <div className="p-2.5 bg-neutral-800 border border-neutral-700 text-amber-500">
               <Calculator className="w-5 h-5" />
             </div>
             <div>
@@ -169,7 +169,7 @@ export const CoverageCalculatorModal: React.FC<CoverageCalculatorModalProps> = (
                     <span className="text-[11px] text-neutral-500 block">
                       {tile.dimension} · {tile.sqm_per_box} m²/box
                     </span>
-                    <span className="text-[11px] font-semibold text-[#C2A26F] block">
+                    <span className="text-[11px] font-semibold text-amber-600 block">
                       {formatKES(tile.bulk_price_per_box || 0)}/box
                     </span>
                   </div>
@@ -319,8 +319,8 @@ export const CoverageCalculatorModal: React.FC<CoverageCalculatorModalProps> = (
                 </span>
               </div>
               <div>
-                <span className="text-[#C2A26F] block text-[11px] font-semibold">Total Gross Area:</span>
-                <span className="text-sm font-bold font-mono text-[#C2A26F]">{totalGrossSqm} m²</span>
+                <span className="text-amber-400 block text-[11px] font-semibold">Total Gross Area:</span>
+                <span className="text-sm font-bold font-mono text-amber-400">{totalGrossSqm} m²</span>
               </div>
               <div>
                 <span className="text-neutral-400 block text-[11px]">Carton Spec:</span>
@@ -341,7 +341,7 @@ export const CoverageCalculatorModal: React.FC<CoverageCalculatorModalProps> = (
 
               <div className="text-right">
                 <span className="text-xs text-neutral-400 block">Estimated Investment:</span>
-                <div className="text-2xl font-black text-[#C2A26F] font-heading">
+                <div className="text-2xl font-black text-amber-400 font-heading">
                   {formatKES(totalCost)}
                 </div>
               </div>

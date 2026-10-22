@@ -3,13 +3,14 @@ import { motion } from 'motion/react';
 import { Product, TileOrderMode } from '../types';
 import { formatKES } from '../utils/formatters';
 import { useCart } from '../context/CartContext';
-import { Check, Plus, Minus, Maximize2, ShoppingBag } from 'lucide-react';
+import { Check, Plus, Minus, Maximize2, ShoppingBag, Sparkles } from 'lucide-react';
 
 interface ProductCardProps {
   product: Product;
   onSelect: (product: Product) => void;
   isSelectedForBatch?: boolean;
   onToggleBatchSelect?: (product: Product) => void;
+  onSimulate?: (tileRef: string) => void;
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({
@@ -17,6 +18,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   onSelect,
   isSelectedForBatch = false,
   onToggleBatchSelect,
+  onSimulate,
 }) => {
   const { addTileToCart, addUnitToCart } = useCart();
 
@@ -132,6 +134,22 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           </div>
         )}
 
+        {/* 3D Room Simulator Quick Button for Tiles */}
+        {product.pricing_type === 'area' && onSimulate && (
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onSimulate(product.ref);
+            }}
+            className="absolute bottom-3 left-3 px-2 py-1 bg-neutral-950/90 hover:bg-amber-500 text-amber-400 hover:text-neutral-950 text-[10px] font-mono uppercase tracking-wider font-bold transition-all shadow-md flex items-center gap-1 cursor-pointer"
+            title="Simulate in 3D Room"
+          >
+            <Sparkles className="w-3 h-3" />
+            <span>Simulate</span>
+          </button>
+        )}
+
         {/* Quick View Button */}
         <button
           type="button"
@@ -181,7 +199,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               </div>
 
               <div className="text-right">
-                <span className="text-[10px] uppercase tracking-wider text-[#C2A26F] font-semibold block">
+                <span className="text-[10px] uppercase tracking-wider text-amber-600 font-semibold block">
                   Bulk Box Rate
                 </span>
                 <div className="text-base font-bold text-neutral-950">
@@ -409,7 +427,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               </>
             ) : (
               <>
-                <ShoppingBag className="w-3.5 h-3.5 text-[#C2A26F]" />
+                <ShoppingBag className="w-3.5 h-3.5 text-amber-500" />
                 {product.pricing_type === 'area'
                   ? `Add ${orderMode === 'coverage' ? calculatedBoxesFromCoverage : boxQuantity} Box${(orderMode === 'coverage' ? calculatedBoxesFromCoverage : boxQuantity) > 1 ? 'es' : ''} to Cart`
                   : `Add ${unitQuantity} Unit${unitQuantity > 1 ? 's' : ''} to Cart`}

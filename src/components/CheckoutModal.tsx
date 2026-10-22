@@ -187,7 +187,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
           {/* Header */}
           <div className="p-5 sm:p-6 bg-neutral-900 text-white flex items-center justify-between">
             <div>
-              <span className="text-[10px] tracking-widest uppercase text-[#C2A26F] font-semibold block font-heading">
+              <span className="text-[10px] tracking-widest uppercase text-amber-500 font-semibold block font-heading">
                 Kenyan Architectural Procurement
               </span>
               <h2 className="text-xl sm:text-2xl font-black font-heading tracking-tight">
@@ -392,7 +392,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   >
                     <div className="flex items-start justify-between">
                       <div className="flex items-center gap-2">
-                        <Store className="w-4 h-4 text-[#C2A26F]" />
+                        <Store className="w-4 h-4 text-amber-500" />
                         <span className="font-bold text-xs uppercase tracking-wider text-[#0A0A0A]">
                           Showroom Pickup
                         </span>
@@ -421,7 +421,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   >
                     <div className="flex items-start justify-between">
                       <div className="flex items-center gap-2">
-                        <Truck className="w-4 h-4 text-[#C2A26F]" />
+                        <Truck className="w-4 h-4 text-amber-500" />
                         <span className="font-bold text-xs uppercase tracking-wider text-[#0A0A0A]">
                           Site Delivery
                         </span>

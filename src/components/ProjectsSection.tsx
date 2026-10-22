@@ -14,7 +14,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onExploreProje
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
           <div>
-            <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#C2A26F] font-bold block mb-1">
+            <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-amber-600 font-bold block mb-1">
               Portfolio & Track Record
             </span>
             <h2 className="text-3xl sm:text-5xl font-light font-heading text-neutral-950 tracking-tight">
@@ -28,7 +28,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onExploreProje
           <button
             type="button"
             onClick={onExploreProjects}
-            className="text-xs font-bold uppercase tracking-wider text-neutral-950 hover:text-[#C2A26F] transition-colors flex items-center gap-1.5 cursor-pointer group shrink-0"
+            className="text-xs font-bold uppercase tracking-wider text-neutral-950 hover:text-amber-600 transition-colors flex items-center gap-1.5 cursor-pointer group shrink-0"
           >
             <span>View All Landmark Projects</span>
             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
@@ -63,7 +63,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onExploreProje
               <p className="text-xs text-neutral-300 font-normal line-clamp-2">
                 Seamless Calacatta Gold and French oak parquet porcelain floors supplied with custom-cut step treads and matched skirting.
               </p>
-              <div className="pt-2 text-xs font-bold uppercase tracking-wider text-[#C2A26F] inline-flex items-center gap-1">
+              <div className="pt-2 text-xs font-bold uppercase tracking-wider text-amber-400 group-hover:text-amber-300 transition-colors inline-flex items-center gap-1">
                 <span>View Portfolio</span>
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
               </div>
@@ -95,7 +95,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onExploreProje
               <p className="text-xs text-neutral-300 font-normal line-clamp-2">
                 Monolithic 120×240 cm sintered slabs and PEI 5 heavy-traffic porcelain specified for corporate lobbies and boutique guest rooms.
               </p>
-              <div className="pt-2 text-xs font-bold uppercase tracking-wider text-[#C2A26F] inline-flex items-center gap-1">
+              <div className="pt-2 text-xs font-bold uppercase tracking-wider text-amber-400 group-hover:text-amber-300 transition-colors inline-flex items-center gap-1">
                 <span>View Portfolio</span>
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
               </div>

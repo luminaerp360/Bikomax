@@ -26,7 +26,7 @@ export const CartToastNotification: React.FC = () => {
               <div className="text-xs font-bold font-heading text-white flex items-center gap-1.5">
                 <span>{toast.title}</span>
                 <span className="text-neutral-500 font-normal">·</span>
-                <span className="text-[#C2A26F] text-[11px] font-mono font-medium">
+                <span className="text-amber-400 text-[11px] font-mono font-medium">
                   Cart: {totalItemsCount}
                 </span>
               </div>
@@ -38,7 +38,7 @@ export const CartToastNotification: React.FC = () => {
                 <button
                   type="button"
                   onClick={openCart}
-                  className="px-3 py-1 bg-[#C2A26F] hover:bg-[#967b4b] text-neutral-950 text-[11px] font-bold uppercase tracking-wider flex items-center gap-1 transition-colors cursor-pointer"
+                  className="px-3 py-1 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-neutral-950 text-[11px] font-bold uppercase tracking-wider flex items-center gap-1 transition-all cursor-pointer shadow-xs"
                 >
                   <ShoppingBag className="w-3 h-3" />
                   <span>View Cart</span>

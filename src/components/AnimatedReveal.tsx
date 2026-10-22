@@ -159,13 +159,13 @@ export const PatternDivider: React.FC<{
         <div className="w-full border-t border-neutral-200/80"></div>
       </div>
       <div className="relative bg-[#FAFAFA] px-4 flex items-center gap-2">
-        <span className="w-1.5 h-1.5 bg-[#C2A26F] rotate-45 inline-block"></span>
+        <span className="w-1.5 h-1.5 bg-amber-500 rotate-45 inline-block"></span>
         {label && (
           <span className="text-[10px] font-mono tracking-widest uppercase text-neutral-400 font-medium">
             {label}
           </span>
         )}
-        <span className="w-1.5 h-1.5 bg-[#C2A26F] rotate-45 inline-block"></span>
+        <span className="w-1.5 h-1.5 bg-amber-500 rotate-45 inline-block"></span>
       </div>
     </div>
   );
