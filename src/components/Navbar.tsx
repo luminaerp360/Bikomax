@@ -36,6 +36,7 @@ interface NavbarProps {
   onSearchChange: (query: string) => void;
   onOpenCalculator: () => void;
   onOpenSimulator?: (tileRef?: string, roomId?: string) => void;
+  products?: Product[];
   onFilterNavigate?: (filters: {
     category?: string;
     technology?: string;
@@ -52,6 +53,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onSearchChange,
   onOpenCalculator,
   onOpenSimulator,
+  products = [],
   onFilterNavigate,
   onSelectProduct,
 }) => {
@@ -618,7 +620,20 @@ export const Navbar: React.FC<NavbarProps> = ({
               )}
             </div>
 
-            {/* DEPARTMENT 2: BATHROOMS & SANITARY */}
+            {/* DEPARTMENT 2: SPC FLOORING */}
+            <button
+              type="button"
+              onClick={() => handleFilterClick({ category: 'SPC Flooring' })}
+              className="relative py-3.5 px-2.5 xl:px-3 cursor-pointer flex items-center gap-1.5 transition-all duration-200 text-neutral-700 hover:text-amber-600 group shrink-0"
+            >
+              <Layers className="w-3.5 h-3.5 text-amber-500 group-hover:scale-110 transition-transform" />
+              <span className="transition-transform duration-200 group-hover:-translate-y-0.5">SPC Flooring</span>
+              <span className="text-[9px] bg-amber-500/10 text-amber-700 border border-amber-500/30 px-1.5 py-0.5 rounded-xs font-sans font-semibold uppercase tracking-wider">
+                Rigid Core
+              </span>
+            </button>
+
+            {/* DEPARTMENT 3: BATHROOMS & SANITARY */}
             <div
               className="relative group"
               onMouseEnter={() => setActiveDepartment('bathrooms')}
@@ -1155,6 +1170,13 @@ export const Navbar: React.FC<NavbarProps> = ({
                 className="p-3 bg-neutral-50 border border-neutral-200 text-left hover:border-amber-500 hover:text-amber-600 transition-colors"
               >
                 Tiles & Slabs
+              </button>
+              <button
+                type="button"
+                onClick={() => handleFilterClick({ category: 'SPC Flooring' })}
+                className="p-3 bg-neutral-50 border border-neutral-200 text-left hover:border-amber-500 hover:text-amber-600 transition-colors"
+              >
+                SPC Flooring
               </button>
               <button
                 type="button"

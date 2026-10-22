@@ -36,6 +36,8 @@ interface CataloguePageProps {
   onTechnologyChange?: (tech: string) => void;
   selectedDestination?: string;
   onDestinationChange?: (dest: string) => void;
+  backendError?: string | null;
+  onRetry?: () => void;
 }
 
 export const CataloguePage: React.FC<CataloguePageProps> = ({
@@ -54,6 +56,8 @@ export const CataloguePage: React.FC<CataloguePageProps> = ({
   onTechnologyChange,
   selectedDestination = 'All',
   onDestinationChange,
+  backendError,
+  onRetry,
 }) => {
   const { addBatchToCart, addTileToCart } = useCart();
   const [sortBy, setSortBy] = useState<'featured' | 'price-asc' | 'price-desc'>('featured');
@@ -66,6 +70,7 @@ export const CataloguePage: React.FC<CataloguePageProps> = ({
 
   // Accordion section collapse state
   const [openSections, setOpenSections] = useState<{ [key: string]: boolean }>({
+    category: true,
     type: true,
     looks: true,
     destination: true,
@@ -249,6 +254,59 @@ export const CataloguePage: React.FC<CataloguePageProps> = ({
   const renderFilterAccordions = () => (
     <div className="divide-y divide-neutral-100 text-xs">
       
+      {/* SECTION 0: DEPARTMENT / CATEGORY */}
+      <div className="py-4">
+        <button
+          type="button"
+          onClick={() => toggleSection('category')}
+          className="w-full flex items-center justify-between font-bold text-neutral-900 uppercase tracking-wider text-[11px] cursor-pointer"
+        >
+          <span>Department / Category</span>
+          {openSections.category ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+        </button>
+
+        {openSections.category && (
+          <div className="mt-3 space-y-2.5 pl-1">
+            {[
+              { id: 'All', label: 'All Collections' },
+              { id: 'Tiles', label: 'Tiles' },
+              { id: 'SPC Flooring', label: 'SPC Flooring' },
+              { id: 'Sanitaryware', label: 'Sanitaryware' },
+              { id: 'Electrical', label: 'Electrical' },
+            ].map((cat) => {
+              const isSelected = selectedCategory === cat.id;
+              return (
+                <label
+                  key={cat.id}
+                  onClick={() => {
+                    onCategoryChange(cat.id);
+                    handleSetTech('All');
+                    handleSetLook('All');
+                    handleSetDest('All');
+                    setActiveSurfaceType('All');
+                    setActiveDimension('All');
+                  }}
+                  className="flex items-center gap-2.5 text-neutral-600 hover:text-neutral-950 cursor-pointer select-none transition-colors"
+                >
+                  <span
+                    className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center transition-all ${
+                      isSelected
+                        ? 'border-neutral-950 bg-neutral-950'
+                        : 'border-neutral-300 hover:border-neutral-500'
+                    }`}
+                  >
+                    {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
+                  </span>
+                  <span className={isSelected ? 'font-bold text-neutral-950' : 'font-normal'}>
+                    {cat.label}
+                  </span>
+                </label>
+              );
+            })}
+          </div>
+        )}
+      </div>
+
       {/* SECTION A: TYPE / SURFACE */}
       <div className="py-4">
         <button
@@ -482,23 +540,110 @@ export const CataloguePage: React.FC<CataloguePageProps> = ({
 
   return (
     <div className="bg-[#FAFAFA] text-neutral-950 font-sans min-h-screen pb-28">
-      {/* 1. TOP SOLID ARCHITECTURAL LUXURY BANNER */}
-      <section className="bg-gradient-to-r from-neutral-950 via-neutral-900 to-neutral-950 text-white py-7 sm:py-9 text-center shadow-xs border-b border-neutral-800">
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <span className="text-[10px] font-nav uppercase tracking-[0.25em] text-amber-500 font-semibold block mb-1.5">
-            Bikomax Architectural Catalog
-          </span>
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-heading font-medium tracking-wide capitalize">
-            {activeDest !== 'All'
-              ? activeDest === 'Living'
-                ? 'Living Room'
-                : activeDest
-              : selectedCategory !== 'All'
-              ? selectedCategory
-              : activeLook !== 'All'
-              ? `${activeLook} Collection`
-              : 'Architectural Collections'}
-          </h1>
+      {/* 1. TOP CLEOPATRA DARK BANNER & SUB-NAV */}
+      <section className="bg-[#111111] text-white pt-6 sm:pt-8 pb-10 sm:pb-14 border-b border-neutral-800">
+        <div className="w-full px-4 sm:px-6 lg:px-8">
+          
+          {/* Sub-brand Centered Category Navigation */}
+          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-8 pb-6 border-b border-white/10 text-xs sm:text-sm font-semibold tracking-wider uppercase text-neutral-300">
+            <button
+              type="button"
+              onClick={() => {
+                onCategoryChange('All');
+                handleSetTech('All');
+              }}
+              className={`hover:text-[#C2A26F] transition-colors cursor-pointer ${
+                selectedCategory === 'All' ? 'text-[#C2A26F] font-bold border-b-2 border-[#C2A26F] pb-1' : ''
+              }`}
+            >
+              All Collections
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                onCategoryChange('Tiles');
+                handleSetTech('All');
+              }}
+              className={`hover:text-[#C2A26F] transition-colors cursor-pointer ${
+                selectedCategory === 'Tiles' ? 'text-[#C2A26F] font-bold border-b-2 border-[#C2A26F] pb-1' : ''
+              }`}
+            >
+              Tiles
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                onCategoryChange('Sanitaryware');
+                handleSetTech('All');
+              }}
+              className={`hover:text-[#C2A26F] transition-colors cursor-pointer ${
+                selectedCategory === 'Sanitaryware' ? 'text-[#C2A26F] font-bold border-b-2 border-[#C2A26F] pb-1' : ''
+              }`}
+            >
+              Sanitaryware
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                onCategoryChange('Electrical');
+                handleSetTech('All');
+              }}
+              className={`hover:text-[#C2A26F] transition-colors cursor-pointer ${
+                selectedCategory === 'Electrical' ? 'text-[#C2A26F] font-bold border-b-2 border-[#C2A26F] pb-1' : ''
+              }`}
+            >
+              Electrical
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                onCategoryChange('SPC Flooring');
+                handleSetTech('All');
+              }}
+              className={`hover:text-[#C2A26F] transition-colors cursor-pointer ${
+                selectedCategory === 'SPC Flooring' ? 'text-[#C2A26F] font-bold border-b-2 border-[#C2A26F] pb-1' : ''
+              }`}
+            >
+              SPC Flooring
+            </button>
+          </div>
+
+          {/* Large Cleopatra Centered Editorial Banner */}
+          <div className="pt-6 sm:pt-10 text-center max-w-3xl mx-auto space-y-2">
+            <span className="text-[10px] sm:text-[11px] font-mono tracking-widest uppercase text-[#C2A26F] font-semibold block">
+              {selectedCategory === 'SPC Flooring'
+                ? 'Rigid Core Surface Engineering'
+                : selectedCategory === 'Tiles'
+                ? 'Architectural Porcelain & Ceramics'
+                : selectedCategory === 'Sanitaryware'
+                ? 'European Luxury Water & Wellness'
+                : selectedCategory === 'Electrical'
+                ? 'British Standard Architectural Power'
+                : 'Architectural Surfaces & Living Spaces'}
+            </span>
+            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-light tracking-tight font-heading text-white">
+              {selectedCategory === 'SPC Flooring'
+                ? 'SPC Rigid Core Luxury Vinyl Flooring'
+                : selectedCategory === 'Tiles'
+                ? 'Experiencing the energy of colors & surfaces'
+                : selectedCategory === 'Sanitaryware'
+                ? 'Precision Engineered Sanitaryware'
+                : selectedCategory === 'Electrical'
+                ? 'Architectural Switches & Power Fittings'
+                : 'Experiencing the energy of colors & surfaces'}
+            </h1>
+            <p className="text-xs sm:text-sm text-neutral-400 font-light leading-relaxed max-w-xl mx-auto pt-1">
+              {selectedCategory === 'SPC Flooring'
+                ? '100% waterproof 6.5mm acoustic interlocking planks with pre-attached IXPE pads and matching 2.4m baseboard skirting.'
+                : selectedCategory === 'Tiles'
+                ? 'From mirror-polished Calacatta marbles to handcrafted Mediterranean glazed ceramics and 20mm outdoor pavers.'
+                : selectedCategory === 'Sanitaryware'
+                ? 'Wall-hung rimless bidet toilets, PVD gunmetal piano showers, and freestanding composite stone soaking tubs.'
+                : selectedCategory === 'Electrical'
+                ? 'British-standard 40A DP cooker switches, brushed champagne dimmers, and 45W Type-C fast-charging ports.'
+                : 'Complete architectural inventory spanning porcelain slabs, SPC acoustic flooring, luxury sanitaryware, and electrical fittings.'}
+            </p>
+          </div>
         </div>
       </section>
 
@@ -818,7 +963,28 @@ export const CataloguePage: React.FC<CataloguePageProps> = ({
             {/* ========================================================
                 GRID RENDER: IMMEDIATE TILES & COLLECTIONS
                ======================================================== */}
-            {filteredProducts.length === 0 ? (
+            {backendError ? (
+              <div className="bg-red-50 border border-red-200 p-12 sm:p-16 text-center space-y-4">
+                <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto text-red-600">
+                  <X className="w-6 h-6" />
+                </div>
+                <h3 className="text-lg font-bold font-heading text-red-950">
+                  Backend API Connection Error
+                </h3>
+                <p className="text-xs text-red-700 max-w-lg mx-auto font-mono">
+                  {backendError}
+                </p>
+                {onRetry && (
+                  <button
+                    type="button"
+                    onClick={onRetry}
+                    className="px-6 py-2.5 bg-red-900 hover:bg-red-800 text-white text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer"
+                  >
+                    Retry Connection
+                  </button>
+                )}
+              </div>
+            ) : filteredProducts.length === 0 ? (
               <div className="bg-white border border-neutral-200 p-12 sm:p-16 text-center space-y-4">
                 <Layers className="w-10 h-10 text-neutral-300 mx-auto" />
                 <h3 className="text-lg font-bold font-heading text-neutral-900">

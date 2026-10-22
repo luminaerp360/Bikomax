@@ -1,8 +1,24 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'Eurostile';
+  src: url('/fonts/eurostile-extended-bold.woff') format('woff');
+  font-weight: 700 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Eurostile';
+  src: url('/fonts/eurostile.woff') format('woff');
+  font-weight: 400 600;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer base {
   :root {
-    --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-heading: 'Eurostile', 'Michroma', 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     --font-nav: 'Outfit', 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     --font-serif: 'Playfair Display', Georgia, Cambria, serif;

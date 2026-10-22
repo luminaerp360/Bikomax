@@ -1,9 +1,11 @@
 export interface Product {
+  id?: string;
   ref: string;
   name: string;
-  category: 'Tiles' | 'Sanitaryware' | 'Electrical';
+  category: 'Tiles' | 'Sanitaryware' | 'Electrical' | 'SPC Flooring';
   dimension: string;
   pricing_type: 'area' | 'unit';
+  price?: number;
   price_per_sqm?: number;
   bulk_price_per_box?: number;
   sqm_per_box?: number;
@@ -59,7 +61,7 @@ export interface DeliveryZone {
   estimatedDays: string;
 }
 
-export type PaymentMethodType = 'mpesa' | 'bank_transfer' | 'showroom_cash';
+export type PaymentMethodType = 'whatsapp' | 'email' | 'call' | 'mpesa' | 'bank_transfer' | 'showroom_cash';
 
 export interface OrderReceipt {
   orderId: string;
@@ -74,6 +76,6 @@ export interface OrderReceipt {
   vatAmount: number;
   total: number;
   paymentMethod: PaymentMethodType;
-  paymentStatus: 'Paid via M-Pesa' | 'Pending EFT Verification' | 'Pay upon Showroom Collection';
+  paymentStatus: string;
   mpesaReceiptNumber?: string;
 }

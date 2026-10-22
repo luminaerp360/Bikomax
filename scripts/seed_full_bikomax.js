@@ -1,0 +1,5483 @@
+/**
+ * Complete Bikomax Architectural Catalog Seed Script
+ * Generated automatically from POS inventory
+ * Run on server: node scripts/seed_bikomax.js
+ */
+const mongoose = require('mongoose');
+
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/ecommerce';
+const TENANT_ID = 'bikomax';
+
+const PRODUCTS = [
+  {
+    "ref": "PRD-253586-7594",
+    "sku": "PRD-253586-7594",
+    "itemNo": "PRD-253586-7594",
+    "name": "Combined RJ45 Cat6 Ethernet & Coaxial TV Outlet Plate - Onyx Black",
+    "description": "High-frequency media outlet plate supporting Gigabit Cat6 local network connections and 4K satellite TV coaxial feeds.",
+    "category": "Electrical",
+    "categories": [
+      "Electrical"
+    ],
+    "price": 2025,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 20,
+    "image": "https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Onyx Black Glass",
+    "material": "High-Speed Gold Plated RJ45",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Ports",
+        "value": "1x RJ45 Cat6 + 1x Coax TV"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "PRD-158493-6323",
+    "sku": "PRD-158493-6323",
+    "itemNo": "PRD-158493-6323",
+    "name": "Tempered Glass 40A Double-Pole Heavy Duty Isolator Switch - Onyx Black",
+    "description": "Heavy load 40A isolator switch designed for water heaters, air conditioners, and kitchen equipment. High-temperature arc-quenching chamber.",
+    "category": "Electrical",
+    "categories": [
+      "Electrical"
+    ],
+    "price": 1300,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 16,
+    "image": "/products/switch-40a.jpg",
+    "images": [
+      "/products/switch-40a.jpg"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Onyx Black Glass",
+    "material": "Polycarbonate & Pure Copper",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Rating",
+        "value": "40A 250V~"
+      },
+      {
+        "label": "Pole",
+        "value": "Double Pole (DP) Isolation"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "PRD-469806-5728",
+    "sku": "PRD-469806-5728",
+    "itemNo": "PRD-469806-5728",
+    "name": "Model 997 Monobloc Vitreous Ceramic Toilet Suite",
+    "description": "Clean-lined contemporary ceramic toilet designed for superior hygiene and silent, powerful cistern flush performance.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 19000,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 3,
+    "image": "/products/toilet-wallhung.jpg",
+    "images": [
+      "/products/toilet-wallhung.jpg"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Alpine White Gloss",
+    "material": "Vitreous China",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Type",
+        "value": "One-Piece Ceramic"
+      },
+      {
+        "label": "Flushing",
+        "value": "Siphonic Dual Flush"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "PRD-286055-9025",
+    "sku": "PRD-286055-9025",
+    "itemNo": "PRD-286055-9025",
+    "name": "Model 6629 Architectural Polished Porcelain Tile (60x60 cm)",
+    "description": "Sleek contemporary polished floor tile with reflective brilliance. Ideal for expansive living areas, luxury corridors, and commercial reception halls.",
+    "category": "Tiles",
+    "categories": [
+      "Tiles"
+    ],
+    "price": 3220,
+    "pricingType": "area",
+    "pricePerSqm": 3220,
+    "sqmPerBox": 1.44,
+    "bulkPricePerBox": 4640,
+    "bulkUnit": "Box",
+    "stockQuantity": 57,
+    "image": "/products/tile-terrazzo.jpg",
+    "images": [
+      "/products/tile-terrazzo.jpg"
+    ],
+    "dimension": "60x60 cm",
+    "thickness": "9.5 mm",
+    "finish": "Polished Gloss",
+    "material": "Vitrified Porcelain",
+    "origin": "Import Spec",
+    "look": "Stone",
+    "specs": [
+      {
+        "label": "Size",
+        "value": "60x60 cm"
+      },
+      {
+        "label": "Box Coverage",
+        "value": "1.44 m²"
+      },
+      {
+        "label": "Finish",
+        "value": "High Gloss"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "PRD-722343-8092",
+    "sku": "PRD-722343-8092",
+    "itemNo": "PRD-722343-8092",
+    "name": "Model 66008 Honed Matte Porcelain Floor Tile (60x60 cm)",
+    "description": "Architectural grade matte porcelain floor tile with subtle natural mineral veining. Engineered with nano-sealed stain-resistant glaze and rectified precision edges for seamless 1.5mm grout installations.",
+    "category": "Tiles",
+    "categories": [
+      "Tiles"
+    ],
+    "price": 2870,
+    "pricingType": "area",
+    "pricePerSqm": 2870,
+    "sqmPerBox": 1.44,
+    "bulkPricePerBox": 4132.8,
+    "bulkUnit": "Box",
+    "stockQuantity": 76,
+    "image": "/products/tile-matte-66008.jpg",
+    "images": [
+      "/products/tile-matte-66008.jpg"
+    ],
+    "dimension": "60x60 cm",
+    "thickness": "9.5 mm",
+    "finish": "Honed Matte",
+    "material": "Glazed Vitrified Porcelain",
+    "origin": "Italy / Spain Spec",
+    "look": "Stone",
+    "specs": [
+      {
+        "label": "Size",
+        "value": "60x60 cm"
+      },
+      {
+        "label": "Surface",
+        "value": "Honed Matte R10"
+      },
+      {
+        "label": "Coverage",
+        "value": "1.44 m²/box (4 pcs)"
+      },
+      {
+        "label": "Body",
+        "value": "Full Vitrified Porcelain"
+      }
+    ],
+    "featured": true,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "PRD-636920-2982",
+    "sku": "PRD-636920-2982",
+    "itemNo": "PRD-636920-2982",
+    "name": "Model 61238 Large Format Polished Porcelain Slab (60x120 cm)",
+    "description": "Expansive 60x120cm polished porcelain slab showcasing dramatic deep marble veining. High-density vitrified porcelain body resistant to heavy foot traffic, moisture, and chemical staining.",
+    "category": "Tiles",
+    "categories": [
+      "Tiles"
+    ],
+    "price": 3220,
+    "pricingType": "area",
+    "pricePerSqm": 3220,
+    "sqmPerBox": 1.44,
+    "bulkPricePerBox": 4636.8,
+    "bulkUnit": "Box",
+    "stockQuantity": 43,
+    "image": "/products/tile-slab-61238.jpg",
+    "images": [
+      "/products/tile-slab-61238.jpg"
+    ],
+    "dimension": "60x120 cm",
+    "thickness": "10 mm",
+    "finish": "High Gloss Nano Polish",
+    "material": "Vitrified Porcelain",
+    "origin": "Import Premium",
+    "look": "Marble",
+    "specs": [
+      {
+        "label": "Size",
+        "value": "60x120 cm"
+      },
+      {
+        "label": "Finish",
+        "value": "Mirror Gloss Nano-Shield"
+      },
+      {
+        "label": "Coverage",
+        "value": "1.44 m²/box (2 pcs)"
+      },
+      {
+        "label": "Edge",
+        "value": "Laser Rectified"
+      }
+    ],
+    "featured": true,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "PRD-579907-0530",
+    "sku": "PRD-579907-0530",
+    "itemNo": "PRD-579907-0530",
+    "name": "Model 212007 Rovere Parquet Wood Plank Porcelain Tile (20x120 cm)",
+    "description": "Hyper-realistic tactile wood-grain porcelain plank capturing the warm, organic knots and textural ridges of Italian Rovere oak, with the supreme durability and water immunity of porcelain.",
+    "category": "Tiles",
+    "categories": [
+      "Tiles"
+    ],
+    "price": 4135,
+    "pricingType": "area",
+    "pricePerSqm": 4135,
+    "sqmPerBox": 1.44,
+    "bulkPricePerBox": 5954.4,
+    "bulkUnit": "Box",
+    "stockQuantity": 102,
+    "image": "/products/tile-wood-rover.jpg",
+    "images": [
+      "/products/tile-wood-rover.jpg"
+    ],
+    "dimension": "20x120 cm",
+    "thickness": "10 mm",
+    "finish": "Textured Woodgrain",
+    "material": "Vitrified Porcelain",
+    "origin": "European Spec",
+    "look": "Wood",
+    "specs": [
+      {
+        "label": "Size",
+        "value": "20x120 cm"
+      },
+      {
+        "label": "Surface",
+        "value": "Embossed Natural Grain"
+      },
+      {
+        "label": "Application",
+        "value": "Floors & Feature Walls"
+      },
+      {
+        "label": "Slip Resistance",
+        "value": "R10 Wet Rating"
+      }
+    ],
+    "featured": true,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "PRD-478445-2387",
+    "sku": "PRD-478445-2387",
+    "itemNo": "PRD-478445-2387",
+    "name": "Model 90044QH Solid Brass Monobloc Basin Mixer - Matte Stainless",
+    "description": "BASIN MIXER. Tested to 500,000 cycles with drip-free ceramic cartridge, Neoperl aerator for smooth laminar water flow, and flexible stainless braided hoses.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 9657,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 4,
+    "image": "/products/mixer-brass.jpg",
+    "images": [
+      "/products/mixer-brass.jpg"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Matte Stainless",
+    "material": "304 Stainless Steel",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "304 Stainless Steel"
+      },
+      {
+        "label": "Finish",
+        "value": "Matte Stainless"
+      },
+      {
+        "label": "Cartridge",
+        "value": "Ceramic Disc Valve"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "PRD-427814-9478",
+    "sku": "PRD-427814-9478",
+    "itemNo": "PRD-427814-9478",
+    "name": "Architectural 2-Gang Blanking Plate Cover",
+    "description": "Flush architectural blanking plate for sealing redundant junction boxes while preserving interior aesthetic consistency.",
+    "category": "Electrical",
+    "categories": [
+      "Electrical"
+    ],
+    "price": 600,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 15,
+    "image": "https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Onyx Black Glass",
+    "material": "Crystal Tempered Glass",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Gang",
+        "value": "2-Gang (146x86mm)"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "PRD-379256-8479",
+    "sku": "PRD-379256-8479",
+    "itemNo": "PRD-379256-8479",
+    "name": "Architectural 1-Gang Blanking Plate Cover",
+    "description": "Flush architectural blanking plate for sealing redundant junction boxes while preserving interior aesthetic consistency.",
+    "category": "Electrical",
+    "categories": [
+      "Electrical"
+    ],
+    "price": 400,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 20,
+    "image": "https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Onyx Black Glass",
+    "material": "Crystal Tempered Glass",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Gang",
+        "value": "1-Gang (86x86mm)"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "PRD-299710-3640",
+    "sku": "PRD-299710-3640",
+    "itemNo": "PRD-299710-3640",
+    "name": "Tempered Glass Spring-Return Doorbell Push Button Switch - Onyx Black",
+    "description": "Momentary spring-return chime push button switch with subtle laser-etched bell motif.",
+    "category": "Electrical",
+    "categories": [
+      "Electrical"
+    ],
+    "price": 920,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 3,
+    "image": "https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Onyx Black Glass",
+    "material": "Tempered Glass",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Rating",
+        "value": "10A Bell Push"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "PRD-214887-4779",
+    "sku": "PRD-214887-4779",
+    "itemNo": "PRD-214887-4779",
+    "name": "Dual-Voltage Shaver Supply Unit (115V / 230V Isolation Transformer)",
+    "description": "IP44 bathroom safety shaver outlet with built-in galvanic isolation transformer for international electric shavers and toothbrushes.",
+    "category": "Electrical",
+    "categories": [
+      "Electrical"
+    ],
+    "price": 4020,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 5,
+    "image": "https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "White / Chrome Border",
+    "material": "Flame-Retardant PC & Isolation Coil",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Dual Output",
+        "value": "115V & 230V AC"
+      },
+      {
+        "label": "Safety",
+        "value": "Thermal Overload Protection"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "PRD-096001-5067",
+    "sku": "PRD-096001-5067",
+    "itemNo": "PRD-096001-5067",
+    "name": "Universal Rotary LED Dimmer Switch (300W) - Champagne Gold",
+    "description": "Silent trailing-edge rotary LED dimmer compatible with dimmable LED downlights, halogen spotlights, and decorative chandeliers. Flicker-free smooth dimming from 1% to 100%.",
+    "category": "Electrical",
+    "categories": [
+      "Electrical"
+    ],
+    "price": 1890,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 10,
+    "image": "/products/dimmer-champagne.jpg",
+    "images": [
+      "/products/dimmer-champagne.jpg"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Champagne Gold Anodized",
+    "material": "Aluminum / Solid Brass Rotary",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Max Load",
+        "value": "300W LED"
+      },
+      {
+        "label": "Type",
+        "value": "Trailing Edge Rotary"
+      }
+    ],
+    "featured": true,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "PRD-029059-4184",
+    "sku": "PRD-029059-4184",
+    "itemNo": "PRD-029059-4184",
+    "name": "Heavy Duty 45A Cooker Connection Outlet Box",
+    "description": "Heavy-duty 45-amp double pole cooker switch with neon pilot lamp and auxiliary switched socket for high-wattage induction ranges and ovens.",
+    "category": "Electrical",
+    "categories": [
+      "Electrical"
+    ],
+    "price": 2630,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 2,
+    "image": "/products/switch-40a.jpg",
+    "images": [
+      "/products/switch-40a.jpg"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Onyx Black Tempered Glass",
+    "material": "Tempered Glass / Bakelite Core",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Current Rating",
+        "value": "45A High-Load"
+      },
+      {
+        "label": "Indicator",
+        "value": "Neon Indicator Light"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "PRD-940440-1128",
+    "sku": "PRD-940440-1128",
+    "itemNo": "PRD-940440-1128",
+    "name": "Architectural Electrical Accessory - PANIC BUTTON",
+    "description": "SQURE SIZE. Built to British Standards with high-temperature flame-retardant backing.",
+    "category": "Electrical",
+    "categories": [
+      "Electrical"
+    ],
+    "price": 1050,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 10,
+    "image": "/products/socket-onyx.jpg",
+    "images": [
+      "/products/socket-onyx.jpg"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Onyx Black Glass",
+    "material": "Premium Grade",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Standard",
+        "value": "BS Approved"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "PRD-739544-0993",
+    "sku": "PRD-739544-0993",
+    "itemNo": "PRD-739544-0993",
+    "name": "Architectural Electrical Accessory - INTERMIDIATE SWITCH",
+    "description": "Precision electrical fixture. Built to British Standards with high-temperature flame-retardant backing.",
+    "category": "Electrical",
+    "categories": [
+      "Electrical"
+    ],
+    "price": 1250,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 10,
+    "image": "/products/socket-onyx.jpg",
+    "images": [
+      "/products/socket-onyx.jpg"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Onyx Black Glass",
+    "material": "Premium Grade",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Standard",
+        "value": "BS Approved"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "PRD-873458-6274",
+    "sku": "PRD-873458-6274",
+    "itemNo": "PRD-873458-6274",
+    "name": "DS12601 Calacatta Gold Grande Porcelain Tile (60x120 cm)",
+    "description": "Captivating warm gold and subtle taupe veining flowing across an alpine white porcelain canvas. Grand 60x120cm format maximizes visual continuity and architectural elegance.",
+    "category": "Tiles",
+    "categories": [
+      "Tiles"
+    ],
+    "price": 2950,
+    "pricingType": "area",
+    "pricePerSqm": 2950,
+    "sqmPerBox": 2.16,
+    "bulkPricePerBox": 6375,
+    "bulkUnit": "Box",
+    "stockQuantity": 50,
+    "image": "/products/tile-calacatta-gold.jpg",
+    "images": [
+      "/products/tile-calacatta-gold.jpg"
+    ],
+    "dimension": "60x120 cm",
+    "thickness": "10 mm",
+    "finish": "Polished Glaze",
+    "material": "Vitrified Porcelain",
+    "origin": "Spain Spec",
+    "look": "Marble",
+    "specs": [
+      {
+        "label": "Dimensions",
+        "value": "60x120 cm"
+      },
+      {
+        "label": "Pattern",
+        "value": "Continuous Calacatta Vein"
+      },
+      {
+        "label": "Packing",
+        "value": "2.16 m²/box"
+      }
+    ],
+    "featured": true,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "PRD-773708-0939",
+    "sku": "PRD-773708-0939",
+    "itemNo": "PRD-773708-0939",
+    "name": "Model 6203 Grigio Stone Porcelain Tile (60x120 cm)",
+    "description": "Understated architectural cool grey porcelain inspired by Lombardian limestone. Resilient against heavy mechanical load, scratches, and weathering.",
+    "category": "Tiles",
+    "categories": [
+      "Tiles"
+    ],
+    "price": 2910,
+    "pricingType": "area",
+    "pricePerSqm": 2910,
+    "sqmPerBox": 2.16,
+    "bulkPricePerBox": 6285,
+    "bulkUnit": "Box",
+    "stockQuantity": 190,
+    "image": "/products/tile-paver-grigio.jpg",
+    "images": [
+      "/products/tile-paver-grigio.jpg"
+    ],
+    "dimension": "60x120 cm",
+    "thickness": "10 mm",
+    "finish": "Honed Satin",
+    "material": "Vitrified Porcelain",
+    "origin": "Italy Spec",
+    "look": "Stone",
+    "specs": [
+      {
+        "label": "Size",
+        "value": "60x120 cm"
+      },
+      {
+        "label": "Packing",
+        "value": "2.16 m²/box"
+      },
+      {
+        "label": "Tone",
+        "value": "Monochrome Grigio"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "PRD-111249-3386",
+    "sku": "PRD-111249-3386",
+    "itemNo": "PRD-111249-3386",
+    "name": "Seamless Luxury Architectural Wall Fabric - invisible pattern",
+    "description": "Continuous height seamless wall covering crafted from premium jacquard woven threads with sound-absorbing backing and stain-resistant Scotchgard treatment.",
+    "category": "Tiles",
+    "categories": [
+      "Tiles"
+    ],
+    "price": 2100,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 0,
+    "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Architectural Standard",
+    "material": "Jacquard Woven Textile",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Category",
+        "value": "Wall Coverings"
+      },
+      {
+        "label": "Eco Certification",
+        "value": "OEKO-TEX Standard 100"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "PRD-062336-9365",
+    "sku": "PRD-062336-9365",
+    "itemNo": "PRD-062336-9365",
+    "name": "Seamless Luxury Architectural Wall Fabric - visible pattern",
+    "description": "Continuous height seamless wall covering crafted from premium jacquard woven threads with sound-absorbing backing and stain-resistant Scotchgard treatment.",
+    "category": "Tiles",
+    "categories": [
+      "Tiles"
+    ],
+    "price": 2100,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 10,
+    "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Architectural Standard",
+    "material": "Jacquard Woven Textile",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Category",
+        "value": "Wall Coverings"
+      },
+      {
+        "label": "Eco Certification",
+        "value": "OEKO-TEX Standard 100"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "PRD-392391-7019",
+    "sku": "PRD-392391-7019",
+    "itemNo": "PRD-392391-7019",
+    "name": "Heavy-Duty Architectural Wall Cloth Adhesive (Zero VOC)",
+    "description": "Professional grade mould-resistant water-based adhesive for heavy linen, silk, and jacquard seamless wall fabrics.",
+    "category": "Tiles",
+    "categories": [
+      "Tiles"
+    ],
+    "price": 2200,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 4,
+    "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Architectural Standard",
+    "material": "Polymer Adhesive",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Category",
+        "value": "Wall Coverings"
+      },
+      {
+        "label": "Eco Certification",
+        "value": "OEKO-TEX Standard 100"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "PRD-202513-8765",
+    "sku": "PRD-202513-8765",
+    "itemNo": "PRD-202513-8765",
+    "name": "Seamless Luxury Architectural Wall Fabric - FLORAL",
+    "description": "Continuous height seamless wall covering crafted from premium jacquard woven threads with sound-absorbing backing and stain-resistant Scotchgard treatment.",
+    "category": "Tiles",
+    "categories": [
+      "Tiles"
+    ],
+    "price": 2000,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 1,
+    "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Architectural Standard",
+    "material": "Jacquard Woven Textile",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Category",
+        "value": "Wall Coverings"
+      },
+      {
+        "label": "Eco Certification",
+        "value": "OEKO-TEX Standard 100"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "PRD-827715-7137",
+    "sku": "PRD-827715-7137",
+    "itemNo": "PRD-827715-7137",
+    "name": "Model 8202HQ-300 Linear Stainless Steel Shower Channel Drain (300 mm)",
+    "description": "High-discharge linear floor drain channel featuring removable hair strainer basket and odor-lock water trap. Flush tile-insert top for invisible floor integration.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 8250,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 0,
+    "image": "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "300 mm Length",
+    "thickness": "",
+    "finish": "Brushed Matte",
+    "material": "SUS 304 Stainless Steel",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Length",
+        "value": "300 mm"
+      },
+      {
+        "label": "Flow Rate",
+        "value": "35 L/min"
+      },
+      {
+        "label": "Outlet",
+        "value": "50 mm High Flow"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "PRD-118246-8290",
+    "sku": "PRD-118246-8290",
+    "itemNo": "PRD-118246-8290",
+    "name": "Model 805-006RH Gun Grey Piano 4-Key Thermostatic Shower System",
+    "description": "Cutting-edge luxury shower console featuring piano-key push-button diverters for rain shower, waterfall spout, bidet spray, and multi-function handheld wand. Digital LED water temperature display powered by internal water flow.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 35600,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 0,
+    "image": "/products/shower-piano.jpg",
+    "images": [
+      "/products/shower-piano.jpg"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Gun Grey PVD Matte",
+    "material": "Solid Brass & 304 Stainless Steel",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Controls",
+        "value": "Piano Key Push Controls"
+      },
+      {
+        "label": "Overhead Shower",
+        "value": "300x200 mm Rain Head"
+      },
+      {
+        "label": "Finish",
+        "value": "PVD Gun Grey Anti-Fingerprint"
+      }
+    ],
+    "featured": true,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "DOO-354237-007",
+    "sku": "DOO-354237-007",
+    "itemNo": "DOO-354237-007",
+    "name": "Contemporary Solid Core Architectural Interior Flush Door",
+    "description": "Heavyweight acoustic-rated interior door slab designed for contemporary residences. Resists temperature warping and delivers exceptional sound dampening.",
+    "category": "Tiles",
+    "categories": [
+      "Tiles"
+    ],
+    "price": 31900,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 20,
+    "image": "https://images.unsplash.com/photo-1517456793572-1d8efd6dc135?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517456793572-1d8efd6dc135?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "800 x 2100 mm",
+    "thickness": "",
+    "finish": "Factory Primed / Natural Veneer",
+    "material": "Solid Engineered Core",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Type",
+        "value": "Solid Core Flush Door"
+      },
+      {
+        "label": "Acoustic Rating",
+        "value": "Rw 32 dB"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "K-8-213333-980",
+    "sku": "K-8-213333-980",
+    "itemNo": "K-8-213333-980",
+    "name": "Model K-8941MG Dual Massage Bubble Jacuzzi Bathtub with Chromotherapy",
+    "description": "Bathroom Jaccuzzi\nMaterial:acrylic/brass/ss\nFunction:massage+bubble with light. Equipped with multi-directional hydro-massage jets, air bubble blower system, chromotherapy LED underwater lighting, and thermostatic inline water heater.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 336100,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 0,
+    "image": "/products/bathtub-black.jpg",
+    "images": [
+      "/products/bathtub-black.jpg"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "High Gloss Acrylic / Brass Jet Accents",
+    "material": "Sanitary Grade Lucite Acrylic & Brass",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Jets",
+        "value": "Hydro-Massage + Air Bubble"
+      },
+      {
+        "label": "Lighting",
+        "value": "Multi-Color Underwater LED"
+      },
+      {
+        "label": "Material",
+        "value": "Reinforced Sanitary Acrylic"
+      }
+    ],
+    "featured": true,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "FS--143145-163",
+    "sku": "FS--143145-163",
+    "itemNo": "FS--143145-163",
+    "name": "Model FS-001GB Freestanding Bath Mixer Faucet with Hand Shower - Matte Gold",
+    "description": "Dramatic floor-mounted freestanding bath filler faucet crafted from solid brass with a luxury brushed gold finish. Features high-flow spout, ceramic disc valve, and slim handheld wand.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 49720,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 4,
+    "image": "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Brushed Matte Gold",
+    "material": "Solid DZR Brass Body",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Height",
+        "value": "1150 mm"
+      },
+      {
+        "label": "Finish",
+        "value": "PVD Brushed Gold"
+      },
+      {
+        "label": "Valve",
+        "value": "Sedal Ceramic Cartridge"
+      }
+    ],
+    "featured": true,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "SD--064478-218",
+    "sku": "SD--064478-218",
+    "itemNo": "SD--064478-218",
+    "name": "Model SD-005 Liquid Soap Dispenser - Matte Satin",
+    "description": "Architectural luxury bathroom hardware. Constructed from solid SUS 304 stainless steel with electroplated Matte Satin coating resistant to moisture, oxidation, and tarnishing. Concealed screw mounting.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 1980,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 8,
+    "image": "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Matte Satin",
+    "material": "SUS 304 Stainless Steel",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "Grade 304 Stainless Steel"
+      },
+      {
+        "label": "Finish",
+        "value": "Matte Satin"
+      },
+      {
+        "label": "Mounting",
+        "value": "Concealed Wall Fixings"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "K-8-784885-042",
+    "sku": "K-8-784885-042",
+    "itemNo": "K-8-784885-042",
+    "name": "Model K-8876A Luxury Hydrotherapy Whirlpool Jacuzzi Bathtub",
+    "description": "Jaccuzzi bathtub\nmaterial:acrylic,ss,brass and plastic\nfunction:massage+bubble with light.. Equipped with multi-directional hydro-massage jets, air bubble blower system, chromotherapy LED underwater lighting, and thermostatic inline water heater.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 380960,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 1,
+    "image": "/products/bathtub-black.jpg",
+    "images": [
+      "/products/bathtub-black.jpg"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "High Gloss Acrylic / Brass Jet Accents",
+    "material": "Sanitary Grade Lucite Acrylic & Brass",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Jets",
+        "value": "Hydro-Massage + Air Bubble"
+      },
+      {
+        "label": "Lighting",
+        "value": "Multi-Color Underwater LED"
+      },
+      {
+        "label": "Material",
+        "value": "Reinforced Sanitary Acrylic"
+      }
+    ],
+    "featured": true,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "868-670458-067",
+    "sku": "868-670458-067",
+    "itemNo": "868-670458-067",
+    "name": "Model 8687-60 Architectural Vanity Suite & Smart LED Mirror (60 cm)",
+    "description": "Bathroom cabinet\nMaterial; stainless steel, porcelain basin and glass mirror\ncolor; dark green \nmirror with LED light. Includes high-fired vitreous china countertop basin, soft-close drawers, and copper-free smart touch LED mirror with anti-fog heating pad.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 45400,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 3,
+    "image": "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "60 cm",
+    "thickness": "",
+    "finish": "Forest Green Matte",
+    "material": "Stainless Steel & Porcelain",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Width",
+        "value": "60 cm"
+      },
+      {
+        "label": "Mirror",
+        "value": "LED Illuminated Anti-Fog"
+      },
+      {
+        "label": "Basin",
+        "value": "Seamless Porcelain Countertop"
+      }
+    ],
+    "featured": true,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "306-605762-555",
+    "sku": "306-605762-555",
+    "itemNo": "306-605762-555",
+    "name": "Model 306 Solid Brass Monobloc Basin Mixer - Matte Stainless",
+    "description": "Basin mixer\nmaterial:304 stainless steel,ceramic cartridge\ncolor:matte finished. Tested to 500,000 cycles with drip-free ceramic cartridge, Neoperl aerator for smooth laminar water flow, and flexible stainless braided hoses.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 6000,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 5,
+    "image": "/products/mixer-brass.jpg",
+    "images": [
+      "/products/mixer-brass.jpg"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Matte Stainless",
+    "material": "304 Stainless Steel",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "304 Stainless Steel"
+      },
+      {
+        "label": "Finish",
+        "value": "Matte Stainless"
+      },
+      {
+        "label": "Cartridge",
+        "value": "Ceramic Disc Valve"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "684-467309-055",
+    "sku": "684-467309-055",
+    "itemNo": "684-467309-055",
+    "name": "Model 6846C Solid Brass Monobloc Basin Mixer - Polished Chrome",
+    "description": "Basin mixer\nMaterial: brass body,ceramic catridge\ncolor:chrome. Tested to 500,000 cycles with drip-free ceramic cartridge, Neoperl aerator for smooth laminar water flow, and flexible stainless braided hoses.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 8000,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 3,
+    "image": "/products/mixer-brass.jpg",
+    "images": [
+      "/products/mixer-brass.jpg"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Polished Chrome",
+    "material": "Solid DZR Brass",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "Solid DZR Brass"
+      },
+      {
+        "label": "Finish",
+        "value": "Polished Chrome"
+      },
+      {
+        "label": "Cartridge",
+        "value": "Ceramic Disc Valve"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "U11-328986-805",
+    "sku": "U11-328986-805",
+    "itemNo": "U11-328986-805",
+    "name": "Model U119 Vitreous Ceramic Wall-Hung Urinal",
+    "description": "Commercial-grade wall-hung urinal designed for high-traffic environments. Smooth parabolic bowl geometry prevents splashback; optional concealed infrared sensor flush valve.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 15850,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 3,
+    "image": "https://images.unsplash.com/photo-1585412727339-54e4bae3bbf9?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1585412727339-54e4bae3bbf9?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Alpine White Gloss",
+    "material": "Heavy-Duty Ceramic",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Type",
+        "value": "Wall-Hung Urinal"
+      },
+      {
+        "label": "Operation",
+        "value": "Mechanical Flush Valve"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "U11-195957-819",
+    "sku": "U11-195957-819",
+    "itemNo": "U11-195957-819",
+    "name": "Model U119 Automatic Sensor-Operated Wall-Hung Urinal",
+    "description": "Commercial-grade wall-hung urinal designed for high-traffic environments. Smooth parabolic bowl geometry prevents splashback; optional concealed infrared sensor flush valve.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 18900,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 3,
+    "image": "https://images.unsplash.com/photo-1585412727339-54e4bae3bbf9?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1585412727339-54e4bae3bbf9?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Alpine White Gloss",
+    "material": "Heavy-Duty Ceramic",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Type",
+        "value": "Wall-Hung Urinal"
+      },
+      {
+        "label": "Operation",
+        "value": "Infrared Auto-Flush"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "FB--094752-519",
+    "sku": "FB--094752-519",
+    "itemNo": "FB--094752-519",
+    "name": "Model Fb-501 Solid Brass Monobloc Basin Mixer - Matte Stainless",
+    "description": "kitchen sink faucet\nmaterial:304 stainless steel and ceramic catridge\ncolor:matte finished. Tested to 500,000 cycles with drip-free ceramic cartridge, Neoperl aerator for smooth laminar water flow, and flexible stainless braided hoses.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 7200,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 14,
+    "image": "/products/mixer-brass.jpg",
+    "images": [
+      "/products/mixer-brass.jpg"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Matte Stainless",
+    "material": "304 Stainless Steel",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "304 Stainless Steel"
+      },
+      {
+        "label": "Finish",
+        "value": "Matte Stainless"
+      },
+      {
+        "label": "Cartridge",
+        "value": "Ceramic Disc Valve"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "NT--476147-883",
+    "sku": "NT--476147-883",
+    "itemNo": "NT--476147-883",
+    "name": "Model NT-9012 Coat & Robe Hook - Matte Satin",
+    "description": "Architectural luxury bathroom hardware. Constructed from solid SUS 304 stainless steel with electroplated Matte Satin coating resistant to moisture, oxidation, and tarnishing. Concealed screw mounting.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 980,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 4,
+    "image": "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Matte Satin",
+    "material": "SUS 304 Stainless Steel",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "Grade 304 Stainless Steel"
+      },
+      {
+        "label": "Finish",
+        "value": "Matte Satin"
+      },
+      {
+        "label": "Mounting",
+        "value": "Concealed Wall Fixings"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "666-439058-774",
+    "sku": "666-439058-774",
+    "itemNo": "666-439058-774",
+    "name": "Model 66613BG Swivel Kitchen Sink Mixer - Brushed Gold",
+    "description": "Kitchen sink tap\nMaterial:brass body,ceramic catridge\ncolor:brushed gold. Tested to 500,000 cycles with drip-free ceramic cartridge, Neoperl aerator for smooth laminar water flow, and flexible stainless braided hoses.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 23100,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 1,
+    "image": "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Brushed Gold",
+    "material": "Solid DZR Brass",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "Solid DZR Brass"
+      },
+      {
+        "label": "Finish",
+        "value": "Brushed Gold"
+      },
+      {
+        "label": "Cartridge",
+        "value": "Ceramic Disc Valve"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "NT--316238-171",
+    "sku": "NT--316238-171",
+    "itemNo": "NT--316238-171",
+    "name": "Model NT-9006 Toilet Paper Holder - Matte Satin",
+    "description": "Architectural luxury bathroom hardware. Constructed from solid SUS 304 stainless steel with electroplated Matte Satin coating resistant to moisture, oxidation, and tarnishing. Concealed screw mounting.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 2100,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 4,
+    "image": "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Matte Satin",
+    "material": "SUS 304 Stainless Steel",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "Grade 304 Stainless Steel"
+      },
+      {
+        "label": "Finish",
+        "value": "Matte Satin"
+      },
+      {
+        "label": "Mounting",
+        "value": "Concealed Wall Fixings"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "NT--024362-891",
+    "sku": "NT--024362-891",
+    "itemNo": "NT--024362-891",
+    "name": "Model NT-9001 Single Towel Bar - Matte Satin",
+    "description": "Architectural luxury bathroom hardware. Constructed from solid SUS 304 stainless steel with electroplated Matte Satin coating resistant to moisture, oxidation, and tarnishing. Concealed screw mounting.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 2250,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 3,
+    "image": "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Matte Satin",
+    "material": "SUS 304 Stainless Steel",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "Grade 304 Stainless Steel"
+      },
+      {
+        "label": "Finish",
+        "value": "Matte Satin"
+      },
+      {
+        "label": "Mounting",
+        "value": "Concealed Wall Fixings"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "666-984975-535",
+    "sku": "666-984975-535",
+    "itemNo": "666-984975-535",
+    "name": "Model 66612LS Swivel Kitchen Sink Mixer - Matte Stainless",
+    "description": "Kitchen sink tap\nMaterial:brass body,ceramic catridge\ncolor:matte finished. Tested to 500,000 cycles with drip-free ceramic cartridge, Neoperl aerator for smooth laminar water flow, and flexible stainless braided hoses.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 19350,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 0,
+    "image": "/products/mixer-brass.jpg",
+    "images": [
+      "/products/mixer-brass.jpg"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Matte Stainless",
+    "material": "Solid DZR Brass",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "Solid DZR Brass"
+      },
+      {
+        "label": "Finish",
+        "value": "Matte Stainless"
+      },
+      {
+        "label": "Cartridge",
+        "value": "Ceramic Disc Valve"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "665-533231-501",
+    "sku": "665-533231-501",
+    "itemNo": "665-533231-501",
+    "name": "Model 66512LS Bathroom Accessory - Matte Satin",
+    "description": "Architectural luxury bathroom hardware. Constructed from solid SUS 304 stainless steel with electroplated Matte Satin coating resistant to moisture, oxidation, and tarnishing. Concealed screw mounting.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 16600,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 4,
+    "image": "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Matte Satin",
+    "material": "SUS 304 Stainless Steel",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "Grade 304 Stainless Steel"
+      },
+      {
+        "label": "Finish",
+        "value": "Matte Satin"
+      },
+      {
+        "label": "Mounting",
+        "value": "Concealed Wall Fixings"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "NT--386126-903",
+    "sku": "NT--386126-903",
+    "itemNo": "NT--386126-903",
+    "name": "Model NT-9010 Wall-Mounted Soap Dish - Matte Satin",
+    "description": "Architectural luxury bathroom hardware. Constructed from solid SUS 304 stainless steel with electroplated Matte Satin coating resistant to moisture, oxidation, and tarnishing. Concealed screw mounting.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 2450,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 4,
+    "image": "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Matte Satin",
+    "material": "SUS 304 Stainless Steel",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "Grade 304 Stainless Steel"
+      },
+      {
+        "label": "Finish",
+        "value": "Matte Satin"
+      },
+      {
+        "label": "Mounting",
+        "value": "Concealed Wall Fixings"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "NT--874624-334",
+    "sku": "NT--874624-334",
+    "itemNo": "NT--874624-334",
+    "name": "Model NT-9003 Towel Shelf & Rail - Matte Satin",
+    "description": "Architectural luxury bathroom hardware. Constructed from solid SUS 304 stainless steel with electroplated Matte Satin coating resistant to moisture, oxidation, and tarnishing. Concealed screw mounting.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 4700,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 4,
+    "image": "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Matte Satin",
+    "material": "SUS 304 Stainless Steel",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "Grade 304 Stainless Steel"
+      },
+      {
+        "label": "Finish",
+        "value": "Matte Satin"
+      },
+      {
+        "label": "Mounting",
+        "value": "Concealed Wall Fixings"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "FLU-905617-963",
+    "sku": "FLU-905617-963",
+    "itemNo": "FLU-905617-963",
+    "name": "Flute Panel white (Circular) (300 cm)",
+    "description": "Pre-finished 3-meter architectural fluted wall slat cladding. Delivers stunning vertical shadow lines, acoustic dampening, and sophisticated texture for accent walls, TV backdrops, and headboards.",
+    "category": "Tiles",
+    "categories": [
+      "Tiles"
+    ],
+    "price": 1995,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 78,
+    "image": "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "300 cm Length",
+    "thickness": "",
+    "finish": "Architectural Fluted Slat",
+    "material": "High-Density WPC Composite",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Length",
+        "value": "3000 mm (3 meters)"
+      },
+      {
+        "label": "Profile",
+        "value": "Curved Flute"
+      },
+      {
+        "label": "Material",
+        "value": "Eco Wood-Polymer"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "665-805101-650",
+    "sku": "665-805101-650",
+    "itemNo": "665-805101-650",
+    "name": "Model 66512C Swivel Kitchen Sink Mixer - Polished Chrome",
+    "description": "Kitchen sink tap\nMaterial: brass body,ceramic cartridge\ncolor: chrome. Tested to 500,000 cycles with drip-free ceramic cartridge, Neoperl aerator for smooth laminar water flow, and flexible stainless braided hoses.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 16400,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 2,
+    "image": "/products/mixer-brass.jpg",
+    "images": [
+      "/products/mixer-brass.jpg"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Polished Chrome",
+    "material": "Solid DZR Brass",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "Solid DZR Brass"
+      },
+      {
+        "label": "Finish",
+        "value": "Polished Chrome"
+      },
+      {
+        "label": "Cartridge",
+        "value": "Ceramic Disc Valve"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "672-321853-038",
+    "sku": "672-321853-038",
+    "itemNo": "672-321853-038",
+    "name": "Model 67228 Toilet Paper Holder - Brushed Gold",
+    "description": "Architectural luxury bathroom hardware. Constructed from solid SUS 304 stainless steel with electroplated Brushed Gold coating resistant to moisture, oxidation, and tarnishing. Concealed screw mounting.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 4600,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 3,
+    "image": "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Brushed Gold",
+    "material": "SUS 304 Stainless Steel",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "Grade 304 Stainless Steel"
+      },
+      {
+        "label": "Finish",
+        "value": "Brushed Gold"
+      },
+      {
+        "label": "Mounting",
+        "value": "Concealed Wall Fixings"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "672-232337-792",
+    "sku": "672-232337-792",
+    "itemNo": "672-232337-792",
+    "name": "Model 67218 Toilet Paper Holder - Brushed Gold",
+    "description": "Architectural luxury bathroom hardware. Constructed from solid SUS 304 stainless steel with electroplated Brushed Gold coating resistant to moisture, oxidation, and tarnishing. Concealed screw mounting.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 4890,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 3,
+    "image": "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Brushed Gold",
+    "material": "SUS 304 Stainless Steel",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "Grade 304 Stainless Steel"
+      },
+      {
+        "label": "Finish",
+        "value": "Brushed Gold"
+      },
+      {
+        "label": "Mounting",
+        "value": "Concealed Wall Fixings"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "672-122633-415",
+    "sku": "672-122633-415",
+    "itemNo": "672-122633-415",
+    "name": "Model 67217 Modern Towel Ring - Brushed Gold",
+    "description": "Architectural luxury bathroom hardware. Constructed from solid SUS 304 stainless steel with electroplated Brushed Gold coating resistant to moisture, oxidation, and tarnishing. Concealed screw mounting.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 6300,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 3,
+    "image": "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Brushed Gold",
+    "material": "SUS 304 Stainless Steel",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "Grade 304 Stainless Steel"
+      },
+      {
+        "label": "Finish",
+        "value": "Brushed Gold"
+      },
+      {
+        "label": "Mounting",
+        "value": "Concealed Wall Fixings"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "672-038166-676",
+    "sku": "672-038166-676",
+    "itemNo": "672-038166-676",
+    "name": "Model 67212 Bathroom Accessory - Brushed Gold",
+    "description": "Architectural luxury bathroom hardware. Constructed from solid SUS 304 stainless steel with electroplated Brushed Gold coating resistant to moisture, oxidation, and tarnishing. Concealed screw mounting.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 13200,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 3,
+    "image": "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Brushed Gold",
+    "material": "SUS 304 Stainless Steel",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "Grade 304 Stainless Steel"
+      },
+      {
+        "label": "Finish",
+        "value": "Brushed Gold"
+      },
+      {
+        "label": "Mounting",
+        "value": "Concealed Wall Fixings"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "672-907306-434",
+    "sku": "672-907306-434",
+    "itemNo": "672-907306-434",
+    "name": "Model 67211 Single Towel Bar - Brushed Gold",
+    "description": "Architectural luxury bathroom hardware. Constructed from solid SUS 304 stainless steel with electroplated Brushed Gold coating resistant to moisture, oxidation, and tarnishing. Concealed screw mounting.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 8200,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 3,
+    "image": "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Brushed Gold",
+    "material": "SUS 304 Stainless Steel",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "Grade 304 Stainless Steel"
+      },
+      {
+        "label": "Finish",
+        "value": "Brushed Gold"
+      },
+      {
+        "label": "Mounting",
+        "value": "Concealed Wall Fixings"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "FLU-700772-121",
+    "sku": "FLU-700772-121",
+    "itemNo": "FLU-700772-121",
+    "name": "flute panel white (Rectangular) (300 cm)",
+    "description": "Pre-finished 3-meter architectural fluted wall slat cladding. Delivers stunning vertical shadow lines, acoustic dampening, and sophisticated texture for accent walls, TV backdrops, and headboards.",
+    "category": "Tiles",
+    "categories": [
+      "Tiles"
+    ],
+    "price": 1995,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 97,
+    "image": "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "300 cm Length",
+    "thickness": "",
+    "finish": "Architectural Fluted Slat",
+    "material": "High-Density WPC Composite",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Length",
+        "value": "3000 mm (3 meters)"
+      },
+      {
+        "label": "Profile",
+        "value": "Rectangular Slat"
+      },
+      {
+        "label": "Material",
+        "value": "Eco Wood-Polymer"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "672-110493-323",
+    "sku": "672-110493-323",
+    "itemNo": "672-110493-323",
+    "name": "Model 67210 Single Towel Bar - Brushed Gold",
+    "description": "Architectural luxury bathroom hardware. Constructed from solid SUS 304 stainless steel with electroplated Brushed Gold coating resistant to moisture, oxidation, and tarnishing. Concealed screw mounting.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 5950,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 4,
+    "image": "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Brushed Gold",
+    "material": "SUS 304 Stainless Steel",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "Grade 304 Stainless Steel"
+      },
+      {
+        "label": "Finish",
+        "value": "Brushed Gold"
+      },
+      {
+        "label": "Mounting",
+        "value": "Concealed Wall Fixings"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "FLU-046117-625",
+    "sku": "FLU-046117-625",
+    "itemNo": "FLU-046117-625",
+    "name": "Flute Panel Beige (300 cm)",
+    "description": "Pre-finished 3-meter architectural fluted wall slat cladding. Delivers stunning vertical shadow lines, acoustic dampening, and sophisticated texture for accent walls, TV backdrops, and headboards.",
+    "category": "Tiles",
+    "categories": [
+      "Tiles"
+    ],
+    "price": 1690,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 100,
+    "image": "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "300 cm Length",
+    "thickness": "",
+    "finish": "Architectural Fluted Slat",
+    "material": "High-Density WPC Composite",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Length",
+        "value": "3000 mm (3 meters)"
+      },
+      {
+        "label": "Profile",
+        "value": "Rectangular Slat"
+      },
+      {
+        "label": "Material",
+        "value": "Eco Wood-Polymer"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "FLU-460423-685",
+    "sku": "FLU-460423-685",
+    "itemNo": "FLU-460423-685",
+    "name": "Flute Panel Oak (300 cm)",
+    "description": "Pre-finished 3-meter architectural fluted wall slat cladding. Delivers stunning vertical shadow lines, acoustic dampening, and sophisticated texture for accent walls, TV backdrops, and headboards.",
+    "category": "Tiles",
+    "categories": [
+      "Tiles"
+    ],
+    "price": 1690,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 0,
+    "image": "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "300 cm Length",
+    "thickness": "",
+    "finish": "Architectural Fluted Slat",
+    "material": "High-Density WPC Composite",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Length",
+        "value": "3000 mm (3 meters)"
+      },
+      {
+        "label": "Profile",
+        "value": "Rectangular Slat"
+      },
+      {
+        "label": "Material",
+        "value": "Eco Wood-Polymer"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "FLU-356691-498",
+    "sku": "FLU-356691-498",
+    "itemNo": "FLU-356691-498",
+    "name": "Flute panel cherry (300 cm)",
+    "description": "Pre-finished 3-meter architectural fluted wall slat cladding. Delivers stunning vertical shadow lines, acoustic dampening, and sophisticated texture for accent walls, TV backdrops, and headboards.",
+    "category": "Tiles",
+    "categories": [
+      "Tiles"
+    ],
+    "price": 1690,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 0,
+    "image": "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "300 cm Length",
+    "thickness": "",
+    "finish": "Architectural Fluted Slat",
+    "material": "High-Density WPC Composite",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Length",
+        "value": "3000 mm (3 meters)"
+      },
+      {
+        "label": "Profile",
+        "value": "Rectangular Slat"
+      },
+      {
+        "label": "Material",
+        "value": "Eco Wood-Polymer"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "672-333016-266",
+    "sku": "672-333016-266",
+    "itemNo": "672-333016-266",
+    "name": "Model 67209 Wall-Hung Toilet Brush Set - Brushed Gold",
+    "description": "Architectural luxury bathroom hardware. Constructed from solid SUS 304 stainless steel with electroplated Brushed Gold coating resistant to moisture, oxidation, and tarnishing. Concealed screw mounting.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 7480,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 3,
+    "image": "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Brushed Gold",
+    "material": "SUS 304 Stainless Steel",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "Grade 304 Stainless Steel"
+      },
+      {
+        "label": "Finish",
+        "value": "Brushed Gold"
+      },
+      {
+        "label": "Mounting",
+        "value": "Concealed Wall Fixings"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "672-161279-191",
+    "sku": "672-161279-191",
+    "itemNo": "672-161279-191",
+    "name": "Model 67204 Tumbler Holder with Frosted Glass - Brushed Gold",
+    "description": "Architectural luxury bathroom hardware. Constructed from solid SUS 304 stainless steel with electroplated Brushed Gold coating resistant to moisture, oxidation, and tarnishing. Concealed screw mounting.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 4280,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 3,
+    "image": "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Brushed Gold",
+    "material": "SUS 304 Stainless Steel",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "Grade 304 Stainless Steel"
+      },
+      {
+        "label": "Finish",
+        "value": "Brushed Gold"
+      },
+      {
+        "label": "Mounting",
+        "value": "Concealed Wall Fixings"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "672-487237-549",
+    "sku": "672-487237-549",
+    "itemNo": "672-487237-549",
+    "name": "Model 67202 Wall-Mounted Soap Dish - Brushed Gold",
+    "description": "Architectural luxury bathroom hardware. Constructed from solid SUS 304 stainless steel with electroplated Brushed Gold coating resistant to moisture, oxidation, and tarnishing. Concealed screw mounting.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 3650,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 3,
+    "image": "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Brushed Gold",
+    "material": "SUS 304 Stainless Steel",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "Grade 304 Stainless Steel"
+      },
+      {
+        "label": "Finish",
+        "value": "Brushed Gold"
+      },
+      {
+        "label": "Mounting",
+        "value": "Concealed Wall Fixings"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "672-137656-596",
+    "sku": "672-137656-596",
+    "itemNo": "672-137656-596",
+    "name": "Model 67201 Coat & Robe Hook - Brushed Gold",
+    "description": "Architectural luxury bathroom hardware. Constructed from solid SUS 304 stainless steel with electroplated Brushed Gold coating resistant to moisture, oxidation, and tarnishing. Concealed screw mounting.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 2280,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 3,
+    "image": "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Brushed Gold",
+    "material": "SUS 304 Stainless Steel",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "Grade 304 Stainless Steel"
+      },
+      {
+        "label": "Finish",
+        "value": "Brushed Gold"
+      },
+      {
+        "label": "Mounting",
+        "value": "Concealed Wall Fixings"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "664-753291-366",
+    "sku": "664-753291-366",
+    "itemNo": "664-753291-366",
+    "name": "Model 66409 Wall-Hung Toilet Brush Set - Gun Grey",
+    "description": "Architectural luxury bathroom hardware. Constructed from solid SUS 304 stainless steel with electroplated Gun Grey coating resistant to moisture, oxidation, and tarnishing. Concealed screw mounting.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 7200,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 6,
+    "image": "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Gun Grey",
+    "material": "SUS 304 Stainless Steel",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "Grade 304 Stainless Steel"
+      },
+      {
+        "label": "Finish",
+        "value": "Gun Grey"
+      },
+      {
+        "label": "Mounting",
+        "value": "Concealed Wall Fixings"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "201-380718-271",
+    "sku": "201-380718-271",
+    "itemNo": "201-380718-271",
+    "name": "Model 2016 Toilet Paper Holder - Gun Grey",
+    "description": "Architectural luxury bathroom hardware. Constructed from solid SUS 304 stainless steel with electroplated Gun Grey coating resistant to moisture, oxidation, and tarnishing. Concealed screw mounting.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 3900,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 5,
+    "image": "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Gun Grey",
+    "material": "SUS 304 Stainless Steel",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "Grade 304 Stainless Steel"
+      },
+      {
+        "label": "Finish",
+        "value": "Gun Grey"
+      },
+      {
+        "label": "Mounting",
+        "value": "Concealed Wall Fixings"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "664-433101-006",
+    "sku": "664-433101-006",
+    "itemNo": "664-433101-006",
+    "name": "Model 66411 Single Towel Bar - Gun Grey",
+    "description": "Architectural luxury bathroom hardware. Constructed from solid SUS 304 stainless steel with electroplated Gun Grey coating resistant to moisture, oxidation, and tarnishing. Concealed screw mounting.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 7900,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 5,
+    "image": "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Gun Grey",
+    "material": "SUS 304 Stainless Steel",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "Grade 304 Stainless Steel"
+      },
+      {
+        "label": "Finish",
+        "value": "Gun Grey"
+      },
+      {
+        "label": "Mounting",
+        "value": "Concealed Wall Fixings"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "664-223060-170",
+    "sku": "664-223060-170",
+    "itemNo": "664-223060-170",
+    "name": "Model 66407 Modern Towel Ring - Gun Grey",
+    "description": "Architectural luxury bathroom hardware. Constructed from solid SUS 304 stainless steel with electroplated Gun Grey coating resistant to moisture, oxidation, and tarnishing. Concealed screw mounting.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 5600,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 5,
+    "image": "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Gun Grey",
+    "material": "SUS 304 Stainless Steel",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "Grade 304 Stainless Steel"
+      },
+      {
+        "label": "Finish",
+        "value": "Gun Grey"
+      },
+      {
+        "label": "Mounting",
+        "value": "Concealed Wall Fixings"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "664-786627-655",
+    "sku": "664-786627-655",
+    "itemNo": "664-786627-655",
+    "name": "Model 66410 Bathroom Accessory - Gun Grey",
+    "description": "Architectural luxury bathroom hardware. Constructed from solid SUS 304 stainless steel with electroplated Gun Grey coating resistant to moisture, oxidation, and tarnishing. Concealed screw mounting.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 5800,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 5,
+    "image": "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Gun Grey",
+    "material": "SUS 304 Stainless Steel",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "Grade 304 Stainless Steel"
+      },
+      {
+        "label": "Finish",
+        "value": "Gun Grey"
+      },
+      {
+        "label": "Mounting",
+        "value": "Concealed Wall Fixings"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "664-657575-686",
+    "sku": "664-657575-686",
+    "itemNo": "664-657575-686",
+    "name": "Model 66404 Tumbler Holder with Frosted Glass - Gun Grey",
+    "description": "Architectural luxury bathroom hardware. Constructed from solid SUS 304 stainless steel with electroplated Gun Grey coating resistant to moisture, oxidation, and tarnishing. Concealed screw mounting.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 5600,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 5,
+    "image": "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Gun Grey",
+    "material": "SUS 304 Stainless Steel",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "Grade 304 Stainless Steel"
+      },
+      {
+        "label": "Finish",
+        "value": "Gun Grey"
+      },
+      {
+        "label": "Mounting",
+        "value": "Concealed Wall Fixings"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "664-433595-622",
+    "sku": "664-433595-622",
+    "itemNo": "664-433595-622",
+    "name": "Model 66402 Wall-Mounted Soap Dish - Gun Grey",
+    "description": "Architectural luxury bathroom hardware. Constructed from solid SUS 304 stainless steel with electroplated Gun Grey coating resistant to moisture, oxidation, and tarnishing. Concealed screw mounting.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 5300,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 5,
+    "image": "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Gun Grey",
+    "material": "SUS 304 Stainless Steel",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "Grade 304 Stainless Steel"
+      },
+      {
+        "label": "Finish",
+        "value": "Gun Grey"
+      },
+      {
+        "label": "Mounting",
+        "value": "Concealed Wall Fixings"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "664-234251-939",
+    "sku": "664-234251-939",
+    "itemNo": "664-234251-939",
+    "name": "Model 66400-2 Coat & Robe Hook - Gun Grey",
+    "description": "Architectural luxury bathroom hardware. Constructed from solid SUS 304 stainless steel with electroplated Gun Grey coating resistant to moisture, oxidation, and tarnishing. Concealed screw mounting.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 4600,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 0,
+    "image": "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Gun Grey",
+    "material": "SUS 304 Stainless Steel",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "Grade 304 Stainless Steel"
+      },
+      {
+        "label": "Finish",
+        "value": "Gun Grey"
+      },
+      {
+        "label": "Mounting",
+        "value": "Concealed Wall Fixings"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "664-070747-442",
+    "sku": "664-070747-442",
+    "itemNo": "664-070747-442",
+    "name": "Model 66400-4 Coat & Robe Hook - Gun Grey",
+    "description": "Architectural luxury bathroom hardware. Constructed from solid SUS 304 stainless steel with electroplated Gun Grey coating resistant to moisture, oxidation, and tarnishing. Concealed screw mounting.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 4700,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 5,
+    "image": "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Gun Grey",
+    "material": "SUS 304 Stainless Steel",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "Grade 304 Stainless Steel"
+      },
+      {
+        "label": "Finish",
+        "value": "Gun Grey"
+      },
+      {
+        "label": "Mounting",
+        "value": "Concealed Wall Fixings"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "825-837778-971",
+    "sku": "825-837778-971",
+    "itemNo": "825-837778-971",
+    "name": "Model 825-100 Architectural Vanity Suite & Smart LED Mirror (100 cm)",
+    "description": "Bathroom cabinet\nmaterial:ss/porcelain basin and glass mirror with LED light and anti-fog. Includes high-fired vitreous china countertop basin, soft-close drawers, and copper-free smart touch LED mirror with anti-fog heating pad.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 92900,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 2,
+    "image": "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "100 cm",
+    "thickness": "",
+    "finish": "Modern Architectural",
+    "material": "Stainless Steel & Porcelain",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Width",
+        "value": "100 cm"
+      },
+      {
+        "label": "Mirror",
+        "value": "LED Illuminated Anti-Fog"
+      },
+      {
+        "label": "Basin",
+        "value": "Seamless Porcelain Countertop"
+      }
+    ],
+    "featured": true,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "660-125097-630",
+    "sku": "660-125097-630",
+    "itemNo": "660-125097-630",
+    "name": "Model 6605-120C Architectural Vanity Suite & Smart LED Mirror (120 cm)",
+    "description": "Bathroom cabinet\nMaterial:Aluminium/ss/porcelain/glass. Includes high-fired vitreous china countertop basin, soft-close drawers, and copper-free smart touch LED mirror with anti-fog heating pad.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 114700,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 2,
+    "image": "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "120 cm",
+    "thickness": "",
+    "finish": "Modern Architectural",
+    "material": "Aero Aluminum & Porcelain",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Width",
+        "value": "120 cm"
+      },
+      {
+        "label": "Mirror",
+        "value": "LED Illuminated Anti-Fog"
+      },
+      {
+        "label": "Basin",
+        "value": "Seamless Porcelain Countertop"
+      }
+    ],
+    "featured": true,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "661-935983-177",
+    "sku": "661-935983-177",
+    "itemNo": "661-935983-177",
+    "name": "Model 6612C-100C Architectural Vanity Suite & Smart LED Mirror (100 cm)",
+    "description": "Bathroom cabinet\nmaterial:aluminium/ss/porcelain/glass. Includes high-fired vitreous china countertop basin, soft-close drawers, and copper-free smart touch LED mirror with anti-fog heating pad.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 92900,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 3,
+    "image": "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "100 cm",
+    "thickness": "",
+    "finish": "Modern Architectural",
+    "material": "Aero Aluminum & Porcelain",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Width",
+        "value": "100 cm"
+      },
+      {
+        "label": "Mirror",
+        "value": "LED Illuminated Anti-Fog"
+      },
+      {
+        "label": "Basin",
+        "value": "Seamless Porcelain Countertop"
+      }
+    ],
+    "featured": true,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "661-793700-832",
+    "sku": "661-793700-832",
+    "itemNo": "661-793700-832",
+    "name": "Model 6612C-120C Architectural Vanity Suite & Smart LED Mirror (120 cm)",
+    "description": "Bathroom cabinet\nmaterial:Aluminium/ss/porcelain/glass. Includes high-fired vitreous china countertop basin, soft-close drawers, and copper-free smart touch LED mirror with anti-fog heating pad.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 119700,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 3,
+    "image": "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "120 cm",
+    "thickness": "",
+    "finish": "Modern Architectural",
+    "material": "Aero Aluminum & Porcelain",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Width",
+        "value": "120 cm"
+      },
+      {
+        "label": "Mirror",
+        "value": "LED Illuminated Anti-Fog"
+      },
+      {
+        "label": "Basin",
+        "value": "Seamless Porcelain Countertop"
+      }
+    ],
+    "featured": true,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "K26-480521-129",
+    "sku": "K26-480521-129",
+    "itemNo": "K26-480521-129",
+    "name": "Model K26-J033 Minimalist Wall-Hung Porcelain Basin",
+    "description": "Compact wall-mounted ceramic basin with clean geometric contours. Ideal for powder rooms, guest ensuites, and modern minimalist bathrooms.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 20300,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 1,
+    "image": "https://images.unsplash.com/photo-1584622781867-1c5e638b9d09?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1584622781867-1c5e638b9d09?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Satin Glaze White",
+    "material": "Vitreous China",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Mounting",
+        "value": "Wall-Hung / Bracket"
+      },
+      {
+        "label": "Drain",
+        "value": "Standard 45 mm Waste Hole"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "K26-736510-366",
+    "sku": "K26-736510-366",
+    "itemNo": "K26-736510-366",
+    "name": "Model K26-J030 Minimalist Wall-Hung Porcelain Basin",
+    "description": "Compact wall-mounted ceramic basin with clean geometric contours. Ideal for powder rooms, guest ensuites, and modern minimalist bathrooms.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 19260,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 1,
+    "image": "https://images.unsplash.com/photo-1584622781867-1c5e638b9d09?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1584622781867-1c5e638b9d09?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Satin Glaze White",
+    "material": "Vitreous China",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Mounting",
+        "value": "Wall-Hung / Bracket"
+      },
+      {
+        "label": "Drain",
+        "value": "Standard 45 mm Waste Hole"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "501-584959-663",
+    "sku": "501-584959-663",
+    "itemNo": "501-584959-663",
+    "name": "Model 50100 Architectural Tri-Color LED Vanity Mirror Luminaire",
+    "description": "Modern high-CRI vanity mirror light with 3 selectable color temperatures (Warm White 3000K, Neutral 4000K, Daylight 6000K). Flicker-free driver.",
+    "category": "Electrical",
+    "categories": [
+      "Electrical"
+    ],
+    "price": 15900,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 4,
+    "image": "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Chrome / Matte Silver",
+    "material": "Frosted Acrylic & Aluminum Body",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "CCT Modes",
+        "value": "3000K / 4000K / 6000K"
+      },
+      {
+        "label": "CRI",
+        "value": "> 90 High Color Fidelity"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "AES-314134-874",
+    "sku": "AES-314134-874",
+    "itemNo": "AES-314134-874",
+    "name": "Model AES-5003C Solid Brass Monobloc Basin Mixer - Polished Chrome",
+    "description": "Basin mixer\nmaterial:brass body,ceramic catridge\ncolor chrome. Tested to 500,000 cycles with drip-free ceramic cartridge, Neoperl aerator for smooth laminar water flow, and flexible stainless braided hoses.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 12900,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 5,
+    "image": "/products/mixer-brass.jpg",
+    "images": [
+      "/products/mixer-brass.jpg"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Polished Chrome",
+    "material": "Solid DZR Brass",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "Solid DZR Brass"
+      },
+      {
+        "label": "Finish",
+        "value": "Polished Chrome"
+      },
+      {
+        "label": "Cartridge",
+        "value": "Ceramic Disc Valve"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "SM9-157373-390",
+    "sku": "SM9-157373-390",
+    "itemNo": "SM9-157373-390",
+    "name": "Model SM90044MB Solid Brass Monobloc Basin Mixer - Matte Black",
+    "description": "Basin mixer\nmaterial:brass body,ceramic catridge\ncolor: matte black. Tested to 500,000 cycles with drip-free ceramic cartridge, Neoperl aerator for smooth laminar water flow, and flexible stainless braided hoses.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 9660,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 2,
+    "image": "/products/mixer-brass.jpg",
+    "images": [
+      "/products/mixer-brass.jpg"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Matte Black",
+    "material": "Solid DZR Brass",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "Solid DZR Brass"
+      },
+      {
+        "label": "Finish",
+        "value": "Matte Black"
+      },
+      {
+        "label": "Cartridge",
+        "value": "Ceramic Disc Valve"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "SM9-976110-705",
+    "sku": "SM9-976110-705",
+    "itemNo": "SM9-976110-705",
+    "name": "Model SM90044C Solid Brass Monobloc Basin Mixer - Polished Chrome",
+    "description": "Basin mixer\nmaterial:brass body,ceramic cartridge\ncolor: chrome. Tested to 500,000 cycles with drip-free ceramic cartridge, Neoperl aerator for smooth laminar water flow, and flexible stainless braided hoses.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 9660,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 5,
+    "image": "/products/mixer-brass.jpg",
+    "images": [
+      "/products/mixer-brass.jpg"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Polished Chrome",
+    "material": "Solid DZR Brass",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "Solid DZR Brass"
+      },
+      {
+        "label": "Finish",
+        "value": "Polished Chrome"
+      },
+      {
+        "label": "Cartridge",
+        "value": "Ceramic Disc Valve"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "901-382200-893",
+    "sku": "901-382200-893",
+    "itemNo": "901-382200-893",
+    "name": "Model 9012A Concealed Thermostatic Shower Mixer with Rain Head - Matte Finish",
+    "description": "Minimalist in-wall concealed shower mixer system. Clean architectural faceplate with thermostatic safety cartridge and oversized stainless steel rain head.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 28700,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 0,
+    "image": "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Matte Gunmetal / Stainless",
+    "material": "Solid Brass Rough-in Valve & SS Rain Head",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Valve Type",
+        "value": "Concealed Thermostatic"
+      },
+      {
+        "label": "Cartridge",
+        "value": "Vernet Ceramic Thermostatic"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "242-457535-859",
+    "sku": "242-457535-859",
+    "itemNo": "242-457535-859",
+    "name": "Model 2423-P Rimless Tornado Flush One-Piece Toilet (P-Trap)",
+    "description": "High-efficiency one-piece ceramic water closet featuring dual-cyclone rimless flushing technology. Soft-close UF seat cover with quick-release stainless steel hinges.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 38500,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 2,
+    "image": "/products/toilet-wallhung.jpg",
+    "images": [
+      "/products/toilet-wallhung.jpg"
+    ],
+    "dimension": "P-Trap 180 mm",
+    "thickness": "",
+    "finish": "Nano-Glazed Alpine White",
+    "material": "Vitreous China",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Flush Type",
+        "value": "Dual 3L/4.5L Tornado"
+      },
+      {
+        "label": "Trapway",
+        "value": "180mm P-Trap"
+      },
+      {
+        "label": "Glaze",
+        "value": "Anti-Bacterial Nano-Ceramic"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "6TO-302879-211",
+    "sku": "6TO-302879-211",
+    "itemNo": "6TO-302879-211",
+    "name": "Model 6TO1-80 Architectural Vanity Suite & Smart LED Mirror (80 cm)",
+    "description": "Bathroom cabinet\nmaterial:plywood,porcelain and glass mirror. Includes high-fired vitreous china countertop basin, soft-close drawers, and copper-free smart touch LED mirror with anti-fog heating pad.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 84915,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 3,
+    "image": "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "80 cm",
+    "thickness": "",
+    "finish": "Modern Architectural",
+    "material": "Solid Plywood & Porcelain",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Width",
+        "value": "80 cm"
+      },
+      {
+        "label": "Mirror",
+        "value": "LED Illuminated Anti-Fog"
+      },
+      {
+        "label": "Basin",
+        "value": "Seamless Porcelain Countertop"
+      }
+    ],
+    "featured": true,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "692-125561-218",
+    "sku": "692-125561-218",
+    "itemNo": "692-125561-218",
+    "name": "Model 69204 Tumbler Holder with Frosted Glass - Matte Satin",
+    "description": "Architectural luxury bathroom hardware. Constructed from solid SUS 304 stainless steel with electroplated Matte Satin coating resistant to moisture, oxidation, and tarnishing. Concealed screw mounting.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 3680,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 4,
+    "image": "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Matte Satin",
+    "material": "SUS 304 Stainless Steel",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "Grade 304 Stainless Steel"
+      },
+      {
+        "label": "Finish",
+        "value": "Matte Satin"
+      },
+      {
+        "label": "Mounting",
+        "value": "Concealed Wall Fixings"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "694-951829-341",
+    "sku": "694-951829-341",
+    "itemNo": "694-951829-341",
+    "name": "Model 69401 Coat & Robe Hook - Gun Grey",
+    "description": "Architectural luxury bathroom hardware. Constructed from solid SUS 304 stainless steel with electroplated Gun Grey coating resistant to moisture, oxidation, and tarnishing. Concealed screw mounting.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 2280,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 5,
+    "image": "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Gun Grey",
+    "material": "SUS 304 Stainless Steel",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "Grade 304 Stainless Steel"
+      },
+      {
+        "label": "Finish",
+        "value": "Gun Grey"
+      },
+      {
+        "label": "Mounting",
+        "value": "Concealed Wall Fixings"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "694-758947-630",
+    "sku": "694-758947-630",
+    "itemNo": "694-758947-630",
+    "name": "Model 69402 Wall-Mounted Soap Dish - Gun Grey",
+    "description": "Architectural luxury bathroom hardware. Constructed from solid SUS 304 stainless steel with electroplated Gun Grey coating resistant to moisture, oxidation, and tarnishing. Concealed screw mounting.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 3680,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 5,
+    "image": "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Gun Grey",
+    "material": "SUS 304 Stainless Steel",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "Grade 304 Stainless Steel"
+      },
+      {
+        "label": "Finish",
+        "value": "Gun Grey"
+      },
+      {
+        "label": "Mounting",
+        "value": "Concealed Wall Fixings"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "SPC-655458-811",
+    "sku": "SPC-655458-811",
+    "itemNo": "SPC-655458-811",
+    "name": "SPC Architectural Waterproof Skirting Profile A850",
+    "description": "Moisture-proof architectural skirting board engineered to match SPC flooring and tile transitions. Termite-proof, non-warping, with hidden cable management channel.",
+    "category": "Tiles",
+    "categories": [
+      "Tiles"
+    ],
+    "price": 1250,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 25,
+    "image": "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "240 cm Length",
+    "thickness": "",
+    "finish": "Matte Color-Matched",
+    "material": "Rigid SPC Vinyl",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Length",
+        "value": "2.4 meters"
+      },
+      {
+        "label": "Material",
+        "value": "Waterproof Solid Polymer"
+      },
+      {
+        "label": "Profile",
+        "value": "Modern Flat Top"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "SPC-595934-403",
+    "sku": "SPC-595934-403",
+    "itemNo": "SPC-595934-403",
+    "name": "SPC Architectural Waterproof Skirting Profile A805",
+    "description": "Moisture-proof architectural skirting board engineered to match SPC flooring and tile transitions. Termite-proof, non-warping, with hidden cable management channel.",
+    "category": "Tiles",
+    "categories": [
+      "Tiles"
+    ],
+    "price": 1250,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 11,
+    "image": "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "240 cm Length",
+    "thickness": "",
+    "finish": "Matte Color-Matched",
+    "material": "Rigid SPC Vinyl",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Length",
+        "value": "2.4 meters"
+      },
+      {
+        "label": "Material",
+        "value": "Waterproof Solid Polymer"
+      },
+      {
+        "label": "Profile",
+        "value": "Modern Flat Top"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "SPC-525828-156",
+    "sku": "SPC-525828-156",
+    "itemNo": "SPC-525828-156",
+    "name": "SPC Architectural Waterproof Skirting Profile A853",
+    "description": "Moisture-proof architectural skirting board engineered to match SPC flooring and tile transitions. Termite-proof, non-warping, with hidden cable management channel.",
+    "category": "Tiles",
+    "categories": [
+      "Tiles"
+    ],
+    "price": 1250,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 25,
+    "image": "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "240 cm Length",
+    "thickness": "",
+    "finish": "Matte Color-Matched",
+    "material": "Rigid SPC Vinyl",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Length",
+        "value": "2.4 meters"
+      },
+      {
+        "label": "Material",
+        "value": "Waterproof Solid Polymer"
+      },
+      {
+        "label": "Profile",
+        "value": "Modern Flat Top"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "SPC-468092-833",
+    "sku": "SPC-468092-833",
+    "itemNo": "SPC-468092-833",
+    "name": "SPC Architectural Waterproof Skirting Profile A807",
+    "description": "Moisture-proof architectural skirting board engineered to match SPC flooring and tile transitions. Termite-proof, non-warping, with hidden cable management channel.",
+    "category": "Tiles",
+    "categories": [
+      "Tiles"
+    ],
+    "price": 1250,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 9,
+    "image": "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "240 cm Length",
+    "thickness": "",
+    "finish": "Matte Color-Matched",
+    "material": "Rigid SPC Vinyl",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Length",
+        "value": "2.4 meters"
+      },
+      {
+        "label": "Material",
+        "value": "Waterproof Solid Polymer"
+      },
+      {
+        "label": "Profile",
+        "value": "Modern Flat Top"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "SPC-408157-476",
+    "sku": "SPC-408157-476",
+    "itemNo": "SPC-408157-476",
+    "name": "SPC Architectural Waterproof Skirting Profile A801",
+    "description": "Moisture-proof architectural skirting board engineered to match SPC flooring and tile transitions. Termite-proof, non-warping, with hidden cable management channel.",
+    "category": "Tiles",
+    "categories": [
+      "Tiles"
+    ],
+    "price": 1250,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 8,
+    "image": "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "240 cm Length",
+    "thickness": "",
+    "finish": "Matte Color-Matched",
+    "material": "Rigid SPC Vinyl",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Length",
+        "value": "2.4 meters"
+      },
+      {
+        "label": "Material",
+        "value": "Waterproof Solid Polymer"
+      },
+      {
+        "label": "Profile",
+        "value": "Modern Flat Top"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "SPC-228530-024",
+    "sku": "SPC-228530-024",
+    "itemNo": "SPC-228530-024",
+    "name": "SPC Architectural Waterproof Skirting Profile A803",
+    "description": "Moisture-proof architectural skirting board engineered to match SPC flooring and tile transitions. Termite-proof, non-warping, with hidden cable management channel.",
+    "category": "Tiles",
+    "categories": [
+      "Tiles"
+    ],
+    "price": 1250,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 1,
+    "image": "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "240 cm Length",
+    "thickness": "",
+    "finish": "Matte Color-Matched",
+    "material": "Rigid SPC Vinyl",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Length",
+        "value": "2.4 meters"
+      },
+      {
+        "label": "Material",
+        "value": "Waterproof Solid Polymer"
+      },
+      {
+        "label": "Profile",
+        "value": "Modern Flat Top"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "SP-123210-189",
+    "sku": "SP-123210-189",
+    "itemNo": "SP-123210-189",
+    "name": "SPC Architectural Waterproof Skirting Profile A838",
+    "description": "Moisture-proof architectural skirting board engineered to match SPC flooring and tile transitions. Termite-proof, non-warping, with hidden cable management channel.",
+    "category": "Tiles",
+    "categories": [
+      "Tiles"
+    ],
+    "price": 1250,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 0,
+    "image": "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "240 cm Length",
+    "thickness": "",
+    "finish": "Matte Color-Matched",
+    "material": "Rigid SPC Vinyl",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Length",
+        "value": "2.4 meters"
+      },
+      {
+        "label": "Material",
+        "value": "Waterproof Solid Polymer"
+      },
+      {
+        "label": "Profile",
+        "value": "Modern Flat Top"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "CAR-977306-364",
+    "sku": "CAR-977306-364",
+    "itemNo": "CAR-977306-364",
+    "name": "Carrara White Sintered Stone Slab (90x260 cm)",
+    "description": "Magnificent continuous bookmatched sintered stone slab forged under 30,000 tons of compaction. Zero porosity, heat-proof up to 1200°C, scratch-proof, designed for luxury kitchen islands, bathroom vanities, and feature walls.",
+    "category": "Tiles",
+    "categories": [
+      "Tiles"
+    ],
+    "price": 25300,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 0,
+    "image": "/products/tile-statuario.jpg",
+    "images": [
+      "/products/tile-statuario.jpg"
+    ],
+    "dimension": "90*260.09",
+    "thickness": "12 mm",
+    "finish": "Bookmatch Mirror Polish",
+    "material": "Compact Sintered Stone",
+    "origin": "Import Spec",
+    "look": "Marble",
+    "specs": [
+      {
+        "label": "Format",
+        "value": "90*260.09"
+      },
+      {
+        "label": "Thickness",
+        "value": "12 mm Compact"
+      },
+      {
+        "label": "Thermal Resistance",
+        "value": "Class A1 Fireproof"
+      },
+      {
+        "label": "Porosity",
+        "value": "< 0.05% Non-Absorbent"
+      }
+    ],
+    "featured": true,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "CAR-679703-781",
+    "sku": "CAR-679703-781",
+    "itemNo": "CAR-679703-781",
+    "name": "Carrara Statuario Grand Sintered Porcelain Slab (120x270 cm)",
+    "description": "Magnificent continuous bookmatched sintered stone slab forged under 30,000 tons of compaction. Zero porosity, heat-proof up to 1200°C, scratch-proof, designed for luxury kitchen islands, bathroom vanities, and feature walls.",
+    "category": "Tiles",
+    "categories": [
+      "Tiles"
+    ],
+    "price": 42500,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 0,
+    "image": "/products/tile-statuario.jpg",
+    "images": [
+      "/products/tile-statuario.jpg"
+    ],
+    "dimension": "120*270*1.2",
+    "thickness": "12 mm",
+    "finish": "Bookmatch Mirror Polish",
+    "material": "Compact Sintered Stone",
+    "origin": "Import Spec",
+    "look": "Marble",
+    "specs": [
+      {
+        "label": "Format",
+        "value": "120*270*1.2"
+      },
+      {
+        "label": "Thickness",
+        "value": "12 mm Compact"
+      },
+      {
+        "label": "Thermal Resistance",
+        "value": "Class A1 Fireproof"
+      },
+      {
+        "label": "Porosity",
+        "value": "< 0.05% Non-Absorbent"
+      }
+    ],
+    "featured": true,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "ANK-432077-147",
+    "sku": "ANK-432077-147",
+    "itemNo": "ANK-432077-147",
+    "name": "Ankara Noir Polished Sintered Stone Slab (120x270 cm)",
+    "description": "Magnificent continuous bookmatched sintered stone slab forged under 30,000 tons of compaction. Zero porosity, heat-proof up to 1200°C, scratch-proof, designed for luxury kitchen islands, bathroom vanities, and feature walls.",
+    "category": "Tiles",
+    "categories": [
+      "Tiles"
+    ],
+    "price": 42500,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 0,
+    "image": "/products/tile-nero-marquina.jpg",
+    "images": [
+      "/products/tile-nero-marquina.jpg"
+    ],
+    "dimension": "120*270*1.2",
+    "thickness": "12 mm",
+    "finish": "Bookmatch Mirror Polish",
+    "material": "Compact Sintered Stone",
+    "origin": "Import Spec",
+    "look": "Marble",
+    "specs": [
+      {
+        "label": "Format",
+        "value": "120*270*1.2"
+      },
+      {
+        "label": "Thickness",
+        "value": "12 mm Compact"
+      },
+      {
+        "label": "Thermal Resistance",
+        "value": "Class A1 Fireproof"
+      },
+      {
+        "label": "Porosity",
+        "value": "< 0.05% Non-Absorbent"
+      }
+    ],
+    "featured": true,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "682-575795-195",
+    "sku": "682-575795-195",
+    "itemNo": "682-575795-195",
+    "name": "Model 68205 Tumbler Holder with Frosted Glass - Gun Grey",
+    "description": "Architectural luxury bathroom hardware. Constructed from solid SUS 304 stainless steel with electroplated Gun Grey coating resistant to moisture, oxidation, and tarnishing. Concealed screw mounting.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 4480,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 1,
+    "image": "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Gun Grey",
+    "material": "SUS 304 Stainless Steel",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "Grade 304 Stainless Steel"
+      },
+      {
+        "label": "Finish",
+        "value": "Gun Grey"
+      },
+      {
+        "label": "Mounting",
+        "value": "Concealed Wall Fixings"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "664-393102-014",
+    "sku": "664-393102-014",
+    "itemNo": "664-393102-014",
+    "name": "Model 66400-6 Coat & Robe Hook - Gun Grey",
+    "description": "Architectural luxury bathroom hardware. Constructed from solid SUS 304 stainless steel with electroplated Gun Grey coating resistant to moisture, oxidation, and tarnishing. Concealed screw mounting.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 4700,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 5,
+    "image": "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Gun Grey",
+    "material": "SUS 304 Stainless Steel",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "Grade 304 Stainless Steel"
+      },
+      {
+        "label": "Finish",
+        "value": "Gun Grey"
+      },
+      {
+        "label": "Mounting",
+        "value": "Concealed Wall Fixings"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "694-746170-449",
+    "sku": "694-746170-449",
+    "itemNo": "694-746170-449",
+    "name": "Model 69428 Toilet Paper Holder - Gun Grey",
+    "description": "Architectural luxury bathroom hardware. Constructed from solid SUS 304 stainless steel with electroplated Gun Grey coating resistant to moisture, oxidation, and tarnishing. Concealed screw mounting.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 3900,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 5,
+    "image": "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Gun Grey",
+    "material": "SUS 304 Stainless Steel",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "Grade 304 Stainless Steel"
+      },
+      {
+        "label": "Finish",
+        "value": "Gun Grey"
+      },
+      {
+        "label": "Mounting",
+        "value": "Concealed Wall Fixings"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "664-180713-432",
+    "sku": "664-180713-432",
+    "itemNo": "664-180713-432",
+    "name": "Model 66412 Towel Shelf & Rail - Gun Grey",
+    "description": "Architectural luxury bathroom hardware. Constructed from solid SUS 304 stainless steel with electroplated Gun Grey coating resistant to moisture, oxidation, and tarnishing. Concealed screw mounting.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 12990,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 5,
+    "image": "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Gun Grey",
+    "material": "SUS 304 Stainless Steel",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "Grade 304 Stainless Steel"
+      },
+      {
+        "label": "Finish",
+        "value": "Gun Grey"
+      },
+      {
+        "label": "Mounting",
+        "value": "Concealed Wall Fixings"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "SER-769870-340",
+    "sku": "SER-769870-340",
+    "itemNo": "SER-769870-340",
+    "name": "Model SERVIATTE Commercial Napkin & Serviette Dispenser - Matte Satin",
+    "description": "Architectural luxury bathroom hardware. Constructed from solid SUS 304 stainless steel with electroplated Matte Satin coating resistant to moisture, oxidation, and tarnishing. Concealed screw mounting.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 1200,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 59,
+    "image": "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Matte Satin",
+    "material": "SUS 304 Stainless Steel",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "Grade 304 Stainless Steel"
+      },
+      {
+        "label": "Finish",
+        "value": "Matte Satin"
+      },
+      {
+        "label": "Mounting",
+        "value": "Concealed Wall Fixings"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "TOI-710171-591",
+    "sku": "TOI-710171-591",
+    "itemNo": "TOI-710171-591",
+    "name": "Model TOILET PAPER Commercial Jumbo Roll Toilet Paper Dispenser - Matte Satin",
+    "description": "Architectural luxury bathroom hardware. Constructed from solid SUS 304 stainless steel with electroplated Matte Satin coating resistant to moisture, oxidation, and tarnishing. Concealed screw mounting.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 1200,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 63,
+    "image": "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Matte Satin",
+    "material": "SUS 304 Stainless Steel",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "Grade 304 Stainless Steel"
+      },
+      {
+        "label": "Finish",
+        "value": "Matte Satin"
+      },
+      {
+        "label": "Mounting",
+        "value": "Concealed Wall Fixings"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "694-579619-575",
+    "sku": "694-579619-575",
+    "itemNo": "694-579619-575",
+    "name": "Model 69409 Wall-Hung Toilet Brush Set - Gun Grey",
+    "description": "Architectural luxury bathroom hardware. Constructed from solid SUS 304 stainless steel with electroplated Gun Grey coating resistant to moisture, oxidation, and tarnishing. Concealed screw mounting.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 7200,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 8,
+    "image": "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Gun Grey",
+    "material": "SUS 304 Stainless Steel",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "Grade 304 Stainless Steel"
+      },
+      {
+        "label": "Finish",
+        "value": "Gun Grey"
+      },
+      {
+        "label": "Mounting",
+        "value": "Concealed Wall Fixings"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "811-275911-701",
+    "sku": "811-275911-701",
+    "itemNo": "811-275911-701",
+    "name": "Model 8111 2-Tier Corner Shower Caddy Basket - Gun Grey",
+    "description": "Architectural luxury bathroom hardware. Constructed from solid SUS 304 stainless steel with electroplated Gun Grey coating resistant to moisture, oxidation, and tarnishing. Concealed screw mounting.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 12990,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 5,
+    "image": "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Gun Grey",
+    "material": "SUS 304 Stainless Steel",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "Grade 304 Stainless Steel"
+      },
+      {
+        "label": "Finish",
+        "value": "Gun Grey"
+      },
+      {
+        "label": "Mounting",
+        "value": "Concealed Wall Fixings"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "TIL-398423-322",
+    "sku": "TIL-398423-322",
+    "itemNo": "TIL-398423-322",
+    "name": "Professional Manual Tile & Sintered Slab Cutter (75-150 cm)",
+    "description": "Precision bearing-guided manual tile cutter for large format porcelain tiles and slabs up to 1500mm length. High-leverage breaking system ensures crisp, splinter-free cuts on tiles up to 20mm thick.",
+    "category": "Tiles",
+    "categories": [
+      "Tiles"
+    ],
+    "price": 93415,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 2,
+    "image": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "150 cm Max Cut",
+    "thickness": "",
+    "finish": "Architectural Standard",
+    "material": "Aircraft-grade Aluminum / Tungsten Wheel",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Cutting Length",
+        "value": "1500 mm"
+      },
+      {
+        "label": "Max Thickness",
+        "value": "20 mm"
+      },
+      {
+        "label": "Guide Rail",
+        "value": "Dual Steel Monorail"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "607-227012-979",
+    "sku": "607-227012-979",
+    "itemNo": "607-227012-979",
+    "name": "Model 6071 Heavy Duty Textured Exterior Wall & Paver Tile (60x60 cm)",
+    "description": "Robust outdoor facade and patio porcelain tile featuring enhanced R11 anti-slip surface texture. Engineered for exterior perimeter walls, driveways, balconies, and pool copings.",
+    "category": "Tiles",
+    "categories": [
+      "Tiles"
+    ],
+    "price": 2680,
+    "pricingType": "area",
+    "pricePerSqm": 2680,
+    "sqmPerBox": 1.44,
+    "bulkPricePerBox": 3860,
+    "bulkUnit": "Box",
+    "stockQuantity": 99.36,
+    "image": "/products/tile-paver-grigio.jpg",
+    "images": [
+      "/products/tile-paver-grigio.jpg"
+    ],
+    "dimension": "60x60 cm",
+    "thickness": "12 mm",
+    "finish": "Textured R11 Anti-Slip",
+    "material": "Full Body Porcelain",
+    "origin": "Import Spec",
+    "look": "Stone",
+    "specs": [
+      {
+        "label": "Application",
+        "value": "Exterior Walls & Balconies"
+      },
+      {
+        "label": "Texture",
+        "value": "R11 Anti-Slip"
+      },
+      {
+        "label": "Packing",
+        "value": "1.44 m²/box"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "SPC-774853-257",
+    "sku": "SPC-774853-257",
+    "itemNo": "SPC-774853-257",
+    "name": "SPC Rigid Core Luxury Vinyl Tile J5011 (6.5mm Acoustic Underlay)",
+    "description": "Commercial-grade 6.5mm Stone Polymer Composite (SPC) flooring featuring an integrated IXPE acoustic backing layer. 100% waterproof, dent-proof, with rapid Uniclic interlocking installation.",
+    "category": "Tiles",
+    "categories": [
+      "Tiles"
+    ],
+    "price": 3000,
+    "pricingType": "area",
+    "pricePerSqm": 3000,
+    "sqmPerBox": 2.23,
+    "bulkPricePerBox": 6690,
+    "bulkUnit": "Box",
+    "stockQuantity": 147.18,
+    "image": "https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "6.5 mm Thick",
+    "thickness": "6.5 mm",
+    "finish": "Matte Embossed-in-Register",
+    "material": "Stone Polymer Composite (SPC)",
+    "origin": "German Engineering",
+    "look": "Wood",
+    "specs": [
+      {
+        "label": "Core",
+        "value": "Limestone Composite Core"
+      },
+      {
+        "label": "Thickness",
+        "value": "6.5 mm"
+      },
+      {
+        "label": "Acoustic Backing",
+        "value": "Built-in IXPE Soundproof"
+      },
+      {
+        "label": "Box Size",
+        "value": "2.23 m²/box"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "SPC-585640-130",
+    "sku": "SPC-585640-130",
+    "itemNo": "SPC-585640-130",
+    "name": "SPC Rigid Core Luxury Vinyl Tile J5015 (6.5mm Acoustic Underlay)",
+    "description": "Commercial-grade 6.5mm Stone Polymer Composite (SPC) flooring featuring an integrated IXPE acoustic backing layer. 100% waterproof, dent-proof, with rapid Uniclic interlocking installation.",
+    "category": "Tiles",
+    "categories": [
+      "Tiles"
+    ],
+    "price": 3000,
+    "pricingType": "area",
+    "pricePerSqm": 3000,
+    "sqmPerBox": 2.23,
+    "bulkPricePerBox": 6690,
+    "bulkUnit": "Box",
+    "stockQuantity": 190.47000000000003,
+    "image": "https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "6.5 mm Thick",
+    "thickness": "6.5 mm",
+    "finish": "Matte Embossed-in-Register",
+    "material": "Stone Polymer Composite (SPC)",
+    "origin": "German Engineering",
+    "look": "Wood",
+    "specs": [
+      {
+        "label": "Core",
+        "value": "Limestone Composite Core"
+      },
+      {
+        "label": "Thickness",
+        "value": "6.5 mm"
+      },
+      {
+        "label": "Acoustic Backing",
+        "value": "Built-in IXPE Soundproof"
+      },
+      {
+        "label": "Box Size",
+        "value": "2.23 m²/box"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "SP-714290-325",
+    "sku": "SP-714290-325",
+    "itemNo": "SP-714290-325",
+    "name": "SPC Rigid Core Luxury Vinyl Tile J5012 (6.5mm Acoustic Underlay)",
+    "description": "Commercial-grade 6.5mm Stone Polymer Composite (SPC) flooring featuring an integrated IXPE acoustic backing layer. 100% waterproof, dent-proof, with rapid Uniclic interlocking installation.",
+    "category": "Tiles",
+    "categories": [
+      "Tiles"
+    ],
+    "price": 3000,
+    "pricingType": "area",
+    "pricePerSqm": 3000,
+    "sqmPerBox": 2.23,
+    "bulkPricePerBox": 6690,
+    "bulkUnit": "Box",
+    "stockQuantity": 22.99,
+    "image": "https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "6.5 mm Thick",
+    "thickness": "6.5 mm",
+    "finish": "Matte Embossed-in-Register",
+    "material": "Stone Polymer Composite (SPC)",
+    "origin": "German Engineering",
+    "look": "Wood",
+    "specs": [
+      {
+        "label": "Core",
+        "value": "Limestone Composite Core"
+      },
+      {
+        "label": "Thickness",
+        "value": "6.5 mm"
+      },
+      {
+        "label": "Acoustic Backing",
+        "value": "Built-in IXPE Soundproof"
+      },
+      {
+        "label": "Box Size",
+        "value": "2.23 m²/box"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "PVC-437752-725",
+    "sku": "PVC-437752-725",
+    "itemNo": "PVC-437752-725",
+    "name": "3D Sculpted PVC Wall Art Panel - GOLD PATTERN (50x50 cm)",
+    "description": "Impactful 3D modular architectural wall panels creating dynamic interplay of light and shadow. Lightweight, moisture-resistant, paintable, and easily adhered to any sound wall surface.",
+    "category": "Tiles",
+    "categories": [
+      "Tiles"
+    ],
+    "price": 830,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 29,
+    "image": "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "50x50 cm",
+    "thickness": "1.5 mm Relief",
+    "finish": "Embossed Textured",
+    "material": "Recyclable Architectural PVC",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Dimensions",
+        "value": "500 x 500 mm"
+      },
+      {
+        "label": "Pattern",
+        "value": "GOLD PATTERN"
+      },
+      {
+        "label": "Installation",
+        "value": "Adhesive Mount"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "PVC-307005-574",
+    "sku": "PVC-307005-574",
+    "itemNo": "PVC-307005-574",
+    "name": "3D Sculpted PVC Wall Art Panel - BLACK SQURE (50x50 cm)",
+    "description": "Impactful 3D modular architectural wall panels creating dynamic interplay of light and shadow. Lightweight, moisture-resistant, paintable, and easily adhered to any sound wall surface.",
+    "category": "Tiles",
+    "categories": [
+      "Tiles"
+    ],
+    "price": 830,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 49,
+    "image": "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "50x50 cm",
+    "thickness": "1.5 mm Relief",
+    "finish": "Embossed Textured",
+    "material": "Recyclable Architectural PVC",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Dimensions",
+        "value": "500 x 500 mm"
+      },
+      {
+        "label": "Pattern",
+        "value": "BLACK SQURE"
+      },
+      {
+        "label": "Installation",
+        "value": "Adhesive Mount"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "PVC-730343-976",
+    "sku": "PVC-730343-976",
+    "itemNo": "PVC-730343-976",
+    "name": "3D Sculpted PVC Wall Art Panel - BLACK CIRCLE (50x50 cm)",
+    "description": "Impactful 3D modular architectural wall panels creating dynamic interplay of light and shadow. Lightweight, moisture-resistant, paintable, and easily adhered to any sound wall surface.",
+    "category": "Tiles",
+    "categories": [
+      "Tiles"
+    ],
+    "price": 830,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 49,
+    "image": "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "50x50 cm",
+    "thickness": "1.5 mm Relief",
+    "finish": "Embossed Textured",
+    "material": "Recyclable Architectural PVC",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Dimensions",
+        "value": "500 x 500 mm"
+      },
+      {
+        "label": "Pattern",
+        "value": "BLACK CIRCLE"
+      },
+      {
+        "label": "Installation",
+        "value": "Adhesive Mount"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "PVC-620006-520",
+    "sku": "PVC-620006-520",
+    "itemNo": "PVC-620006-520",
+    "name": "3D Sculpted PVC Wall Art Panel - BLACK TRIANGLE (50x50 cm)",
+    "description": "Impactful 3D modular architectural wall panels creating dynamic interplay of light and shadow. Lightweight, moisture-resistant, paintable, and easily adhered to any sound wall surface.",
+    "category": "Tiles",
+    "categories": [
+      "Tiles"
+    ],
+    "price": 830,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 37,
+    "image": "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "50x50 cm",
+    "thickness": "1.5 mm Relief",
+    "finish": "Embossed Textured",
+    "material": "Recyclable Architectural PVC",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Dimensions",
+        "value": "500 x 500 mm"
+      },
+      {
+        "label": "Pattern",
+        "value": "BLACK TRIANGLE"
+      },
+      {
+        "label": "Installation",
+        "value": "Adhesive Mount"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "PVC-461311-705",
+    "sku": "PVC-461311-705",
+    "itemNo": "PVC-461311-705",
+    "name": "3D Sculpted PVC Wall Art Panel - GOLD WAVE (50x50 cm)",
+    "description": "Impactful 3D modular architectural wall panels creating dynamic interplay of light and shadow. Lightweight, moisture-resistant, paintable, and easily adhered to any sound wall surface.",
+    "category": "Tiles",
+    "categories": [
+      "Tiles"
+    ],
+    "price": 830,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 49,
+    "image": "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "50x50 cm",
+    "thickness": "1.5 mm Relief",
+    "finish": "Embossed Textured",
+    "material": "Recyclable Architectural PVC",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Dimensions",
+        "value": "500 x 500 mm"
+      },
+      {
+        "label": "Pattern",
+        "value": "GOLD WAVE"
+      },
+      {
+        "label": "Installation",
+        "value": "Adhesive Mount"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "PVC-353837-922",
+    "sku": "PVC-353837-922",
+    "itemNo": "PVC-353837-922",
+    "name": "3D Sculpted PVC Wall Art Panel - WHITE FLOWER (50x50 cm)",
+    "description": "Impactful 3D modular architectural wall panels creating dynamic interplay of light and shadow. Lightweight, moisture-resistant, paintable, and easily adhered to any sound wall surface.",
+    "category": "Tiles",
+    "categories": [
+      "Tiles"
+    ],
+    "price": 680,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 34,
+    "image": "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "50x50 cm",
+    "thickness": "1.5 mm Relief",
+    "finish": "Embossed Textured",
+    "material": "Recyclable Architectural PVC",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Dimensions",
+        "value": "500 x 500 mm"
+      },
+      {
+        "label": "Pattern",
+        "value": "WHITE FLOWER"
+      },
+      {
+        "label": "Installation",
+        "value": "Adhesive Mount"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "PVC-195332-896",
+    "sku": "PVC-195332-896",
+    "itemNo": "PVC-195332-896",
+    "name": "3D Sculpted PVC Wall Art Panel - WHITE SQURE (50x50 cm)",
+    "description": "Impactful 3D modular architectural wall panels creating dynamic interplay of light and shadow. Lightweight, moisture-resistant, paintable, and easily adhered to any sound wall surface.",
+    "category": "Tiles",
+    "categories": [
+      "Tiles"
+    ],
+    "price": 680,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 49,
+    "image": "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "50x50 cm",
+    "thickness": "1.5 mm Relief",
+    "finish": "Embossed Textured",
+    "material": "Recyclable Architectural PVC",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Dimensions",
+        "value": "500 x 500 mm"
+      },
+      {
+        "label": "Pattern",
+        "value": "WHITE SQURE"
+      },
+      {
+        "label": "Installation",
+        "value": "Adhesive Mount"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "PVC-873122-575",
+    "sku": "PVC-873122-575",
+    "itemNo": "PVC-873122-575",
+    "name": "3D Sculpted PVC Wall Art Panel - WHITE TRIANGLE (50x50 cm)",
+    "description": "Impactful 3D modular architectural wall panels creating dynamic interplay of light and shadow. Lightweight, moisture-resistant, paintable, and easily adhered to any sound wall surface.",
+    "category": "Tiles",
+    "categories": [
+      "Tiles"
+    ],
+    "price": 680,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 49,
+    "image": "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "50x50 cm",
+    "thickness": "1.5 mm Relief",
+    "finish": "Embossed Textured",
+    "material": "Recyclable Architectural PVC",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Dimensions",
+        "value": "500 x 500 mm"
+      },
+      {
+        "label": "Pattern",
+        "value": "WHITE TRIANGLE"
+      },
+      {
+        "label": "Installation",
+        "value": "Adhesive Mount"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "804-807238-064",
+    "sku": "804-807238-064",
+    "itemNo": "804-807238-064",
+    "name": "Model 8046JY Gun Grey Multi-Function Waterfall Kitchen Sink (80 cm)",
+    "description": "Chef-grade 80cm workstation kitchen sink featuring integrated piano waterfall tap, cup washer, pull-out sprayer, wooden cutting board, and colander basket.",
+    "category": "Sanitaryware",
+    "categories": [
+      "Sanitaryware"
+    ],
+    "price": 42000,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 13,
+    "image": "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "dimension": "800 x 460 mm",
+    "thickness": "",
+    "finish": "Nano PVD Gun Grey",
+    "material": "16-Gauge 304 Stainless Steel",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Sink Length",
+        "value": "800 mm"
+      },
+      {
+        "label": "Steel Gauge",
+        "value": "1.2 mm SUS304"
+      },
+      {
+        "label": "Features",
+        "value": "Waterfall Rinse + Glass Rinser"
+      }
+    ],
+    "featured": true,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "SIN-433374-255",
+    "sku": "SIN-433374-255",
+    "itemNo": "SIN-433374-255",
+    "name": "Tempered Glass 13A Single Switched Socket - Onyx Black",
+    "description": "Sleek frameless tempered glass socket faceplate with pure copper contacts, safety shutter protection, and premium tactile rocker.",
+    "category": "Electrical",
+    "categories": [
+      "Electrical"
+    ],
+    "price": 950,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 40,
+    "image": "/products/socket-onyx.jpg",
+    "images": [
+      "/products/socket-onyx.jpg"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Onyx Black Tempered Glass",
+    "material": "Crystal Tempered Glass & Flame-Retardant PC",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Rating",
+        "value": "13A 250V~"
+      },
+      {
+        "label": "Standard",
+        "value": "BS 1363 UK Standard"
+      },
+      {
+        "label": "Plate",
+        "value": "Crystal Tempered Glass"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "3G1-220020-717",
+    "sku": "3G1-220020-717",
+    "itemNo": "3G1-220020-717",
+    "name": "Tempered Glass 3-Gang 1-Way Rocker Switch - Onyx Black",
+    "description": "Luxurious frameless black glass light switch with precision micro-click rocker action and phosphor bronze terminals for 100,000 switching operations.",
+    "category": "Electrical",
+    "categories": [
+      "Electrical"
+    ],
+    "price": 850,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 18,
+    "image": "/products/socket-onyx.jpg",
+    "images": [
+      "/products/socket-onyx.jpg"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Onyx Black Tempered Glass",
+    "material": "Crystal Glass & Silver Alloy Contacts",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Gang & Way",
+        "value": "3-Gang 1-Way"
+      },
+      {
+        "label": "Rating",
+        "value": "10AX 250V~"
+      },
+      {
+        "label": "Contacts",
+        "value": "Silver Cadmium Oxide"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "2G1-109778-029",
+    "sku": "2G1-109778-029",
+    "itemNo": "2G1-109778-029",
+    "name": "Tempered Glass 2-Gang 1-Way Rocker Switch - Onyx Black",
+    "description": "Luxurious frameless black glass light switch with precision micro-click rocker action and phosphor bronze terminals for 100,000 switching operations.",
+    "category": "Electrical",
+    "categories": [
+      "Electrical"
+    ],
+    "price": 750,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 27,
+    "image": "/products/socket-onyx.jpg",
+    "images": [
+      "/products/socket-onyx.jpg"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Onyx Black Tempered Glass",
+    "material": "Crystal Glass & Silver Alloy Contacts",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Gang & Way",
+        "value": "2-Gang 1-Way"
+      },
+      {
+        "label": "Rating",
+        "value": "10AX 250V~"
+      },
+      {
+        "label": "Contacts",
+        "value": "Silver Cadmium Oxide"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "2G2-747406-782",
+    "sku": "2G2-747406-782",
+    "itemNo": "2G2-747406-782",
+    "name": "Tempered Glass 2-Gang 2-Way Rocker Switch - Onyx Black",
+    "description": "Luxurious frameless black glass light switch with precision micro-click rocker action and phosphor bronze terminals for 100,000 switching operations.",
+    "category": "Electrical",
+    "categories": [
+      "Electrical"
+    ],
+    "price": 850,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 49,
+    "image": "/products/socket-onyx.jpg",
+    "images": [
+      "/products/socket-onyx.jpg"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Onyx Black Tempered Glass",
+    "material": "Crystal Glass & Silver Alloy Contacts",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Gang & Way",
+        "value": "2-Gang 2-Way"
+      },
+      {
+        "label": "Rating",
+        "value": "10AX 250V~"
+      },
+      {
+        "label": "Contacts",
+        "value": "Silver Cadmium Oxide"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "1G2-662408-968",
+    "sku": "1G2-662408-968",
+    "itemNo": "1G2-662408-968",
+    "name": "Tempered Glass 1-Gang 2-Way Rocker Switch - Onyx Black",
+    "description": "Luxurious frameless black glass light switch with precision micro-click rocker action and phosphor bronze terminals for 100,000 switching operations.",
+    "category": "Electrical",
+    "categories": [
+      "Electrical"
+    ],
+    "price": 750,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 55,
+    "image": "/products/socket-onyx.jpg",
+    "images": [
+      "/products/socket-onyx.jpg"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Onyx Black Tempered Glass",
+    "material": "Crystal Glass & Silver Alloy Contacts",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Gang & Way",
+        "value": "1-Gang 2-Way"
+      },
+      {
+        "label": "Rating",
+        "value": "10AX 250V~"
+      },
+      {
+        "label": "Contacts",
+        "value": "Silver Cadmium Oxide"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "3G2-598143-323",
+    "sku": "3G2-598143-323",
+    "itemNo": "3G2-598143-323",
+    "name": "Tempered Glass 3-Gang 2-Way Rocker Switch - Onyx Black",
+    "description": "Luxurious frameless black glass light switch with precision micro-click rocker action and phosphor bronze terminals for 100,000 switching operations.",
+    "category": "Electrical",
+    "categories": [
+      "Electrical"
+    ],
+    "price": 1150,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 40,
+    "image": "/products/socket-onyx.jpg",
+    "images": [
+      "/products/socket-onyx.jpg"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Onyx Black Tempered Glass",
+    "material": "Crystal Glass & Silver Alloy Contacts",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Gang & Way",
+        "value": "3-Gang 2-Way"
+      },
+      {
+        "label": "Rating",
+        "value": "10AX 250V~"
+      },
+      {
+        "label": "Contacts",
+        "value": "Silver Cadmium Oxide"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "4G2-529044-120",
+    "sku": "4G2-529044-120",
+    "itemNo": "4G2-529044-120",
+    "name": "Tempered Glass 4-Gang 2-Way Rocker Switch - Onyx Black",
+    "description": "Luxurious frameless black glass light switch with precision micro-click rocker action and phosphor bronze terminals for 100,000 switching operations.",
+    "category": "Electrical",
+    "categories": [
+      "Electrical"
+    ],
+    "price": 1050,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 35,
+    "image": "/products/socket-onyx.jpg",
+    "images": [
+      "/products/socket-onyx.jpg"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Onyx Black Tempered Glass",
+    "material": "Crystal Glass & Silver Alloy Contacts",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Gang & Way",
+        "value": "4-Gang 2-Way"
+      },
+      {
+        "label": "Rating",
+        "value": "10AX 250V~"
+      },
+      {
+        "label": "Contacts",
+        "value": "Silver Cadmium Oxide"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "20A-125284-164",
+    "sku": "20A-125284-164",
+    "itemNo": "20A-125284-164",
+    "name": "Tempered Glass 20A Double-Pole Heavy Duty Isolator Switch - Onyx Black",
+    "description": "Heavy load 20A isolator switch designed for water heaters, air conditioners, and kitchen equipment. High-temperature arc-quenching chamber.",
+    "category": "Electrical",
+    "categories": [
+      "Electrical"
+    ],
+    "price": 1075,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 19,
+    "image": "/products/switch-40a.jpg",
+    "images": [
+      "/products/switch-40a.jpg"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Onyx Black Glass",
+    "material": "Polycarbonate & Pure Copper",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Rating",
+        "value": "20A 250V~"
+      },
+      {
+        "label": "Pole",
+        "value": "Double Pole (DP) Isolation"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "45A-833721-103",
+    "sku": "45A-833721-103",
+    "itemNo": "45A-833721-103",
+    "name": "Tempered Glass 45A Double-Pole Heavy Duty Isolator Switch - Onyx Black",
+    "description": "Heavy load 45A isolator switch designed for water heaters, air conditioners, and kitchen equipment. High-temperature arc-quenching chamber.",
+    "category": "Electrical",
+    "categories": [
+      "Electrical"
+    ],
+    "price": 1300,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 10,
+    "image": "/products/switch-40a.jpg",
+    "images": [
+      "/products/switch-40a.jpg"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Onyx Black Glass",
+    "material": "Polycarbonate & Pure Copper",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Rating",
+        "value": "45A 250V~"
+      },
+      {
+        "label": "Pole",
+        "value": "Double Pole (DP) Isolation"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "1G/-737007-461",
+    "sku": "1G/-737007-461",
+    "itemNo": "1G/-737007-461",
+    "name": "Tempered Glass 1-Gang 1-Way Rocker Switch - Onyx Black",
+    "description": "Luxurious frameless black glass light switch with precision micro-click rocker action and phosphor bronze terminals for 100,000 switching operations.",
+    "category": "Electrical",
+    "categories": [
+      "Electrical"
+    ],
+    "price": 650,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 26,
+    "image": "/products/socket-onyx.jpg",
+    "images": [
+      "/products/socket-onyx.jpg"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Onyx Black Tempered Glass",
+    "material": "Crystal Glass & Silver Alloy Contacts",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Gang & Way",
+        "value": "1-Gang 1-Way"
+      },
+      {
+        "label": "Rating",
+        "value": "10AX 250V~"
+      },
+      {
+        "label": "Contacts",
+        "value": "Silver Cadmium Oxide"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "4G/-647544-869",
+    "sku": "4G/-647544-869",
+    "itemNo": "4G/-647544-869",
+    "name": "Tempered Glass 4-Gang 1-Way Rocker Switch - Onyx Black",
+    "description": "Luxurious frameless black glass light switch with precision micro-click rocker action and phosphor bronze terminals for 100,000 switching operations.",
+    "category": "Electrical",
+    "categories": [
+      "Electrical"
+    ],
+    "price": 950,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 16,
+    "image": "/products/socket-onyx.jpg",
+    "images": [
+      "/products/socket-onyx.jpg"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Onyx Black Tempered Glass",
+    "material": "Crystal Glass & Silver Alloy Contacts",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "Gang & Way",
+        "value": "4-Gang 1-Way"
+      },
+      {
+        "label": "Rating",
+        "value": "10AX 250V~"
+      },
+      {
+        "label": "Contacts",
+        "value": "Silver Cadmium Oxide"
+      }
+    ],
+    "featured": false,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "UNI-510407-624",
+    "sku": "UNI-510407-624",
+    "itemNo": "UNI-510407-624",
+    "name": "Tempered Glass Multi-Standard Universal Socket with Dual USB - Onyx Black",
+    "description": "Modern architectural black tempered glass outlet combining high-efficiency 5V 2.4A dual USB charging ports with heavy duty power terminals.",
+    "category": "Electrical",
+    "categories": [
+      "Electrical"
+    ],
+    "price": 620,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 5,
+    "image": "/products/socket-onyx.jpg",
+    "images": [
+      "/products/socket-onyx.jpg"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Onyx Black Tempered Glass",
+    "material": "Crystal Tempered Glass & Copper Terminals",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "USB Output",
+        "value": "5V DC 2.4A Fast Charge"
+      },
+      {
+        "label": "Rating",
+        "value": "13A 250V~"
+      },
+      {
+        "label": "Plate",
+        "value": "Frameless Glass"
+      }
+    ],
+    "featured": true,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  },
+  {
+    "ref": "SIN-400740-462",
+    "sku": "SIN-400740-462",
+    "itemNo": "SIN-400740-462",
+    "name": "Tempered Glass 13A Switched Socket with Fast-Charge Dual USB - Onyx Black",
+    "description": "Modern architectural black tempered glass outlet combining high-efficiency 5V 2.4A dual USB charging ports with heavy duty power terminals.",
+    "category": "Electrical",
+    "categories": [
+      "Electrical"
+    ],
+    "price": 1340,
+    "pricingType": "unit",
+    "bulkUnit": "Piece",
+    "stockQuantity": 10,
+    "image": "/products/socket-onyx.jpg",
+    "images": [
+      "/products/socket-onyx.jpg"
+    ],
+    "dimension": "Standard",
+    "thickness": "",
+    "finish": "Onyx Black Tempered Glass",
+    "material": "Crystal Tempered Glass & Copper Terminals",
+    "origin": "Import Spec",
+    "look": "",
+    "specs": [
+      {
+        "label": "USB Output",
+        "value": "5V DC 2.4A Fast Charge"
+      },
+      {
+        "label": "Rating",
+        "value": "13A 250V~"
+      },
+      {
+        "label": "Plate",
+        "value": "Frameless Glass"
+      }
+    ],
+    "featured": true,
+    "isActive": true,
+    "brand": "Bikomax Architectural"
+  }
+];
+
+async function seed() {
+  console.log('Connecting to MongoDB at:', MONGODB_URI);
+  await mongoose.connect(MONGODB_URI);
+  const db = mongoose.connection.db;
+
+  const tenantsCol = db.collection('tenants');
+  const categoriesCol = db.collection('categories');
+  const settingsCol = db.collection('settings');
+  const productsCol = db.collection('products');
+
+  // 1. Tenant
+  const existingTenant = await tenantsCol.findOne({ tenantId: TENANT_ID });
+  if (!existingTenant) {
+    await tenantsCol.insertOne({
+      tenantId: TENANT_ID,
+      name: 'Bikomax Architectural Supplies Ltd',
+      description: 'Luxury tiles, sanitaryware, and electrical finishes showroom',
+      status: 'active',
+      ownerEmail: 'orders@bikomax.co.ke',
+      plan: 'enterprise',
+      isDeleted: false,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+    console.log('Created tenant:', TENANT_ID);
+  }
+
+  // 2. Categories
+  const categoryDefs = [
+    { name: 'Tiles', description: 'Architectural porcelain, ceramic, sintered slabs, and wall coverings' },
+    { name: 'Sanitaryware', description: 'European luxury sanitaryware, basins, mixers, showers, and accessories' },
+    { name: 'Electrical', description: 'British standard tempered glass switches, sockets, and smart controls' }
+  ];
+
+  for (const cat of categoryDefs) {
+    const existing = await categoriesCol.findOne({ tenantId: TENANT_ID, name: cat.name });
+    if (!existing) {
+      await categoriesCol.insertOne({
+        tenantId: TENANT_ID,
+        name: cat.name,
+        description: cat.description,
+        isActive: true,
+        isDeleted: false,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      });
+      console.log('Created category:', cat.name);
+    }
+  }
+
+  // 3. Products
+  console.log(`Seeding ${PRODUCTS.length} products...`);
+  let inserted = 0;
+  let updated = 0;
+
+  for (const p of PRODUCTS) {
+    const filter = { tenantId: TENANT_ID, itemNo: p.ref };
+    const doc = {
+      tenantId: TENANT_ID,
+      name: p.name,
+      itemNo: p.ref,
+      sku: p.ref,
+      description: p.description,
+      categories: p.categories,
+      images: p.images,
+      price: p.price,
+      pricingType: p.pricingType,
+      pricePerSqm: p.pricePerSqm,
+      sqmPerBox: p.sqmPerBox,
+      bulkPricePerBox: p.bulkPricePerBox,
+      bulkUnit: p.bulkUnit,
+      dimension: p.dimension,
+      thickness: p.thickness,
+      finish: p.finish,
+      material: p.material,
+      origin: p.origin,
+      look: p.look,
+      specs: p.specs,
+      featured: !!p.featured,
+      isActive: true,
+      brand: 'Bikomax Architectural',
+      stockQuantity: p.stockQuantity,
+      hasBulkPricing: !!p.bulkPricePerBox,
+      isDeleted: false,
+      updatedAt: new Date()
+    };
+
+    const existingProduct = await productsCol.findOne(filter);
+    if (existingProduct) {
+      await productsCol.updateOne(filter, { $set: doc });
+      updated++;
+    } else {
+      doc.createdAt = new Date();
+      await productsCol.insertOne(doc);
+      inserted++;
+    }
+  }
+
+  console.log(`Successfully seeded Bikomax products: ${inserted} created, ${updated} updated.`);
+  await mongoose.disconnect();
+}
+
+seed().catch(err => {
+  console.error('Seed error:', err);
+  process.exit(1);
+});

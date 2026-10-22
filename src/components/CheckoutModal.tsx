@@ -8,8 +8,9 @@ import {
   OrderReceipt,
 } from '../types';
 import { KENYA_DELIVERY_ZONES, SHOWROOM_CONTACT } from '../data/products';
-import { formatKES, generateWhatsAppOrderMessage } from '../utils/formatters';
+import { formatKES, generateWhatsAppOrderMessage, generateEmailOrderContent } from '../utils/formatters';
 import { PrintInvoiceModal } from './PrintInvoiceModal';
+import { submitOrderToBackend } from '../services/api';
 import {
   X,
   Check,
@@ -21,6 +22,7 @@ import {
   ShieldCheck,
   Printer,
   MessageCircle,
+  Mail,
   Smartphone,
   Building,
   CreditCard,
@@ -60,9 +62,9 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
   );
   const [specificSiteAddress, setSpecificSiteAddress] = useState<string>('');
 
-  // Step 3: Payment
+  // Step 3: Order Routing & Communication Channel (Option 1)
   const [paymentMethod, setPaymentMethod] =
-    useState<PaymentMethodType>('mpesa');
+    useState<PaymentMethodType>('whatsapp');
   const [mpesaPhone, setMpesaPhone] = useState<string>('');
   const [isStkPushing, setIsStkPushing] = useState<boolean>(false);
   const [stkStatus, setStkStatus] = useState<
@@ -142,12 +144,20 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
       minute: '2-digit',
     });
 
-    let paymentStatus: OrderReceipt['paymentStatus'] =
-      paymentMethod === 'mpesa'
-        ? 'Paid via M-Pesa'
-        : paymentMethod === 'bank_transfer'
-        ? 'Pending EFT Verification'
-        : 'Pay upon Showroom Collection';
+    let paymentStatus = 'Order Placed - Pending Confirmation';
+    if (paymentMethod === 'whatsapp') {
+      paymentStatus = 'Order Placed via WhatsApp';
+    } else if (paymentMethod === 'email') {
+      paymentStatus = 'Quotation Requested via Email';
+    } else if (paymentMethod === 'call') {
+      paymentStatus = 'Showroom Phone Inquiry';
+    } else if (paymentMethod === 'bank_transfer') {
+      paymentStatus = 'Pending EFT Bank Transfer';
+    } else if (paymentMethod === 'showroom_cash') {
+      paymentStatus = 'Pay upon Showroom Collection';
+    } else if (paymentMethod === 'mpesa') {
+      paymentStatus = 'Paid via M-Pesa';
+    }
 
     const receipt: OrderReceipt = {
       orderId,
@@ -175,6 +185,13 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
     setConfirmedReceipt(receipt);
     setCurrentStep(4);
     clearCart();
+
+    // Async sync with stockify backend
+    submitOrderToBackend(receipt).then((res) => {
+      if (res.success && res.orderId) {
+        setConfirmedReceipt((prev) => (prev ? { ...prev, orderId: res.orderId } : receipt));
+      }
+    });
   };
 
   return (
@@ -212,7 +229,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 {[
                   { step: 1, label: '1. Client Details' },
                   { step: 2, label: '2. Fulfillment' },
-                  { step: 3, label: '3. Payment' },
+                  { step: 3, label: '3. Order Routing' },
                 ].map((s) => (
                   <div
                     key={s.step}
@@ -502,184 +519,177 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
               </div>
             )}
 
-            {/* STEP 3: PAYMENT OPTIONS */}
+            {/* STEP 3: ORDER ROUTING & DIRECT DISPATCH (OPTION 1) */}
             {currentStep === 3 && (
               <div className="space-y-5">
-                <div className="flex items-center justify-between p-3 bg-neutral-100 border border-neutral-200 text-xs">
-                  <span className="font-medium text-neutral-600">
-                    Grand Total Payable:
-                  </span>
-                  <span className="font-extrabold text-[#0A0A0A] text-base font-mono">
+                <div className="flex items-center justify-between p-3.5 bg-neutral-100 border border-neutral-200 text-xs">
+                  <div>
+                    <span className="font-medium text-neutral-600 block">
+                      Total Order Value (16% VAT Included):
+                    </span>
+                    <span className="text-[11px] text-neutral-500 font-mono">
+                      {items.length} item(s) · {fulfillment === 'pickup' ? 'Showroom Pickup' : 'Site Delivery'}
+                    </span>
+                  </div>
+                  <span className="font-black text-[#0A0A0A] text-lg font-mono">
                     {formatKES(grandTotal)}
                   </span>
                 </div>
 
+                <div className="bg-emerald-50/60 border border-emerald-200 p-3 text-xs text-emerald-900 leading-relaxed">
+                  <strong className="font-bold">Direct Showroom Procurement:</strong> No online card payment is required today. Select your preferred channel below to transmit your BQ order specification directly to our Eldoret depot team for stock reservation:
+                </div>
+
                 <div className="space-y-3">
                   <label className="text-xs font-bold uppercase tracking-wider text-neutral-700 block font-heading">
-                    Select Payment Gateway:
+                    Select Order Transmission Channel:
                   </label>
 
-                  {/* Option 1: M-Pesa */}
+                  {/* Channel 1: WhatsApp (Recommended) */}
                   <div
-                    className={`border p-4 transition-all ${
-                      paymentMethod === 'mpesa'
+                    className={`border p-4 transition-all cursor-pointer ${
+                      paymentMethod === 'whatsapp'
                         ? 'border-emerald-700 bg-emerald-50/30 ring-1 ring-emerald-700'
-                        : 'border-neutral-200'
+                        : 'border-neutral-200 hover:border-neutral-400'
                     }`}
+                    onClick={() => setPaymentMethod('whatsapp')}
                   >
                     <label className="flex items-start gap-3 cursor-pointer">
                       <input
                         type="radio"
                         name="paymentMethod"
-                        checked={paymentMethod === 'mpesa'}
-                        onChange={() => setPaymentMethod('mpesa')}
+                        checked={paymentMethod === 'whatsapp'}
+                        onChange={() => setPaymentMethod('whatsapp')}
                         className="accent-emerald-700 mt-1"
                       />
                       <div className="flex-1">
-                        <div className="flex items-center justify-between">
-                          <span className="font-bold text-xs uppercase tracking-wider text-[#0A0A0A] flex items-center gap-1.5">
-                            <Smartphone className="w-4 h-4 text-emerald-600" />
-                            Lipa na M-Pesa (Online STK Push & Till)
+                        <div className="flex items-center justify-between gap-2 flex-wrap">
+                          <span className="font-bold text-xs uppercase tracking-wider text-[#0A0A0A] flex items-center gap-1.5 font-heading">
+                            <MessageCircle className="w-4 h-4 text-emerald-600 shrink-0" />
+                            WhatsApp Order Concierge (+254 20 230 859)
                           </span>
                           <span className="text-[10px] font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5">
-                            Instant Auto-Verify
+                            Fastest • Instant Stock Check
                           </span>
                         </div>
-                        <p className="text-xs text-neutral-600 mt-1">
-                          Receive an automated STK prompt directly on your Safaricom line.
+                        <p className="text-xs text-neutral-600 mt-1 leading-relaxed">
+                          Sends your complete itemized BQ specification (m², box counts, site location, and pricing) directly into WhatsApp. Our warehouse staff confirms batch consistency and delivery ETA within minutes.
                         </p>
-
-                        {/* Interactive STK Push Box */}
-                        {paymentMethod === 'mpesa' && (
-                          <div className="mt-3 p-3.5 bg-white border border-emerald-200 space-y-3 text-xs">
-                            <div className="flex flex-col sm:flex-row items-center gap-2">
-                              <input
-                                type="text"
-                                placeholder="07XXXXXXXX"
-                                value={mpesaPhone}
-                                onChange={(e) => setMpesaPhone(e.target.value)}
-                                className="w-full sm:w-48 px-3 py-1.5 border border-neutral-300 text-xs font-mono"
-                              />
-                              <button
-                                type="button"
-                                disabled={isStkPushing || stkStatus === 'confirmed'}
-                                onClick={handleTriggerMpesaSTK}
-                                className={`w-full sm:w-auto px-4 py-1.5 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-colors ${
-                                  stkStatus === 'confirmed'
-                                    ? 'bg-emerald-700 text-white cursor-default'
-                                    : 'bg-emerald-600 hover:bg-emerald-700 text-white'
-                                }`}
-                              >
-                                {isStkPushing ? (
-                                  <>
-                                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                                    Sending Prompt...
-                                  </>
-                                ) : stkStatus === 'confirmed' ? (
-                                  <>
-                                    <Check className="w-3.5 h-3.5" /> Verified!
-                                  </>
-                                ) : (
-                                  'Send STK Push Prompt'
-                                )}
-                              </button>
-                            </div>
-
-                            {/* Simulation feedback states */}
-                            {stkStatus === 'prompt_sent' && (
-                              <div className="p-2.5 bg-neutral-100 border border-neutral-300 text-[11px] font-mono text-neutral-700">
-                                📲 STK Push prompt dispatched to {mpesaPhone}. Awaiting PIN authorization on mobile handset...
-                              </div>
-                            )}
-
-                            {stkStatus === 'pin_entered' && (
-                              <div className="p-2.5 bg-emerald-50 border border-emerald-300 text-[11px] font-mono text-emerald-800">
-                                🔐 PIN accepted. Processing settlement through Safaricom Daraja gateway...
-                              </div>
-                            )}
-
-                            {stkStatus === 'confirmed' && (
-                              <div className="p-2.5 bg-emerald-100 border border-emerald-400 text-[11px] font-mono text-emerald-900 flex items-center justify-between">
-                                <span>
-                                  ✅ Confirmed! M-Pesa Receipt Ref: <strong>{generatedMpesaReceipt}</strong>
-                                </span>
-                                <span className="font-bold">{formatKES(grandTotal)}</span>
-                              </div>
-                            )}
-
-                            <div className="pt-2 border-t border-neutral-100 text-[11px] text-neutral-500 flex flex-wrap gap-x-4">
-                              <span>Paybill: <strong>{SHOWROOM_CONTACT.paybill}</strong></span>
-                              <span>Account: <strong>{SHOWROOM_CONTACT.paybillAccount}</strong></span>
-                              <span>Till Number: <strong>{SHOWROOM_CONTACT.tillNumber}</strong></span>
-                            </div>
-                          </div>
-                        )}
                       </div>
                     </label>
                   </div>
 
-                  {/* Option 2: Bank Transfer (EFT / RTGS) */}
+                  {/* Channel 2: Email */}
                   <div
-                    className={`border p-4 transition-all ${
-                      paymentMethod === 'bank_transfer'
+                    className={`border p-4 transition-all cursor-pointer ${
+                      paymentMethod === 'email'
                         ? 'border-[#0A0A0A] bg-neutral-50 ring-1 ring-[#0A0A0A]'
-                        : 'border-neutral-200'
+                        : 'border-neutral-200 hover:border-neutral-400'
                     }`}
+                    onClick={() => setPaymentMethod('email')}
                   >
                     <label className="flex items-start gap-3 cursor-pointer">
                       <input
                         type="radio"
                         name="paymentMethod"
-                        checked={paymentMethod === 'bank_transfer'}
+                        checked={paymentMethod === 'email'}
+                        onChange={() => setPaymentMethod('email')}
+                        className="accent-[#0A0A0A] mt-1"
+                      />
+                      <div className="flex-1">
+                        <div className="flex items-center justify-between gap-2 flex-wrap">
+                          <span className="font-bold text-xs uppercase tracking-wider text-[#0A0A0A] flex items-center gap-1.5 font-heading">
+                            <Mail className="w-4 h-4 text-neutral-700 shrink-0" />
+                            Email Official Proforma & BQ Specification
+                          </span>
+                          <span className="text-[10px] font-bold text-neutral-700 bg-neutral-200 px-2 py-0.5">
+                            Formal Quotation
+                          </span>
+                        </div>
+                        <p className="text-xs text-neutral-600 mt-1 leading-relaxed">
+                          Dispatches your order schedule to <strong>{SHOWROOM_CONTACT.email}</strong> and your inbox. Ideal for contractor procurement files, quantity surveyor verifications, and corporate purchase orders.
+                        </p>
+                      </div>
+                    </label>
+                  </div>
+
+                  {/* Channel 3: Phone Call */}
+                  <div
+                    className={`border p-4 transition-all cursor-pointer ${
+                      paymentMethod === 'call'
+                        ? 'border-[#0A0A0A] bg-neutral-50 ring-1 ring-[#0A0A0A]'
+                        : 'border-neutral-200 hover:border-neutral-400'
+                    }`}
+                    onClick={() => setPaymentMethod('call')}
+                  >
+                    <label className="flex items-start gap-3 cursor-pointer">
+                      <input
+                        type="radio"
+                        name="paymentMethod"
+                        checked={paymentMethod === 'call'}
+                        onChange={() => setPaymentMethod('call')}
+                        className="accent-[#0A0A0A] mt-1"
+                      />
+                      <div className="flex-1">
+                        <div className="flex items-center justify-between gap-2 flex-wrap">
+                          <span className="font-bold text-xs uppercase tracking-wider text-[#0A0A0A] flex items-center gap-1.5 font-heading">
+                            <Phone className="w-4 h-4 text-[#C2A26F] shrink-0" />
+                            Direct Showroom Phone Order ({SHOWROOM_CONTACT.phone})
+                          </span>
+                          <span className="text-[10px] font-bold text-neutral-700 bg-neutral-200 px-2 py-0.5">
+                            Voice Assist
+                          </span>
+                        </div>
+                        <p className="text-xs text-neutral-600 mt-1 leading-relaxed">
+                          Place your order directly over the phone with our sales engineer at Rupa&apos;s Godowns Unit G48 to immediately coordinate pallet loading and flatbed transport.
+                        </p>
+                      </div>
+                    </label>
+                  </div>
+
+                  {/* Channel 4: Bank Transfer / Showroom Collection */}
+                  <div
+                    className={`border p-4 transition-all cursor-pointer ${
+                      paymentMethod === 'bank_transfer' || paymentMethod === 'showroom_cash'
+                        ? 'border-[#0A0A0A] bg-neutral-50 ring-1 ring-[#0A0A0A]'
+                        : 'border-neutral-200 hover:border-neutral-400'
+                    }`}
+                    onClick={() => setPaymentMethod('bank_transfer')}
+                  >
+                    <label className="flex items-start gap-3 cursor-pointer">
+                      <input
+                        type="radio"
+                        name="paymentMethod"
+                        checked={paymentMethod === 'bank_transfer' || paymentMethod === 'showroom_cash'}
                         onChange={() => setPaymentMethod('bank_transfer')}
                         className="accent-[#0A0A0A] mt-1"
                       />
                       <div className="flex-1">
-                        <span className="font-bold text-xs uppercase tracking-wider text-[#0A0A0A] flex items-center gap-1.5">
-                          <Building className="w-4 h-4 text-neutral-700" />
-                          Bank Transfer (EFT / RTGS for Bulk Contractor Orders)
-                        </span>
-                        <p className="text-xs text-neutral-600 mt-1">
-                          Direct commercial settlement via Stanbic Bank Kenya or KCB.
+                        <div className="flex items-center justify-between gap-2 flex-wrap">
+                          <span className="font-bold text-xs uppercase tracking-wider text-[#0A0A0A] flex items-center gap-1.5 font-heading">
+                            <Building className="w-4 h-4 text-neutral-700 shrink-0" />
+                            Bank Transfer (EFT / RTGS) or Showroom Collection
+                          </span>
+                          <span className="text-[10px] font-bold text-neutral-700 bg-neutral-200 px-2 py-0.5">
+                            Trade Proforma
+                          </span>
+                        </div>
+                        <p className="text-xs text-neutral-600 mt-1 leading-relaxed">
+                          Generate formal proforma invoice with Stanbic Bank Kenya corporate settlement details, or pay upon physical inspection of pallets at Unit G48.
                         </p>
 
-                        {paymentMethod === 'bank_transfer' && (
+                        {(paymentMethod === 'bank_transfer' || paymentMethod === 'showroom_cash') && (
                           <div className="mt-3 p-3 bg-white border border-neutral-300 text-xs font-mono space-y-1 text-neutral-700">
                             <div>Bank: <strong>{SHOWROOM_CONTACT.bankDetails.bankName}</strong></div>
                             <div>Branch: <strong>{SHOWROOM_CONTACT.bankDetails.branch}</strong></div>
                             <div>Account: <strong>{SHOWROOM_CONTACT.bankDetails.accountName}</strong></div>
                             <div>Account No: <strong>{SHOWROOM_CONTACT.bankDetails.accountNumber}</strong></div>
                             <div>SWIFT: <strong>{SHOWROOM_CONTACT.bankDetails.swiftCode}</strong></div>
+                            <div className="pt-1 text-[11px] text-neutral-500 font-sans">
+                              Paybill: <strong>{SHOWROOM_CONTACT.paybill}</strong> · Account: <strong>{SHOWROOM_CONTACT.paybillAccount}</strong>
+                            </div>
                           </div>
                         )}
-                      </div>
-                    </label>
-                  </div>
-
-                  {/* Option 3: Pay on Showroom Collection */}
-                  <div
-                    className={`border p-4 transition-all ${
-                      paymentMethod === 'showroom_cash'
-                        ? 'border-[#0A0A0A] bg-neutral-50 ring-1 ring-[#0A0A0A]'
-                        : 'border-neutral-200'
-                    }`}
-                  >
-                    <label className="flex items-start gap-3 cursor-pointer">
-                      <input
-                        type="radio"
-                        name="paymentMethod"
-                        checked={paymentMethod === 'showroom_cash'}
-                        onChange={() => setPaymentMethod('showroom_cash')}
-                        className="accent-[#0A0A0A] mt-1"
-                      />
-                      <div className="flex-1">
-                        <span className="font-bold text-xs uppercase tracking-wider text-[#0A0A0A] flex items-center gap-1.5">
-                          <Banknote className="w-4 h-4 text-neutral-700" />
-                          Pay on Showroom Collection / Cash on Delivery
-                        </span>
-                        <p className="text-xs text-neutral-600 mt-1">
-                          Inspect pallets and verify tile batch numbers at Unit G48 before payment via showroom card terminal or cash.
-                        </p>
                       </div>
                     </label>
                   </div>
@@ -747,30 +757,54 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   </div>
                 </div>
 
-                {/* Primary Action Buttons */}
-                <div className="flex flex-col sm:flex-row gap-3 pt-2">
-                  {/* Send Order to WhatsApp button */}
-                  <a
-                    href={`https://wa.me/${SHOWROOM_CONTACT.whatsappPhone}?text=${generateWhatsAppOrderMessage(
-                      confirmedReceipt
-                    )}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 py-3 px-4 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-colors shadow-xs"
-                  >
-                    <MessageCircle className="w-4 h-4" />
-                    Send Order to WhatsApp (+254 20 230 859)
-                  </a>
+                {/* Primary Direct Communication Actions (Option 1) */}
+                <div className="space-y-2.5 pt-2">
+                  <div className="text-[11px] font-semibold text-neutral-600 uppercase tracking-wider">
+                    Transmit Your Order Specification Now:
+                  </div>
 
-                  {/* Download/Print Receipt button */}
-                  <button
-                    type="button"
-                    onClick={() => setShowPrintModal(true)}
-                    className="flex-1 py-3 px-4 bg-[#0A0A0A] hover:bg-neutral-800 text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-colors"
-                  >
-                    <Printer className="w-4 h-4" />
-                    Print / Download Tax Receipt
-                  </button>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                    {/* 1. WhatsApp */}
+                    <a
+                      href={`https://wa.me/${SHOWROOM_CONTACT.whatsappPhone}?text=${generateWhatsAppOrderMessage(
+                        confirmedReceipt
+                      )}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="py-3 px-4 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-colors shadow-xs"
+                    >
+                      <MessageCircle className="w-4 h-4 shrink-0" />
+                      <span>Send via WhatsApp</span>
+                    </a>
+
+                    {/* 2. Email */}
+                    <a
+                      href={generateEmailOrderContent(confirmedReceipt).mailtoUrl}
+                      className="py-3 px-4 bg-neutral-900 hover:bg-neutral-800 text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-colors shadow-xs"
+                    >
+                      <Mail className="w-4 h-4 text-[#C2A26F] shrink-0" />
+                      <span>Send via Email</span>
+                    </a>
+
+                    {/* 3. Call Store */}
+                    <a
+                      href={`tel:${SHOWROOM_CONTACT.phoneRaw}`}
+                      className="py-3 px-4 bg-white border border-neutral-300 hover:border-neutral-950 text-neutral-900 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-colors"
+                    >
+                      <Phone className="w-4 h-4 text-[#C2A26F] shrink-0" />
+                      <span>Call Showroom ({SHOWROOM_CONTACT.phone})</span>
+                    </a>
+
+                    {/* 4. Print / PDF */}
+                    <button
+                      type="button"
+                      onClick={() => setShowPrintModal(true)}
+                      className="py-3 px-4 bg-white border border-neutral-300 hover:border-neutral-950 text-neutral-900 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                    >
+                      <Printer className="w-4 h-4 shrink-0" />
+                      <span>Print Proforma PDF</span>
+                    </button>
+                  </div>
                 </div>
               </div>
             )}

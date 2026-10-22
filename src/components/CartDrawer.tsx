@@ -1,9 +1,9 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useCart } from '../context/CartContext';
-import { formatKES } from '../utils/formatters';
+import { formatKES, generateCartWhatsAppMessage, generateCartEmailContent } from '../utils/formatters';
 import { SHOWROOM_CONTACT } from '../data/products';
-import { X, Trash2, Plus, Minus, ArrowRight, ShoppingBag, MessageCircle, ShieldCheck } from 'lucide-react';
+import { X, Trash2, Plus, Minus, ArrowRight, ShoppingBag, MessageCircle, Mail, Phone, ShieldCheck } from 'lucide-react';
 
 interface CartDrawerProps {
   onProceedToCheckout: () => void;
@@ -27,39 +27,15 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onProceedToCheckout }) =
 
   const handleQuickWhatsApp = () => {
     if (items.length === 0) return;
-    const lines = [
-      `🏛️ *BIKOMAX ARCHITECTURAL CART INQUIRY*`,
-      `Showroom: Unit G48, Rupa's Godowns, Eldoret`,
-      ``,
-      `*Items Requested:*`,
-    ];
-
-    items.forEach((item, idx) => {
-      if (item.product.pricing_type === 'area') {
-        lines.push(
-          `${idx + 1}. ${item.product.name} (${item.product.dimension})`
-        );
-        lines.push(
-          `   • ${item.boxes} Boxes (~${item.coverageM2} m²) = ${formatKES(item.totalPrice)}`
-        );
-      } else {
-        lines.push(
-          `${idx + 1}. ${item.product.name} (${item.product.dimension})`
-        );
-        lines.push(
-          `   • ${item.units} Unit(s) = ${formatKES(item.totalPrice)}`
-        );
-      }
-    });
-
-    lines.push(``);
-    lines.push(`*Estimated Order Subtotal:* ${formatKES(subtotal)}`);
-    lines.push(`_Please send proforma invoice & stock availability at Eldoret warehouse._`);
-
-    const url = `https://wa.me/${SHOWROOM_CONTACT.whatsappPhone}?text=${encodeURIComponent(
-      lines.join('\n')
-    )}`;
+    const encoded = generateCartWhatsAppMessage(items, subtotal);
+    const url = `https://wa.me/${SHOWROOM_CONTACT.whatsappPhone}?text=${encoded}`;
     window.open(url, '_blank');
+  };
+
+  const handleQuickEmail = () => {
+    if (items.length === 0) return;
+    const { mailtoUrl } = generateCartEmailContent(items, subtotal);
+    window.location.href = mailtoUrl;
   };
 
   return (
@@ -255,7 +231,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onProceedToCheckout }) =
                 </div>
               </div>
 
-              {/* Action Buttons */}
+              {/* Action Buttons (Option 1 Direct Procurement) */}
               <div className="space-y-2 pt-1">
                 <button
                   type="button"
@@ -265,22 +241,44 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onProceedToCheckout }) =
                   }}
                   className="w-full py-3.5 px-4 bg-[#0A0A0A] hover:bg-neutral-800 text-white text-xs font-bold uppercase tracking-widest flex items-center justify-center gap-2 transition-colors shadow-xs active:scale-[0.99] cursor-pointer"
                 >
-                  Proceed to Checkout <ArrowRight className="w-4 h-4" />
+                  <span>Review & Order (WhatsApp · Email · Call)</span>
+                  <ArrowRight className="w-4 h-4" />
                 </button>
 
-                <button
-                  type="button"
-                  onClick={handleQuickWhatsApp}
-                  className="w-full py-2.5 px-4 border border-emerald-600 hover:bg-emerald-50 text-emerald-800 text-xs font-bold flex items-center justify-center gap-2 transition-colors active:scale-[0.99] cursor-pointer"
+                <div className="grid grid-cols-2 gap-2">
+                  <button
+                    type="button"
+                    onClick={handleQuickWhatsApp}
+                    className="py-2.5 px-3 border border-emerald-600 hover:bg-emerald-50 text-emerald-800 text-xs font-bold flex items-center justify-center gap-1.5 transition-colors active:scale-[0.99] cursor-pointer"
+                    title="Send quick inquiry via WhatsApp"
+                  >
+                    <MessageCircle className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                    <span>WhatsApp</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={handleQuickEmail}
+                    className="py-2.5 px-3 border border-neutral-300 hover:bg-neutral-100 text-neutral-800 text-xs font-bold flex items-center justify-center gap-1.5 transition-colors active:scale-[0.99] cursor-pointer"
+                    title="Request official proforma via email"
+                  >
+                    <Mail className="w-3.5 h-3.5 text-neutral-600 shrink-0" />
+                    <span>Email Proforma</span>
+                  </button>
+                </div>
+
+                <a
+                  href={`tel:${SHOWROOM_CONTACT.phoneRaw}`}
+                  className="w-full py-2 px-3 bg-neutral-100 hover:bg-neutral-200 text-neutral-800 text-[11px] font-semibold flex items-center justify-center gap-1.5 transition-colors"
                 >
-                  <MessageCircle className="w-4 h-4 text-emerald-600" />
-                  Quick Proforma via WhatsApp
-                </button>
+                  <Phone className="w-3 h-3 text-[#C2A26F]" />
+                  <span>Call Warehouse Dispatch ({SHOWROOM_CONTACT.phone})</span>
+                </a>
               </div>
 
               <div className="flex items-center justify-center gap-2 text-[10px] text-neutral-400 text-center pt-1">
                 <ShieldCheck className="w-3.5 h-3.5 text-neutral-500 shrink-0" />
-                <span className="truncate">Authorized Bikomax Building Supply · Rupa's Godowns, Eldoret</span>
+                <span className="truncate">Direct Showroom Procurement · Rupa&apos;s Godowns, Eldoret</span>
               </div>
             </div>
           )}
