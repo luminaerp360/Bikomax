@@ -23,7 +23,7 @@ import { CheckoutModal } from './components/CheckoutModal';
 import { CartToastNotification } from './components/CartToastNotification';
 import { Footer } from './components/Footer';
 import { MessageCircle, AlertTriangle, RefreshCw } from 'lucide-react';
-import { SHOWROOM_CONTACT } from './data/products';
+import { SHOWROOM_CONTACT, INITIAL_PRODUCTS } from './data/products';
 
 function MainApp() {
   // Page Routing State with Hash fallback
@@ -54,7 +54,7 @@ function MainApp() {
   };
 
   // Catalogue filters
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<Product[]>(INITIAL_PRODUCTS);
   const [isLoadingProducts, setIsLoadingProducts] = useState<boolean>(true);
   const [backendError, setBackendError] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
@@ -68,11 +68,16 @@ function MainApp() {
     setBackendError(null);
     getProducts()
       .then((data) => {
-        setProducts(data);
-        setBackendError(null);
+        if (data && data.length > 0) {
+          setProducts(data);
+          setBackendError(null);
+        } else {
+          setProducts(INITIAL_PRODUCTS);
+        }
       })
       .catch((err: any) => {
-        setProducts([]);
+        console.warn('Backend fetch failed, using fallback catalog:', err);
+        setProducts((prev) => (prev.length > 0 ? prev : INITIAL_PRODUCTS));
         setBackendError(err.message || 'Failed to fetch products from backend server.');
       })
       .finally(() => {
@@ -124,8 +129,8 @@ function MainApp() {
     setIsSimulatorOpen(true);
   };
 
-  // 1. Strict Error Guard: If backend error exists, show ONLY the full-screen error screen
-  if (backendError) {
+  // 1. Strict Error Guard: If backend error exists and no products can be displayed, show the full-screen error screen
+  if (backendError && products.length === 0) {
     return (
       <div className="min-h-screen bg-[#0C0D0F] text-white flex flex-col items-center justify-center p-6 text-center select-none font-sans">
         <div className="max-w-md w-full bg-[#15161A] border border-red-900/60 rounded-xl p-8 shadow-2xl flex flex-col items-center animate-fade-in">

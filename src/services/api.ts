@@ -8,9 +8,9 @@ import { SHOWROOM_CONTACT } from '../data/products';
  * 3. Strips trailing slashes to prevent malformed URLs
  */
 const envUrl = (import.meta.env.VITE_API_BASE_URL as string | undefined)?.trim();
-export const API_BASE_URL = envUrl 
+export const API_BASE_URL = (envUrl && !envUrl.includes('localhost:3000'))
   ? envUrl.replace(/\/+$/, '') 
-  : (import.meta.env.DEV ? 'http://localhost:3000' : 'https://ecommerse.lumina360.tech');
+  : 'https://ecommerse.lumina360.tech';
 
 export const TENANT_ID = ((import.meta.env.VITE_TENANT_ID as string | undefined)?.trim()) || 'bikomax';
 
@@ -116,6 +116,12 @@ export async function getProducts(filters?: FetchProductsFilter): Promise<Produc
     if (!res.ok) {
       const errBody = await res.text().catch(() => '');
       throw new Error(`Backend error (${res.status} ${res.statusText}): ${errBody || 'Failed to fetch products'}`);
+    }
+
+    const contentType = res.headers.get('content-type') || '';
+    if (!contentType.includes('application/json')) {
+      const errText = await res.text().catch(() => '');
+      throw new Error(`Expected JSON from API but received ${contentType || 'non-JSON'}: ${errText.slice(0, 100)}`);
     }
 
     const data = await res.json();

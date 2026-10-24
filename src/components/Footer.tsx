@@ -139,7 +139,7 @@ export const Footer: React.FC<FooterProps> = ({
                   onClick={() => handlePageClick('about')}
                   className="hover:text-white transition-colors"
                 >
-                  About
+                  About Us
                 </button>
               </li>
               <li>
@@ -148,7 +148,7 @@ export const Footer: React.FC<FooterProps> = ({
                   onClick={() => handlePageClick('contact')}
                   className="hover:text-white transition-colors"
                 >
-                  Showroom
+                  Contacts
                 </button>
               </li>
               <li>

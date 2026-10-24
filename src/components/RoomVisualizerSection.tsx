@@ -19,6 +19,7 @@ import {
   ShoppingBag,
   CheckCircle2,
 } from 'lucide-react';
+import { getSeamlessTileTexture } from '../utils/tileTextures';
 
 interface RoomVisualizerSectionProps {
   products: Product[];
@@ -32,12 +33,13 @@ interface RoomScene {
   name: string;
   category: string;
   description: string;
-  image: string;
-  floorPolygon: string;
-  perspectiveAngle: number;
   defaultTileRef: string;
   defaultWidth: number;
   defaultLength: number;
+  baseImage: string;
+  floorPolygon: string;
+  perspectiveAngle: number;
+  originY: string;
 }
 
 const ROOM_SCENES: RoomScene[] = [
@@ -46,60 +48,65 @@ const ROOM_SCENES: RoomScene[] = [
     name: 'Open Living Pavilion',
     category: 'Living Room',
     description: 'Expansive open-concept living pavilion with natural sunset light and floor-to-ceiling glass doors.',
-    image: '/products/room-living-pavilion.jpg',
-    floorPolygon: 'polygon(0% 52%, 100% 56%, 100% 100%, 0% 100%)',
-    perspectiveAngle: 62,
     defaultTileRef: 'PRD-102948-CG',
     defaultWidth: 6.0,
     defaultLength: 5.5,
+    baseImage: '/products/room-living-pavilion.jpg',
+    floorPolygon: 'polygon(0% 49%, 46% 49%, 54% 53%, 100% 56%, 100% 100%, 0% 100%)',
+    perspectiveAngle: 58,
+    originY: '50%',
   },
   {
     id: 'bathroom-spa',
     name: 'Master En-Suite Spa',
     category: 'Bathroom',
     description: 'Minimalist spa bathroom with freestanding soaking tub, floating timber vanity, and city view.',
-    image: '/products/room-carol-marina.jpg',
-    floorPolygon: 'polygon(0% 64%, 100% 68%, 100% 100%, 0% 100%)',
-    perspectiveAngle: 58,
     defaultTileRef: 'PRD-636920-2982',
     defaultWidth: 4.2,
     defaultLength: 3.8,
+    baseImage: '/products/room-carol-marina.jpg',
+    floorPolygon: 'polygon(0% 62%, 100% 65%, 100% 100%, 0% 100%)',
+    perspectiveAngle: 55,
+    originY: '60%',
   },
   {
     id: 'kitchen',
     name: 'Contemporary Chef Kitchen',
     category: 'Kitchen',
     description: 'Island counter dining and high-traffic culinary workspace demanding grease and heat resilience.',
-    image: '/products/room-kitchen-chef.jpg',
-    floorPolygon: 'polygon(0% 58%, 100% 59%, 100% 100%, 0% 100%)',
-    perspectiveAngle: 60,
     defaultTileRef: 'PRD-304958-TZ',
     defaultWidth: 5.2,
     defaultLength: 4.5,
+    baseImage: '/products/room-kitchen-chef.jpg',
+    floorPolygon: 'polygon(0% 54%, 100% 56%, 100% 100%, 0% 100%)',
+    perspectiveAngle: 57,
+    originY: '54%',
   },
   {
     id: 'bathroom-rose',
     name: 'Architectural Bath Suite',
     category: 'Bathroom',
     description: 'Serene master en-suite with warm acoustic insulation and matte vertical tiles.',
-    image: '/products/room-carol-rose.jpg',
-    floorPolygon: 'polygon(0% 66%, 100% 68%, 100% 100%, 0% 100%)',
-    perspectiveAngle: 55,
     defaultTileRef: 'PRD-941824-3110',
     defaultWidth: 3.8,
     defaultLength: 3.2,
+    baseImage: '/products/room-carol-rose.jpg',
+    floorPolygon: 'polygon(0% 63%, 100% 65%, 100% 100%, 0% 100%)',
+    perspectiveAngle: 54,
+    originY: '62%',
   },
   {
     id: 'outdoor',
     name: 'Villa Pool Terrace',
     category: 'Outdoor',
     description: '20mm monolithic vitrified stoneware engineered for intense sun, slip safety, and pool water.',
-    image: '/products/room-outdoor-patio.jpg',
-    floorPolygon: 'polygon(0% 54%, 100% 52%, 100% 100%, 0% 100%)',
-    perspectiveAngle: 64,
     defaultTileRef: 'PRD-492019-GP',
     defaultWidth: 8.0,
     defaultLength: 6.0,
+    baseImage: '/products/room-outdoor-patio.jpg',
+    floorPolygon: 'polygon(0% 48%, 100% 48%, 100% 100%, 0% 100%)',
+    perspectiveAngle: 60,
+    originY: '48%',
   },
 ];
 
@@ -127,6 +134,8 @@ export const RoomVisualizerSection: React.FC<RoomVisualizerSectionProps> = ({
     ROOM_SCENES.find((r) => r.id === selectedRoomId) || ROOM_SCENES[0];
   const currentTile =
     tileProducts.find((t) => t.ref === selectedTileRef) || tileProducts[0];
+
+  const activeTexture = getSeamlessTileTexture(currentTile);
 
   // Room dimension metrics
   const netSqm = Number((currentRoom.defaultWidth * currentRoom.defaultLength).toFixed(2));
@@ -192,76 +201,77 @@ export const RoomVisualizerSection: React.FC<RoomVisualizerSectionProps> = ({
             
             {/* The Room Scene Container */}
             <div className="absolute inset-0 overflow-hidden">
-              <AnimatePresence mode="wait">
-                <motion.img
-                  key={currentRoom.id}
-                  src={currentRoom.image}
-                  alt={currentRoom.name}
-                  initial={{ opacity: 0, scale: 1.04 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.5, ease: 'easeOut' }}
-                  className="w-full h-full object-cover object-center"
+              {/* 1. Base Room Image (Background) */}
+              <img
+                src={currentRoom.baseImage}
+                alt={currentRoom.name}
+                className="absolute inset-0 w-full h-full object-cover select-none"
+              />
+
+              {/* 2. Interactive Floor Surface Layer (Transformed to actual tile & shadow-multiplied) */}
+              <div
+                className="absolute inset-0 overflow-hidden pointer-events-none select-none transition-all duration-300"
+                style={{
+                  clipPath: isComparing
+                    ? `polygon(0% 0%, ${splitPosition}% 0%, ${splitPosition}% 100%, 0% 100%)`
+                    : currentRoom.floorPolygon,
+                }}
+              >
+                {/* 3D Perspective Tile Plane */}
+                <div
+                  className="w-full h-full relative"
+                  style={{
+                    perspective: '900px',
+                    perspectiveOrigin: `50% ${currentRoom.originY}`,
+                  }}
+                >
+                  <div
+                    key={`${selectedRoomId}-${currentTile?.ref}`}
+                    className="absolute -inset-x-12 -bottom-24 transition-opacity duration-300 animate-in fade-in"
+                    style={{
+                      top: '25%',
+                      transform: `rotateX(${currentRoom.perspectiveAngle}deg) translateZ(0)`,
+                      transformOrigin: 'bottom center',
+                      backgroundImage: `url(${activeTexture.textureUrl})`,
+                      backgroundSize: activeTexture.tileScale,
+                      backgroundRepeat: 'repeat',
+                      boxShadow: `inset 0 0 0 1px ${activeTexture.groutColor}`,
+                    }}
+                  >
+                    {/* Surface Gloss & Sheen based on Tile Finish */}
+                    <div
+                      className="absolute inset-0 transition-opacity duration-300"
+                      style={{
+                        background: `linear-gradient(to top, rgba(255,255,255,${activeTexture.glossOpacity}), transparent)`,
+                      }}
+                    />
+                  </div>
+                </div>
+
+                {/* 
+                  NATURAL AMBIENT OCCLUSION & SHADOW RETENTION LAYER:
+                  Clones the original room image over the floor with mix-blend-multiply.
+                  This preserves the real shadows of the sofa, coffee table, and fireplace,
+                  so the furniture sits NATURALLY ON TOP of the newly selected tile!
+                */}
+                <img
+                  src={currentRoom.baseImage}
+                  alt="Ambient Shadow Retention"
+                  className="absolute inset-0 w-full h-full object-cover pointer-events-none mix-blend-multiply opacity-75"
                 />
-              </AnimatePresence>
+
+                {/* Ambient window glare wash */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent pointer-events-none mix-blend-screen" />
+              </div>
 
               {/* Day / Night atmospheric lighting tint */}
               <div
                 className={`absolute inset-0 pointer-events-none transition-colors duration-700 ${
                   lightingMode === 'night'
-                    ? 'bg-gradient-to-t from-amber-950/30 via-indigo-950/30 to-black/55 mix-blend-multiply'
-                    : 'bg-gradient-to-t from-transparent via-transparent to-black/20'
+                    ? 'bg-gradient-to-t from-amber-950/20 via-indigo-950/25 to-black/50 mix-blend-multiply'
+                    : 'bg-transparent'
                 }`}
               />
-
-              {/* Realistic Perspective Tile Layer */}
-              <div
-                className="absolute inset-0 pointer-events-none overflow-hidden transition-all duration-500"
-                style={{
-                  clipPath:
-                    isComparing
-                      ? `polygon(0% 0%, ${splitPosition}% 0%, ${splitPosition}% 100%, 0% 100%)`
-                      : currentRoom.floorPolygon,
-                  opacity: 0.88,
-                }}
-              >
-                <div
-                  className="w-full h-full relative"
-                  style={{
-                    perspective: '600px',
-                    perspectiveOrigin: '50% 20%',
-                  }}
-                >
-                  <div
-                    className="absolute -inset-x-20 -bottom-20 top-1/3 transition-all duration-500"
-                    style={{
-                      transform: `rotateX(${currentRoom.perspectiveAngle}deg) translateZ(0)`,
-                      transformOrigin: 'bottom center',
-                      backgroundImage: `url(${currentTile.image})`,
-                      backgroundSize:
-                        layingPattern === 'herringbone'
-                          ? '160px 80px'
-                          : currentTile.dimension.includes('120')
-                          ? '260px 140px'
-                          : '160px 160px',
-                      backgroundRepeat: 'repeat',
-                      transformStyle: 'preserve-3d',
-                      boxShadow: 'inset 0 0 0 1px rgba(255, 255, 255, 0.3)',
-                    }}
-                  >
-                    {/* Surface Sheen & Reflection Glare */}
-                    <div
-                      className={`absolute inset-0 transition-opacity duration-500 ${
-                        currentTile.finish?.toLowerCase().includes('polished') ||
-                        currentTile.finish?.toLowerCase().includes('crystal')
-                          ? 'bg-gradient-to-t from-white/25 via-white/5 to-transparent'
-                          : 'bg-gradient-to-t from-white/10 via-transparent to-transparent'
-                      }`}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent pointer-events-none mix-blend-overlay" />
-                  </div>
-                </div>
-              </div>
 
               {/* Before/After Split Line Indicator */}
               {isComparing && (

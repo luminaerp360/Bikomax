@@ -76,16 +76,16 @@ export const HomePage: React.FC<HomePageProps> = ({
         }}
       />
 
-      {/* 2. BIKOMAX "FEATURED COLLECTIONS" HORIZONTAL CAROUSEL */}
+      {/* 2. BIKOMAX "CHOOSE YOUR SPACE" DESTINATION MOSAIC */}
+      <DestinationGrid
+        onSelectDestination={(dest) => handleApplyFilter({ destination: dest })}
+      />
+
+      {/* 3. BIKOMAX "FEATURED COLLECTIONS" HORIZONTAL CAROUSEL */}
       <CollectionsCarousel
         products={products}
         onSelectProduct={onSelectProduct}
         onExploreCatalogue={onNavigateToCatalogue}
-      />
-
-      {/* 3. BIKOMAX "CHOOSE YOUR SPACE" DESTINATION MOSAIC */}
-      <DestinationGrid
-        onSelectDestination={(dest) => handleApplyFilter({ destination: dest })}
       />
 
       {/* 4. DEDICATED SPC RIGID CORE LUXURY VINYL FLOORING SECTION */}

@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Product } from '../types';
 import { formatKES } from '../utils/formatters';
 import {
-  ShieldCheck,
   Droplets,
   VolumeX,
   Layers,
@@ -11,9 +10,7 @@ import {
   Eye,
   Calculator,
   Sparkles,
-  Check,
-  Ruler,
-  Boxes,
+  ShieldCheck,
 } from 'lucide-react';
 
 interface SpcFlooringSectionProps {
@@ -29,278 +26,240 @@ export const SpcFlooringSection: React.FC<SpcFlooringSectionProps> = ({
   onExploreCatalogue,
   onOpenCalculatorWithProduct,
 }) => {
-  // Find SPC products from catalog (or fallback defaults)
-  const spcTiles = products.filter(
-    (p) =>
-      p.name.toUpperCase().includes('SPC') ||
-      p.ref.toUpperCase().includes('SPC') ||
-      (p.material && p.material.toUpperCase().includes('SPC'))
-  );
-
-  // Group into SPC Tiles and SPC Skirtings
-  const flooringPlanks = spcTiles.filter((p) => !p.name.toUpperCase().includes('SKIRTING'));
-  const skirtingProfiles = spcTiles.filter((p) => p.name.toUpperCase().includes('SKIRTING'));
-
-  // Active specimen tab
-  const [selectedSpcIndex, setSelectedSpcIndex] = useState(0);
-  const activePlank = flooringPlanks[selectedSpcIndex] || flooringPlanks[0];
-
-  const spcBenefits = [
+  // Fallback curated finishes if catalog is still loading
+  const fallbackPlanks: Product[] = [
     {
-      icon: Droplets,
-      title: '100% Waterproof',
-      desc: 'Zero swelling or water damage. Ideal for kitchens, luxury master bathrooms, and basement suites.',
+      id: 'spc-j5011',
+      ref: 'SPC-J5011',
+      name: 'SPC Rigid Core Vinyl Tile J5011',
+      category: 'SPC Flooring',
+      dimension: '18x122 cm',
+      pricing_type: 'area',
+      price_per_sqm: 3000,
+      bulk_price_per_box: 6690,
+      sqm_per_box: 2.23,
+      bulk_unit: 'Box',
+      stock: 120,
+      image: 'https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?auto=format&fit=crop&w=1200&q=80',
+      description: '6.5mm Rigid Core SPC Luxury Vinyl with pre-attached IXPE acoustic pad.',
+      finish: 'Natural Honey Oak',
+      material: 'Limestone Composite SPC',
     },
     {
-      icon: VolumeX,
-      title: 'Built-in IXPE Acoustic Pad',
-      desc: 'Pre-attached 1.5mm high-density sound dampening underlay eliminates hollow noise (21 dB impact reduction).',
+      id: 'spc-j5015',
+      ref: 'SPC-J5015',
+      name: 'SPC Rigid Core Vinyl Tile J5015',
+      category: 'SPC Flooring',
+      dimension: '18x122 cm',
+      pricing_type: 'area',
+      price_per_sqm: 3000,
+      bulk_price_per_box: 6690,
+      sqm_per_box: 2.23,
+      bulk_unit: 'Box',
+      stock: 95,
+      image: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80',
+      description: '6.5mm Rigid Core SPC Luxury Vinyl in Scandinavian blonde oak.',
+      finish: 'Nordic Blonde Oak',
+      material: 'Limestone Composite SPC',
     },
     {
-      icon: Layers,
-      title: '6.5mm Limestone Rigid Core',
-      desc: 'Ultra-dense stone polymer composite core guarantees dimensional stability under intense solar heat and heavy foot traffic.',
-    },
-    {
-      icon: ShieldCheck,
-      title: 'Diamond Wear Shield (0.55mm)',
-      desc: 'Commercial-grade micro-ceramic UV wear layer that resists stiletto heels, heavy furniture, and pet claws.',
+      id: 'spc-j5012',
+      ref: 'SPC-J5012',
+      name: 'SPC Rigid Core Vinyl Tile J5012',
+      category: 'SPC Flooring',
+      dimension: '18x122 cm',
+      pricing_type: 'area',
+      price_per_sqm: 3000,
+      bulk_price_per_box: 6690,
+      sqm_per_box: 2.23,
+      bulk_unit: 'Box',
+      stock: 80,
+      image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
+      description: '6.5mm Rigid Core SPC Luxury Vinyl in deep smoked walnut.',
+      finish: 'Smoked Walnut',
+      material: 'Limestone Composite SPC',
     },
   ];
 
+  // Retrieve actual SPC flooring planks from catalog
+  const spcItems = products.filter(
+    (p) =>
+      p.category === 'SPC Flooring' ||
+      p.name.toUpperCase().includes('SPC') ||
+      p.ref.toUpperCase().includes('SPC')
+  );
+  const flooringPlanks = spcItems.filter((p) => !p.name.toUpperCase().includes('SKIRTING'));
+  const availablePlanks = flooringPlanks.length > 0 ? flooringPlanks : fallbackPlanks;
+
+  const [selectedSpcIndex, setSelectedSpcIndex] = useState(0);
+  const activePlank = availablePlanks[selectedSpcIndex] || availablePlanks[0];
+
+  const getFinishLabel = (plank: Product, idx: number) => {
+    const match = plank.name.match(/J\d{4}/i);
+    if (match) {
+      const code = match[0].toUpperCase();
+      const map: Record<string, string> = {
+        'J5011': 'J5011 Natural Oak',
+        'J5015': 'J5015 Nordic Blonde',
+        'J5012': 'J5012 Smoked Walnut',
+      };
+      return map[code] || code;
+    }
+    return plank.finish || `Finish 0${idx + 1}`;
+  };
+
   return (
-    <section id="spc-flooring" className="py-20 sm:py-28 bg-[#111215] text-white relative overflow-hidden border-b border-neutral-800">
-      {/* Background Architectural Ambient Textures */}
-      <div className="absolute inset-0 bg-radial-at-t from-neutral-800/20 via-transparent to-transparent pointer-events-none" />
-      <div className="absolute inset-y-0 right-0 w-1/2 bg-gradient-to-l from-white/[0.02] to-transparent pointer-events-none" />
-
-      <div className="relative w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
-        {/* Section Header */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-16">
-          <div className="max-w-3xl space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 border border-white/15 text-[11px] font-mono uppercase tracking-widest text-[#C2A26F] font-semibold">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Next-Gen Surface Architecture</span>
-            </div>
+    <section id="spc-flooring" className="py-7 sm:py-9 bg-[#EBE4D8] border-y border-[#D6CDBC]">
+      <div className="w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
+        {/* Compact, Unified Architectural Banner */}
+        <div className="bg-[#FAF7F2] rounded-md border border-[#D9D0C1] p-5 sm:p-7 shadow-xs">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
             
-            <h2 className="text-3xl sm:text-5xl lg:text-6xl font-light font-heading text-white tracking-tight leading-tight">
-              SPC Rigid Core <br />
-              <strong className="font-semibold text-[#C2A26F]">Luxury Vinyl Flooring</strong>
-            </h2>
+            {/* Left Column: Visual Room Specimen & Quick Swatches */}
+            <div className="lg:col-span-6 space-y-3">
+              <div className="relative aspect-16/10 rounded-xs overflow-hidden bg-[#E2DACB] border border-[#D6CDBC] shadow-xs group">
+                <AnimatePresence mode="wait">
+                  <motion.img
+                    key={activePlank.image}
+                    src={activePlank.image}
+                    alt={activePlank.name}
+                    initial={{ opacity: 0.5, scale: 1.02 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0.5 }}
+                    transition={{ duration: 0.35 }}
+                    className="w-full h-full object-cover group-hover:scale-104 transition-transform duration-700 ease-out"
+                  />
+                </AnimatePresence>
 
-            <p className="text-sm sm:text-base text-neutral-400 leading-relaxed font-light">
-              Experience the natural, organic warmth of authentic timber aesthetics paired with the unbreakable durability and 100% water immunity of Stone Polymer Composite. Engineered with precision Uniclic glueless joints for flawless, rapid installation.
-            </p>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-4 shrink-0">
-            <button
-              type="button"
-              onClick={() => onExploreCatalogue({ category: 'SPC Flooring' })}
-              className="px-6 py-3.5 bg-white text-neutral-950 hover:bg-[#C2A26F] hover:text-white text-xs font-bold uppercase tracking-widest transition-all duration-200 flex items-center gap-2 shadow-md cursor-pointer"
-            >
-              <span>Explore All SPC Finishes</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </button>
-          </div>
-        </div>
-
-        {/* 4 Feature Pillars Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-16">
-          {spcBenefits.map((b, idx) => {
-            const Icon = b.icon;
-            return (
-              <div
-                key={idx}
-                className="p-6 bg-white/[0.03] border border-white/10 hover:border-white/30 transition-all duration-300 group"
-              >
-                <div className="w-10 h-10 rounded-xs bg-[#C2A26F]/15 border border-[#C2A26F]/30 flex items-center justify-center text-[#C2A26F] mb-4 group-hover:scale-105 transition-transform">
-                  <Icon className="w-5 h-5" />
+                {/* Floating pill badges on photo */}
+                <div className="absolute top-3 left-3 flex items-center gap-2">
+                  <span className="px-2.5 py-1 bg-[#1C1917]/85 backdrop-blur-xs text-[10px] font-medium text-[#F5EFE6] uppercase tracking-wider rounded-2xs">
+                    6.5mm Rigid Core
+                  </span>
+                  <span className="px-2.5 py-1 bg-[#C27803] text-[10px] font-semibold text-white uppercase tracking-wider rounded-2xs shadow-xs">
+                    {getFinishLabel(activePlank, selectedSpcIndex)}
+                  </span>
                 </div>
-                <h3 className="text-sm font-bold text-white font-heading mb-1.5">
-                  {b.title}
+              </div>
+
+              {/* Quick Finish Swatch Switcher */}
+              <div className="flex items-center gap-2.5 overflow-x-auto pb-1 scrollbar-none">
+                <span className="text-[11px] font-medium text-[#78716C] uppercase tracking-wider shrink-0">
+                  Finishes:
+                </span>
+                <div className="flex items-center gap-2">
+                  {availablePlanks.slice(0, 4).map((plank, idx) => {
+                    const isSelected = selectedSpcIndex === idx;
+                    const displayName = getFinishLabel(plank, idx);
+                    return (
+                      <button
+                        key={plank.ref || idx}
+                        type="button"
+                        onClick={() => setSelectedSpcIndex(idx)}
+                        className={`flex items-center gap-1.5 px-2.5 py-1 rounded-2xs text-xs transition-all cursor-pointer border ${
+                          isSelected
+                            ? 'bg-[#1C1917] text-white border-[#1C1917] shadow-xs'
+                            : 'bg-white text-[#44403C] border-[#D6CDBC] hover:border-[#A8A29E]'
+                        }`}
+                      >
+                        <span className="w-2 h-2 rounded-full bg-[#C27803] shrink-0" />
+                        <span className="font-medium whitespace-nowrap">{displayName}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column: Architectural Highlights & Direct Actions */}
+            <div className="lg:col-span-6 flex flex-col justify-between space-y-4 lg:pl-2">
+              <div>
+                <div className="inline-flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-widest text-[#B45309] font-semibold mb-1">
+                  <Sparkles className="w-3 h-3 text-[#D97706]" />
+                  <span>Next-Gen Rigid Core Vinyl</span>
+                </div>
+                <h3 className="text-xl sm:text-2xl font-light font-heading text-[#1C1917] tracking-tight">
+                  <strong>SPC Waterproof</strong> Wood Flooring
                 </h3>
-                <p className="text-xs text-neutral-400 leading-relaxed">
-                  {b.desc}
+                <p className="text-xs sm:text-sm text-[#57534E] mt-1.5 leading-relaxed">
+                  Authentic timber grain warmth fused with an impenetrable limestone composite core. 100% waterproof for kitchens, living rooms, and commercial spaces with pre-attached acoustic underlay.
                 </p>
               </div>
-            );
-          })}
-        </div>
 
-        {/* Interactive Flooring Showcase Stage */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white/[0.02] border border-white/10 p-6 sm:p-10">
-          
-          {/* Left: Interactive Specimen Preview */}
-          <div className="lg:col-span-7 space-y-6">
-            <div className="relative aspect-16/10 overflow-hidden bg-neutral-900 border border-white/10 shadow-2xl group">
-              <img
-                src={
-                  activePlank?.image ||
-                  'https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?auto=format&fit=crop&w=1200&q=80'
-                }
-                alt={activePlank?.name || 'SPC Flooring Specimen'}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
-
-              {/* Badges on image */}
-              <div className="absolute top-4 left-4 flex items-center gap-2">
-                <span className="px-2.5 py-1 bg-black/70 backdrop-blur-md text-[10px] font-mono text-[#C2A26F] uppercase tracking-wider border border-white/15">
-                  6.5 mm Premium Class
-                </span>
-                <span className="px-2.5 py-1 bg-emerald-950/80 backdrop-blur-md text-[10px] font-mono text-emerald-300 uppercase tracking-wider border border-emerald-500/30">
-                  In Stock · Eldoret Depot
-                </span>
+              {/* 3 Compact Architectural Feature Pills */}
+              <div className="grid grid-cols-3 gap-2 py-1">
+                <div className="p-2 bg-white rounded-xs border border-[#E7DFD1] text-center">
+                  <Droplets className="w-4 h-4 mx-auto text-[#B45309] mb-1" />
+                  <span className="text-[11px] font-bold text-[#1C1917] block leading-tight">100% Waterproof</span>
+                  <span className="text-[10px] text-[#78716C] block leading-tight">Zero Swelling</span>
+                </div>
+                <div className="p-2 bg-white rounded-xs border border-[#E7DFD1] text-center">
+                  <VolumeX className="w-4 h-4 mx-auto text-[#B45309] mb-1" />
+                  <span className="text-[11px] font-bold text-[#1C1917] block leading-tight">21 dB Acoustic</span>
+                  <span className="text-[10px] text-[#78716C] block leading-tight">Built-in IXPE</span>
+                </div>
+                <div className="p-2 bg-white rounded-xs border border-[#E7DFD1] text-center">
+                  <Layers className="w-4 h-4 mx-auto text-[#B45309] mb-1" />
+                  <span className="text-[11px] font-bold text-[#1C1917] block leading-tight">Drop-Lock</span>
+                  <span className="text-[10px] text-[#78716C] block leading-tight">Glueless Uniclic</span>
+                </div>
               </div>
 
-              <div className="absolute bottom-4 left-4 right-4 flex flex-col sm:flex-row sm:items-end justify-between gap-3 text-white">
+              {/* Dual Rate Pricing Strip */}
+              <div className="flex items-center justify-between p-2.5 bg-white/70 rounded-xs border border-[#E0D7C7]">
                 <div>
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-[#C2A26F] block">
-                    {activePlank?.ref || 'SPC ARCHITECTURAL TILE'}
+                  <span className="text-[10px] uppercase text-[#78716C] font-semibold block">Square Meter Rate</span>
+                  <span className="text-lg font-bold text-[#1C1917]">
+                    {formatKES(activePlank.price_per_sqm || activePlank.price || 3000)}
+                    <span className="text-xs font-normal text-[#78716C]"> / m²</span>
                   </span>
-                  <h4 className="text-base sm:text-xl font-bold font-heading">
-                    {activePlank?.name || 'SPC Rigid Core Tile'}
-                  </h4>
                 </div>
-
-                <div className="text-right">
-                  <span className="text-[10px] font-mono uppercase text-neutral-400 block">
-                    Dual Rate (m² / Box)
-                  </span>
-                  <div className="text-lg sm:text-2xl font-bold font-mono text-white">
-                    {formatKES(activePlank?.price_per_sqm || activePlank?.price || 3000)}
-                    <span className="text-xs text-[#C2A26F] font-normal ml-1">/ m²</span>
+                {activePlank.bulk_price_per_box && (
+                  <div className="text-right">
+                    <span className="text-[10px] uppercase text-[#B45309] font-semibold block">Carton Coverage</span>
+                    <span className="text-xs font-semibold text-[#1C1917]">
+                      {formatKES(activePlank.bulk_price_per_box)}
+                      <span className="text-[10px] font-normal text-[#78716C]"> / Box ({activePlank.sqm_per_box || 2.23} m²)</span>
+                    </span>
                   </div>
-                  <span className="text-[11px] font-mono text-neutral-300 block">
-                    {formatKES(activePlank?.bulk_price_per_box || 6690)} / Box (2.23 m²)
-                  </span>
-                </div>
+                )}
               </div>
-            </div>
 
-            {/* Specimen Switcher Thumbnails */}
-            <div className="space-y-2">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-400 block">
-                Select Finish Variant:
-              </span>
-              <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
-                {flooringPlanks.slice(0, 4).map((plank, idx) => {
-                  const isSelected = selectedSpcIndex === idx;
-                  return (
-                    <button
-                      key={plank.ref}
-                      type="button"
-                      onClick={() => setSelectedSpcIndex(idx)}
-                      className={`p-2.5 bg-white/[0.04] border text-left transition-all cursor-pointer ${
-                        isSelected
-                          ? 'border-[#C2A26F] ring-1 ring-[#C2A26F] bg-white/[0.08]'
-                          : 'border-white/10 hover:border-white/30'
-                      }`}
-                    >
-                      <div className="aspect-16/9 overflow-hidden bg-neutral-800 mb-1.5">
-                        <img
-                          src={plank.image}
-                          alt={plank.name}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <span className="text-[11px] font-bold text-white block truncate">
-                        {plank.name.replace('SPC Rigid Core Luxury Vinyl Tile', '').trim()}
-                      </span>
-                      <span className="text-[10px] font-mono text-[#C2A26F] block">
-                        {formatKES(plank.price_per_sqm || plank.price || 3000)}/m²
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-
-          {/* Right: Architectural Technical Spec & Skirting Match */}
-          <div className="lg:col-span-5 space-y-6 lg:pl-4">
-            <div>
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#C2A26F] font-semibold block mb-1">
-                Engineered Performance
-              </span>
-              <h3 className="text-xl sm:text-2xl font-bold font-heading text-white">
-                Technical Specifications
-              </h3>
-            </div>
-
-            {/* Spec List */}
-            <div className="divide-y divide-white/10 text-xs font-mono">
-              <div className="py-2.5 flex justify-between items-center">
-                <span className="text-neutral-400">Total Planks Thickness:</span>
-                <span className="text-white font-bold">6.5 mm (5.0mm Core + 1.5mm IXPE)</span>
-              </div>
-              <div className="py-2.5 flex justify-between items-center">
-                <span className="text-neutral-400">Wear Layer:</span>
-                <span className="text-white font-bold">0.55 mm Heavy Commercial Grade</span>
-              </div>
-              <div className="py-2.5 flex justify-between items-center">
-                <span className="text-neutral-400">Box Packaging:</span>
-                <span className="text-white font-bold">2.23 m² per Box (Sealed Carton)</span>
-              </div>
-              <div className="py-2.5 flex justify-between items-center">
-                <span className="text-neutral-400">Joint Profile:</span>
-                <span className="text-white font-bold">Uniclic Drop-Lock (Glueless)</span>
-              </div>
-              <div className="py-2.5 flex justify-between items-center">
-                <span className="text-neutral-400">Acoustic Rating:</span>
-                <span className="text-emerald-400 font-bold">ΔLw 21 dB Impact Sound Reduction</span>
-              </div>
-              <div className="py-2.5 flex justify-between items-center">
-                <span className="text-neutral-400">Warranty:</span>
-                <span className="text-[#C2A26F] font-bold">10 Years Commercial / Lifetime Residential</span>
-              </div>
-            </div>
-
-            {/* Skirting Match Callout */}
-            <div className="p-4 bg-white/[0.04] border border-white/10 space-y-2">
-              <div className="flex items-center gap-2">
-                <Ruler className="w-4 h-4 text-[#C2A26F]" />
-                <span className="text-xs font-bold text-white uppercase tracking-wider font-heading">
-                  Color-Matched SPC Skirting Available
-                </span>
-              </div>
-              <p className="text-xs text-neutral-400 leading-relaxed">
-                Complete your installation with seamless 2.4-meter waterproof SPC baseboards (KES 1,250/pc) designed to hide expansion perimeter gaps with integrated wire conduits.
-              </p>
-              {skirtingProfiles.length > 0 && (
-                <div className="text-[10px] font-mono text-[#C2A26F]">
-                  Profiles: {skirtingProfiles.slice(0, 5).map(s => s.name.replace('SPC Architectural Waterproof Skirting Profile', '').trim()).join(' · ')}
-                </div>
-              )}
-            </div>
-
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-3 pt-2">
-              {activePlank && (
+              {/* Action Buttons */}
+              <div className="flex flex-wrap items-center gap-2.5 pt-1">
                 <button
                   type="button"
                   onClick={() => onSelectProduct(activePlank)}
-                  className="flex-1 py-3 bg-[#C2A26F] hover:bg-[#d6b582] text-neutral-950 font-bold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-md"
+                  className="px-4 py-2.5 bg-[#1C1917] hover:bg-black text-white text-xs font-semibold uppercase tracking-wider rounded-xs transition-colors flex items-center gap-2 cursor-pointer shadow-xs"
                 >
-                  <Eye className="w-4 h-4" />
-                  <span>Inspect Specimen Details</span>
+                  <Eye className="w-3.5 h-3.5" />
+                  <span>Inspect Specimen</span>
                 </button>
-              )}
 
-              {activePlank && onOpenCalculatorWithProduct && (
+                {onOpenCalculatorWithProduct && (
+                  <button
+                    type="button"
+                    onClick={() => onOpenCalculatorWithProduct(activePlank)}
+                    className="px-4 py-2.5 bg-white hover:bg-[#F5EFE6] text-[#1C1917] border border-[#D6CDBC] text-xs font-semibold uppercase tracking-wider rounded-xs transition-colors flex items-center gap-2 cursor-pointer shadow-2xs"
+                  >
+                    <Calculator className="w-3.5 h-3.5 text-[#B45309]" />
+                    <span>Calculate Area</span>
+                  </button>
+                )}
+
                 <button
                   type="button"
-                  onClick={() => onOpenCalculatorWithProduct(activePlank)}
-                  className="py-3 px-4 border border-white/20 hover:border-white text-white text-xs font-bold uppercase tracking-wider transition-colors flex items-center justify-center gap-2 cursor-pointer bg-white/5"
+                  onClick={() => onExploreCatalogue({ category: 'SPC Flooring' })}
+                  className="ml-auto text-xs font-semibold text-[#B45309] hover:text-[#92400E] flex items-center gap-1.5 transition-colors cursor-pointer py-1"
                 >
-                  <Calculator className="w-4 h-4 text-[#C2A26F]" />
-                  <span>Calculate Boxes</span>
+                  <span>Explore All Finishes</span>
+                  <ArrowRight className="w-3 h-3" />
                 </button>
-              )}
-            </div>
-          </div>
+              </div>
 
+            </div>
+
+          </div>
         </div>
       </div>
     </section>
