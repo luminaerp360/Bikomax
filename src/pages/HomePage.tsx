@@ -11,7 +11,7 @@ import { AdvancedTileFinder } from '../components/AdvancedTileFinder';
 import { ShowroomsSpotlight } from '../components/ShowroomsSpotlight';
 import { ProjectsSection } from '../components/ProjectsSection';
 import { AnimatedReveal, ScrollRevealText, PatternDivider } from '../components/AnimatedReveal';
-import { Ruler, Boxes, ArrowRight, Calculator, Compass } from 'lucide-react';
+import { Ruler, Boxes, ArrowRight, Calculator, Compass, ShieldCheck, Check, Layers, SlidersHorizontal, Sparkles } from 'lucide-react';
 
 interface HomePageProps {
   products: Product[];
@@ -103,128 +103,150 @@ export const HomePage: React.FC<HomePageProps> = ({
         onOpenCalculatorWithProduct={onOpenCalculatorWithProduct}
       />
 
-      {/* 4. DUAL PRICING ARCHITECTURAL EXPLAINER (Square Meter & Bulk Box) */}
-      <section className="relative py-20 sm:py-28 border-b border-neutral-200/80 bg-white overflow-hidden">
-        <div className="absolute inset-y-0 right-0 w-1/3 bg-arch-grid opacity-35 pointer-events-none" />
+      {/* 4. ARCHITECTURAL DUAL SPECIFICATION EXPLAINER (Square Meter & Bulk Box Packaging) */}
+      <section className="relative py-10 sm:py-14 border-b border-neutral-200/80 bg-[#FAF9F6] overflow-hidden">
+        {/* Subtle architectural grid backdrop */}
+        <div className="absolute inset-y-0 right-0 w-1/3 bg-arch-grid opacity-30 pointer-events-none" />
 
         <div className="relative w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             
             {/* Left Narrative */}
-            <div className="lg:col-span-6 space-y-6">
+            <div className="lg:col-span-6 space-y-4">
               <AnimatedReveal delay={0.05}>
-                <div className="inline-flex items-center gap-2 text-[11px] font-mono uppercase tracking-widest text-amber-600 font-semibold">
-                  <Compass className="w-3.5 h-3.5" />
-                  <span>Procurement Standard</span>
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 bg-amber-500/10 border border-amber-500/25 text-[10px] font-mono uppercase tracking-widest text-amber-700 font-semibold rounded-full">
+                  <Compass className="w-3 h-3 text-amber-600" />
+                  <span>Procurement & Packaging Standard</span>
                 </div>
               </AnimatedReveal>
 
-              <AnimatedReveal delay={0.12}>
-                <h2 className="text-3xl sm:text-5xl font-light font-heading text-neutral-950 leading-tight">
-                  Dual Pricing: <br />
-                  <span className="font-semibold text-neutral-900">Square Meter</span> & <span className="font-semibold text-amber-600">Bulk Box</span>
+              <AnimatedReveal delay={0.1}>
+                <h2 className="text-2xl sm:text-3xl font-heading text-neutral-950 leading-tight tracking-tight">
+                  Dual Specification: <br className="hidden sm:inline" />
+                  <span className="font-semibold text-neutral-900">Square Meter</span> &amp;{' '}
+                  <span className="font-semibold text-amber-600">Bulk Box Packaging</span>
                 </h2>
               </AnimatedReveal>
 
-              <ScrollRevealText
-                text="Architectural estimation begins with square meters from site blueprints, but factory palletizing demands sealed whole cartons to protect rectified porcelain edges. Bikomax computes both metrics in real-time with an intelligent +10% cutting wastage allowance."
-                className="text-sm text-neutral-600 leading-relaxed"
-                delay={0.2}
-              />
+              <p className="text-xs text-neutral-600 leading-relaxed max-w-xl">
+                Architectural estimation starts with net square meters from site blueprints, while factory palletizing requires sealed cartons to safeguard rectified porcelain edges. Bikomax computes both dimensions in real-time with an intelligent +10% cutting wastage allowance.
+              </p>
 
-              <div className="space-y-3.5 pt-2 text-xs text-neutral-700">
-                <AnimatedReveal delay={0.25}>
-                  <div className="flex items-start gap-3.5 p-4 bg-[#FAF9F7] border border-neutral-200/80 hover:border-neutral-950 transition-colors">
-                    <Ruler className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
-                    <div>
-                      <strong className="text-neutral-950 block font-semibold">Area Metric (m²):</strong>
-                      <span className="text-neutral-500 leading-relaxed">
-                        Matches your quantity surveyor schedules and Bill of Quantities (BQ) floor plans directly.
-                      </span>
+              {/* Compact side-by-side metric cards */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                <div className="p-3 bg-white border border-neutral-200/90 shadow-2xs space-y-1">
+                  <div className="flex items-center justify-between gap-1">
+                    <div className="flex items-center gap-1.5">
+                      <Ruler className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+                      <strong className="text-xs font-semibold text-neutral-950">Area Metric (m²)</strong>
                     </div>
+                    <span className="text-[9px] font-mono uppercase px-1.5 py-0.5 bg-neutral-100 text-neutral-600 border border-neutral-200/70">Blueprint</span>
                   </div>
-                </AnimatedReveal>
+                  <p className="text-[11px] text-neutral-500 leading-normal">
+                    Matches your Quantity Surveyor schedules and Bill of Quantities (BQ) floor plans.
+                  </p>
+                </div>
 
-                <AnimatedReveal delay={0.35}>
-                  <div className="flex items-start gap-3.5 p-4 bg-[#FAF9F7] border border-neutral-200/80 hover:border-neutral-950 transition-colors">
-                    <Boxes className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
-                    <div>
-                      <strong className="text-neutral-950 block font-semibold">Factory Box Packaging:</strong>
-                      <span className="text-neutral-500 leading-relaxed">
-                        Calculates exact whole cartons needed, plus recommended +10% tile cutting allowance for perimeter trims.
-                      </span>
+                <div className="p-3 bg-white border border-neutral-200/90 shadow-2xs space-y-1">
+                  <div className="flex items-center justify-between gap-1">
+                    <div className="flex items-center gap-1.5">
+                      <Boxes className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+                      <strong className="text-xs font-semibold text-neutral-950">Bulk Packaging</strong>
                     </div>
+                    <span className="text-[9px] font-mono uppercase px-1.5 py-0.5 bg-amber-50 text-amber-700 border border-amber-200/70">Edge Safe</span>
                   </div>
-                </AnimatedReveal>
+                  <p className="text-[11px] text-neutral-500 leading-normal">
+                    Sealed whole cartons with integrated +10% cutting margin for perimeter trims.
+                  </p>
+                </div>
               </div>
 
-              <AnimatedReveal delay={0.45} className="pt-2">
+              <div className="pt-1">
                 <button
                   type="button"
                   onClick={onOpenCalculator}
-                  className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-neutral-950 hover:text-amber-600 transition-colors cursor-pointer"
+                  className="inline-flex items-center gap-2 px-4 py-2.5 bg-neutral-950 hover:bg-amber-600 text-white text-[11px] font-semibold uppercase tracking-wider transition-all duration-200 shadow-xs cursor-pointer group/btn"
                 >
-                  <Calculator className="w-4 h-4 text-amber-500" />
-                  <span>Launch Multi-Room Coverage Calculator</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  <Calculator className="w-3.5 h-3.5 text-amber-400 group-hover/btn:text-white transition-colors" />
+                  <span>Launch Coverage Calculator</span>
+                  <ArrowRight className="w-3 h-3 transition-transform group-hover/btn:translate-x-1" />
                 </button>
-              </AnimatedReveal>
+              </div>
             </div>
 
-            {/* Specimen Card */}
-            <AnimatedReveal delay={0.25} direction="left" className="lg:col-span-6">
-              <div className="bg-[#121212] bg-arch-dark-grid text-white p-7 sm:p-9 border border-neutral-800 shadow-2xl space-y-6 relative">
-                <div className="absolute top-4 right-4 text-[9px] font-mono tracking-widest uppercase text-neutral-500 border border-neutral-800 px-2 py-0.5">
-                  CALIBRATED ALGORITHM
-                </div>
-
-                <div className="border-b border-neutral-800 pb-3">
-                  <span className="text-[11px] uppercase font-mono tracking-wider text-amber-400 block font-semibold">
-                    Interactive Calculation Sample
-                  </span>
-                  <span className="text-sm font-medium text-neutral-200 mt-0.5 block">
-                    Model 66008 Matte Porcelain (60×60 cm)
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="p-4 bg-neutral-900/90 border border-neutral-800">
-                    <span className="text-[10px] uppercase font-mono text-neutral-400 block">
-                      Normal Area Rate
+            {/* Specimen Console (Compact, No Prices) */}
+            <AnimatedReveal delay={0.2} direction="left" className="lg:col-span-6">
+              <div className="bg-[#0D0F12] bg-arch-dark-grid text-white p-5 sm:p-6 border border-neutral-800 shadow-xl space-y-4 relative arch-crosshair">
+                
+                {/* Header */}
+                <div className="flex items-center justify-between gap-3 border-b border-neutral-800/80 pb-3 flex-wrap">
+                  <div>
+                    <span className="text-[10px] uppercase font-mono tracking-wider text-amber-400 block font-semibold">
+                      Quantification Specimen
                     </span>
-                    <div className="text-2xl font-bold font-heading mt-1">
-                      KES 2,870
-                    </div>
-                    <span className="text-xs text-neutral-400">per Square Meter (m²)</span>
-                  </div>
-
-                  <div className="p-4 bg-neutral-900/90 border border-neutral-800">
-                    <span className="text-[10px] uppercase font-mono text-amber-400 block font-bold">
-                      Factory Box Rate
+                    <span className="text-xs font-medium text-neutral-200 mt-0.5 block">
+                      Model 66008 Matte Porcelain (60×60 cm)
                     </span>
-                    <div className="text-2xl font-bold font-heading mt-1 text-amber-400">
-                      KES 4,132.80
+                  </div>
+                  <div className="inline-flex items-center gap-1.5 text-[9px] font-mono tracking-widest uppercase text-emerald-400 bg-emerald-950/60 border border-emerald-800/60 px-2 py-0.5">
+                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    <span>Calibrated Yield</span>
+                  </div>
+                </div>
+
+                {/* Dual Metric Comparison (Area vs Packaging) */}
+                <div className="grid grid-cols-2 gap-3">
+                  {/* Metric 1: Blueprint Area */}
+                  <div className="p-3 bg-neutral-900/90 border border-neutral-800">
+                    <div className="flex items-center justify-between text-[9px] font-mono uppercase text-neutral-400">
+                      <span>Blueprint Net Area</span>
+                      <Ruler className="w-3 h-3 text-neutral-500" />
                     </div>
-                    <span className="text-xs text-neutral-400">per Box (1.44 m²/box)</span>
+                    <div className="mt-1 flex items-baseline gap-1">
+                      <span className="text-2xl font-bold font-heading text-white">25.0</span>
+                      <span className="text-[11px] font-mono text-neutral-400">m² Net</span>
+                    </div>
+                    <div className="mt-1 text-[10px] text-neutral-400 font-mono">
+                      +10% Wastage = 27.5 m²
+                    </div>
+                  </div>
+
+                  {/* Metric 2: Delivered Factory Packaging */}
+                  <div className="p-3 bg-gradient-to-br from-neutral-900/90 to-amber-950/20 border border-amber-500/30">
+                    <div className="flex items-center justify-between text-[9px] font-mono uppercase text-amber-400 font-semibold">
+                      <span>Factory Packaging</span>
+                      <Boxes className="w-3 h-3 text-amber-400" />
+                    </div>
+                    <div className="mt-1 flex items-baseline gap-1">
+                      <span className="text-2xl font-bold font-heading text-amber-400">20</span>
+                      <span className="text-[11px] font-mono text-amber-300/80">Boxes</span>
+                    </div>
+                    <div className="mt-1 text-[10px] text-amber-200/90 font-mono">
+                      Yield: 28.80 m² Delivered
+                    </div>
                   </div>
                 </div>
 
-                <div className="p-3.5 bg-neutral-950/80 border border-neutral-800 text-xs text-neutral-300 space-y-1 font-mono">
-                  <div className="text-neutral-400">
-                    Formula: Net 25.0 m² + 10% Wastage = 27.5 m² required.
+                {/* Single Compact Summary & Formula Strip */}
+                <div className="p-2.5 bg-neutral-950 border border-neutral-800/80 text-[10px] font-mono space-y-1">
+                  <div className="flex items-center justify-between text-neutral-400 flex-wrap gap-1">
+                    <span>› Net 25.0 m² + 10% Wastage (2.5 m²) = 27.5 m² req.</span>
+                    <span className="text-neutral-500">1.44 m²/box • 4 pcs/box</span>
                   </div>
-                  <div className="text-emerald-400 font-bold">
-                    = 20 Full Boxes (28.8 m² delivered) @ KES 4,132.80 = KES 82,656 total.
+                  <div className="text-emerald-400 font-semibold flex items-center gap-1.5">
+                    <Check className="w-3 h-3 shrink-0" />
+                    <span>Calibrated: 20 Full Boxes (28.8 m² delivered) • Zero loose broken tiles</span>
                   </div>
                 </div>
 
+                {/* Catalogue Link */}
                 <button
                   type="button"
                   onClick={onNavigateToCatalogue}
-                  className="w-full py-3.5 bg-white hover:bg-amber-50 text-neutral-950 font-bold text-xs uppercase tracking-widest transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-xs group/cat"
+                  className="w-full py-2.5 bg-white hover:bg-amber-50 text-neutral-950 font-bold text-[11px] uppercase tracking-wider transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-2xs group/cat"
                 >
-                  <span>Experience Dual Pricing on Full Catalogue</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-amber-600 transition-transform group-hover/cat:translate-x-1" />
+                  <span>Explore Catalogue with Box Calibration</span>
+                  <ArrowRight className="w-3 h-3 text-amber-600 transition-transform group-hover/cat:translate-x-1" />
                 </button>
               </div>
             </AnimatedReveal>

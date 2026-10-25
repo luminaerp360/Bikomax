@@ -540,117 +540,44 @@ export const CataloguePage: React.FC<CataloguePageProps> = ({
 
   return (
     <div className="bg-[#FAFAFA] text-neutral-950 font-sans min-h-screen pb-28">
-      {/* 1. TOP CLEOPATRA DARK BANNER & SUB-NAV */}
-      <section className="bg-[#111111] text-white pt-6 sm:pt-8 pb-10 sm:pb-14 border-b border-neutral-800">
-        <div className="w-full px-4 sm:px-6 lg:px-8">
-          
-          {/* Sub-brand Centered Category Navigation */}
-          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-8 pb-6 border-b border-white/10 text-xs sm:text-sm font-semibold tracking-wider uppercase text-neutral-300">
-            <button
-              type="button"
-              onClick={() => {
-                onCategoryChange('All');
-                handleSetTech('All');
-              }}
-              className={`hover:text-[#C2A26F] transition-colors cursor-pointer ${
-                selectedCategory === 'All' ? 'text-[#C2A26F] font-bold border-b-2 border-[#C2A26F] pb-1' : ''
-              }`}
-            >
-              All Collections
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                onCategoryChange('Tiles');
-                handleSetTech('All');
-              }}
-              className={`hover:text-[#C2A26F] transition-colors cursor-pointer ${
-                selectedCategory === 'Tiles' ? 'text-[#C2A26F] font-bold border-b-2 border-[#C2A26F] pb-1' : ''
-              }`}
-            >
-              Tiles
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                onCategoryChange('Sanitaryware');
-                handleSetTech('All');
-              }}
-              className={`hover:text-[#C2A26F] transition-colors cursor-pointer ${
-                selectedCategory === 'Sanitaryware' ? 'text-[#C2A26F] font-bold border-b-2 border-[#C2A26F] pb-1' : ''
-              }`}
-            >
-              Sanitaryware
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                onCategoryChange('Electrical');
-                handleSetTech('All');
-              }}
-              className={`hover:text-[#C2A26F] transition-colors cursor-pointer ${
-                selectedCategory === 'Electrical' ? 'text-[#C2A26F] font-bold border-b-2 border-[#C2A26F] pb-1' : ''
-              }`}
-            >
-              Electrical
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                onCategoryChange('SPC Flooring');
-                handleSetTech('All');
-              }}
-              className={`hover:text-[#C2A26F] transition-colors cursor-pointer ${
-                selectedCategory === 'SPC Flooring' ? 'text-[#C2A26F] font-bold border-b-2 border-[#C2A26F] pb-1' : ''
-              }`}
-            >
-              SPC Flooring
-            </button>
-          </div>
+      {/* 1. SEAMLESS CENTERED CATEGORY NAVIGATION BAR */}
+      <section className="bg-white border-b border-neutral-200/90 sticky top-0 z-20">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 sm:py-3">
+          <div className="flex items-center justify-center">
+            
+            {/* Category Pills Centered */}
+            <div className="flex items-center justify-center gap-2 overflow-x-auto scrollbar-none py-0.5">
+              {[
+                { id: 'All', label: 'All Collections' },
+                { id: 'Tiles', label: 'Tiles' },
+                { id: 'Sanitaryware', label: 'Sanitaryware' },
+                { id: 'Electrical', label: 'Electrical' },
+                { id: 'SPC Flooring', label: 'SPC Flooring' },
+              ].map((cat) => {
+                const isActive = selectedCategory === cat.id;
+                return (
+                  <button
+                    key={cat.id}
+                    type="button"
+                    onClick={() => {
+                      onCategoryChange(cat.id);
+                      handleSetTech('All');
+                    }}
+                    className={`px-4 py-1.5 text-xs font-medium rounded-full whitespace-nowrap transition-all cursor-pointer ${
+                      isActive
+                        ? 'bg-neutral-950 text-white font-semibold shadow-xs'
+                        : 'bg-neutral-100 text-neutral-600 hover:text-neutral-950 hover:bg-neutral-200/80'
+                    }`}
+                  >
+                    {cat.label}
+                  </button>
+                );
+              })}
+            </div>
 
-          {/* Large Cleopatra Centered Editorial Banner */}
-          <div className="pt-6 sm:pt-10 text-center max-w-3xl mx-auto space-y-2">
-            <span className="text-[10px] sm:text-[11px] font-mono tracking-widest uppercase text-[#C2A26F] font-semibold block">
-              {selectedCategory === 'SPC Flooring'
-                ? 'Rigid Core Surface Engineering'
-                : selectedCategory === 'Tiles'
-                ? 'Architectural Porcelain & Ceramics'
-                : selectedCategory === 'Sanitaryware'
-                ? 'European Luxury Water & Wellness'
-                : selectedCategory === 'Electrical'
-                ? 'British Standard Architectural Power'
-                : 'Architectural Surfaces & Living Spaces'}
-            </span>
-            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-light tracking-tight font-heading text-white">
-              {selectedCategory === 'SPC Flooring'
-                ? 'SPC Rigid Core Luxury Vinyl Flooring'
-                : selectedCategory === 'Tiles'
-                ? 'Experiencing the energy of colors & surfaces'
-                : selectedCategory === 'Sanitaryware'
-                ? 'Precision Engineered Sanitaryware'
-                : selectedCategory === 'Electrical'
-                ? 'Architectural Switches & Power Fittings'
-                : 'Experiencing the energy of colors & surfaces'}
-            </h1>
-            <p className="text-xs sm:text-sm text-neutral-400 font-light leading-relaxed max-w-xl mx-auto pt-1">
-              {selectedCategory === 'SPC Flooring'
-                ? '100% waterproof 6.5mm acoustic interlocking planks with pre-attached IXPE pads and matching 2.4m baseboard skirting.'
-                : selectedCategory === 'Tiles'
-                ? 'From mirror-polished Calacatta marbles to handcrafted Mediterranean glazed ceramics and 20mm outdoor pavers.'
-                : selectedCategory === 'Sanitaryware'
-                ? 'Wall-hung rimless bidet toilets, PVD gunmetal piano showers, and freestanding composite stone soaking tubs.'
-                : selectedCategory === 'Electrical'
-                ? 'British-standard 40A DP cooker switches, brushed champagne dimmers, and 45W Type-C fast-charging ports.'
-                : 'Complete architectural inventory spanning porcelain slabs, SPC acoustic flooring, luxury sanitaryware, and electrical fittings.'}
-            </p>
           </div>
         </div>
       </section>
-
-      {/* TOP ANNOUNCEMENT STRIP (Matching Image 2) */}
-      <div className="bg-white border-b border-neutral-200 py-2.5 px-4 text-center text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.2em] text-neutral-800">
-        FREE STANDARD DELIVERY INCLUDED FOR ONLINE ORDERS!
-      </div>
 
       {/* 2. MAIN 2-COLUMN LAYOUT (DESKTOP SIDEBAR + RESPONSIVE PRODUCT-FIRST MOBILE) */}
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6">

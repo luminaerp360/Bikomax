@@ -47,66 +47,53 @@ const ROOM_SCENES: RoomScene[] = [
     id: 'living',
     name: 'Open Living Pavilion',
     category: 'Living Room',
-    description: 'Expansive open-concept living pavilion with natural sunset light and floor-to-ceiling glass doors.',
+    description: 'Expansive open-concept architectural living pavilion with natural ambient lighting and low-profile modern furniture.',
     defaultTileRef: 'PRD-102948-CG',
     defaultWidth: 6.0,
     defaultLength: 5.5,
-    baseImage: '/products/room-living-pavilion.jpg',
-    floorPolygon: 'polygon(0% 49%, 46% 49%, 54% 53%, 100% 56%, 100% 100%, 0% 100%)',
+    baseImage: '/products/room-living-sim.jpg',
+    floorPolygon: 'polygon(0% 59%, 100% 59%, 100% 100%, 0% 100%)',
     perspectiveAngle: 58,
-    originY: '50%',
+    originY: '59%',
   },
   {
     id: 'bathroom-spa',
     name: 'Master En-Suite Spa',
     category: 'Bathroom',
-    description: 'Minimalist spa bathroom with freestanding soaking tub, floating timber vanity, and city view.',
+    description: 'Minimalist luxury master spa bathroom with freestanding soaking tub, warm timber slatted wall, and walk-in shower.',
     defaultTileRef: 'PRD-636920-2982',
     defaultWidth: 4.2,
     defaultLength: 3.8,
-    baseImage: '/products/room-carol-marina.jpg',
-    floorPolygon: 'polygon(0% 62%, 100% 65%, 100% 100%, 0% 100%)',
-    perspectiveAngle: 55,
-    originY: '60%',
+    baseImage: '/products/room-bathroom-sim.jpg',
+    floorPolygon: 'polygon(0% 63%, 100% 63%, 100% 100%, 0% 100%)',
+    perspectiveAngle: 54,
+    originY: '63%',
   },
   {
     id: 'kitchen',
     name: 'Contemporary Chef Kitchen',
     category: 'Kitchen',
-    description: 'Island counter dining and high-traffic culinary workspace demanding grease and heat resilience.',
+    description: 'Modern open-plan culinary kitchen with light oak waterfall island, quartz countertops, and clean floor space.',
     defaultTileRef: 'PRD-304958-TZ',
     defaultWidth: 5.2,
     defaultLength: 4.5,
-    baseImage: '/products/room-kitchen-chef.jpg',
-    floorPolygon: 'polygon(0% 54%, 100% 56%, 100% 100%, 0% 100%)',
-    perspectiveAngle: 57,
-    originY: '54%',
-  },
-  {
-    id: 'bathroom-rose',
-    name: 'Architectural Bath Suite',
-    category: 'Bathroom',
-    description: 'Serene master en-suite with warm acoustic insulation and matte vertical tiles.',
-    defaultTileRef: 'PRD-941824-3110',
-    defaultWidth: 3.8,
-    defaultLength: 3.2,
-    baseImage: '/products/room-carol-rose.jpg',
-    floorPolygon: 'polygon(0% 63%, 100% 65%, 100% 100%, 0% 100%)',
-    perspectiveAngle: 54,
-    originY: '62%',
+    baseImage: '/products/room-kitchen-sim.jpg',
+    floorPolygon: 'polygon(0% 67%, 100% 67%, 100% 100%, 0% 100%)',
+    perspectiveAngle: 56,
+    originY: '67%',
   },
   {
     id: 'outdoor',
     name: 'Villa Pool Terrace',
     category: 'Outdoor',
-    description: '20mm monolithic vitrified stoneware engineered for intense sun, slip safety, and pool water.',
+    description: '20mm monolithic vitrified stoneware engineered for sun-drenched outdoor pergolas, lounge patios, and pool decking.',
     defaultTileRef: 'PRD-492019-GP',
     defaultWidth: 8.0,
     defaultLength: 6.0,
-    baseImage: '/products/room-outdoor-patio.jpg',
-    floorPolygon: 'polygon(0% 48%, 100% 48%, 100% 100%, 0% 100%)',
-    perspectiveAngle: 60,
-    originY: '48%',
+    baseImage: '/products/room-terrace-sim.jpg',
+    floorPolygon: 'polygon(0% 56%, 100% 56%, 100% 100%, 0% 100%)',
+    perspectiveAngle: 57,
+    originY: '56%',
   },
 ];
 
@@ -210,7 +197,7 @@ export const RoomVisualizerSection: React.FC<RoomVisualizerSectionProps> = ({
 
               {/* 2. Interactive Floor Surface Layer (Transformed to actual tile & shadow-multiplied) */}
               <div
-                className="absolute inset-0 overflow-hidden pointer-events-none select-none transition-all duration-300"
+                className="absolute inset-0 overflow-hidden pointer-events-none select-none transition-all duration-300 bg-[#D4C7B8]"
                 style={{
                   clipPath: isComparing
                     ? `polygon(0% 0%, ${splitPosition}% 0%, ${splitPosition}% 100%, 0% 100%)`
@@ -227,11 +214,15 @@ export const RoomVisualizerSection: React.FC<RoomVisualizerSectionProps> = ({
                 >
                   <div
                     key={`${selectedRoomId}-${currentTile?.ref}`}
-                    className="absolute -inset-x-12 -bottom-24 transition-opacity duration-300 animate-in fade-in"
+                    className="absolute transition-opacity duration-300 animate-in fade-in"
                     style={{
-                      top: '25%',
+                      top: '-50%',
+                      bottom: '-30%',
+                      left: '-25%',
+                      right: '-25%',
                       transform: `rotateX(${currentRoom.perspectiveAngle}deg) translateZ(0)`,
-                      transformOrigin: 'bottom center',
+                      transformOrigin: '50% 100%',
+                      backgroundColor: '#D4C7B8',
                       backgroundImage: `url(${activeTexture.textureUrl})`,
                       backgroundSize: activeTexture.tileScale,
                       backgroundRepeat: 'repeat',
@@ -250,14 +241,14 @@ export const RoomVisualizerSection: React.FC<RoomVisualizerSectionProps> = ({
 
                 {/* 
                   NATURAL AMBIENT OCCLUSION & SHADOW RETENTION LAYER:
-                  Clones the original room image over the floor with mix-blend-multiply.
+                  Clones the original room image over the floor with mix-blend-multiply at gentle opacity.
                   This preserves the real shadows of the sofa, coffee table, and fireplace,
-                  so the furniture sits NATURALLY ON TOP of the newly selected tile!
+                  so the furniture sits NATURALLY ON TOP of the newly selected tile without darkening it to black!
                 */}
                 <img
                   src={currentRoom.baseImage}
                   alt="Ambient Shadow Retention"
-                  className="absolute inset-0 w-full h-full object-cover pointer-events-none mix-blend-multiply opacity-75"
+                  className="absolute inset-0 w-full h-full object-cover pointer-events-none mix-blend-multiply opacity-35"
                 />
 
                 {/* Ambient window glare wash */}

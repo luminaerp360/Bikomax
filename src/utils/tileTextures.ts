@@ -16,11 +16,11 @@ export interface SeamlessTileTexture {
 export function getSeamlessTileTexture(product?: Product | null): SeamlessTileTexture {
   if (!product) {
     return {
-      textureUrl: 'https://images.unsplash.com/photo-1599696848652-f0ff23bc911f?q=80&w=1200&auto=format&fit=crop',
-      tileScale: '360px 180px',
-      groutColor: 'rgba(215, 195, 160, 0.3)',
-      glossOpacity: 0.32,
-      finishLabel: 'Crystal Polished Calacatta Gold',
+      textureUrl: '/products/mat-stone.jpg',
+      tileScale: '340px 340px',
+      groutColor: 'rgba(90, 90, 90, 0.35)',
+      glossOpacity: 0.14,
+      finishLabel: 'Model 66008 Honed Matte Porcelain',
     };
   }
 
@@ -38,10 +38,10 @@ export function getSeamlessTileTexture(product?: Product | null): SeamlessTileTe
     ref.includes('1188')
   ) {
     return {
-      textureUrl: 'https://images.unsplash.com/photo-1541123437800-1bb1317badc2?q=80&w=1200&auto=format&fit=crop',
-      tileScale: '380px 200px',
-      groutColor: 'rgba(30, 30, 30, 0.45)',
-      glossOpacity: finish.includes('satin') ? 0.16 : 0.28,
+      textureUrl: '/products/mat-marquina.jpg',
+      tileScale: '380px 380px',
+      groutColor: 'rgba(20, 20, 20, 0.45)',
+      glossOpacity: finish.includes('satin') ? 0.18 : 0.32,
       finishLabel: 'Velvet Obsidian Black Marble',
     };
   }
@@ -49,8 +49,8 @@ export function getSeamlessTileTexture(product?: Product | null): SeamlessTileTe
   // 2. Calacatta Gold / Warm Golden Veined Marble
   if (name.includes('calacatta') || name.includes('gold')) {
     return {
-      textureUrl: 'https://images.unsplash.com/photo-1599696848652-f0ff23bc911f?q=80&w=1200&auto=format&fit=crop',
-      tileScale: '360px 180px',
+      textureUrl: '/products/mat-calacatta.jpg',
+      tileScale: '420px 420px',
       groutColor: 'rgba(215, 195, 160, 0.3)',
       glossOpacity: 0.32,
       finishLabel: 'Crystal Polished Calacatta Gold',
@@ -60,9 +60,9 @@ export function getSeamlessTileTexture(product?: Product | null): SeamlessTileTe
   // 3. Statuario / Carrara / Pure White Marble
   if (name.includes('statuario') || name.includes('carrara') || (look === 'marble' && !name.includes('grigio'))) {
     return {
-      textureUrl: 'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=1200&auto=format&fit=crop',
-      tileScale: '360px 180px',
-      groutColor: 'rgba(180, 180, 180, 0.35)',
+      textureUrl: '/products/mat-calacatta.jpg',
+      tileScale: '400px 400px',
+      groutColor: 'rgba(180, 180, 180, 0.3)',
       glossOpacity: 0.28,
       finishLabel: 'Satin Silk White Statuario',
     };
@@ -75,23 +75,23 @@ export function getSeamlessTileTexture(product?: Product | null): SeamlessTileTe
     name.includes('parquet') ||
     name.includes('rover') ||
     name.includes('oak') ||
-    product.category === 'SPC Flooring'
+    (product.category as string) === 'SPC Flooring'
   ) {
     return {
-      textureUrl: 'https://images.unsplash.com/photo-1516455590571-18256e5bb9ff?q=80&w=1200&auto=format&fit=crop',
-      tileScale: '240px 120px',
-      groutColor: 'rgba(90, 60, 30, 0.25)',
+      textureUrl: '/products/mat-wood.jpg',
+      tileScale: '380px 380px',
+      groutColor: 'rgba(80, 50, 20, 0.25)',
       glossOpacity: 0.1,
-      finishLabel: 'French Oak Herringbone Parquet',
+      finishLabel: 'French Oak Timber Parquet',
     };
   }
 
   // 5. Venetian Terrazzo
   if (name.includes('terrazzo') || look === 'pattern') {
     return {
-      textureUrl: 'https://images.unsplash.com/photo-1617806118233-18e1de247200?q=80&w=1200&auto=format&fit=crop',
-      tileScale: '200px 200px',
-      groutColor: 'rgba(150, 150, 150, 0.3)',
+      textureUrl: '/products/mat-terrazzo.jpg',
+      tileScale: '320px 320px',
+      groutColor: 'rgba(140, 140, 140, 0.25)',
       glossOpacity: 0.18,
       finishLabel: 'Artisanal Venetian Terrazzo',
     };
@@ -100,20 +100,37 @@ export function getSeamlessTileTexture(product?: Product | null): SeamlessTileTe
   // 6. Concrete / Industrial Minimalist
   if (look === 'concrete' || name.includes('concrete') || name.includes('cement')) {
     return {
-      textureUrl: 'https://images.unsplash.com/photo-1518640467707-6811f4a6ab73?q=80&w=1200&auto=format&fit=crop',
-      tileScale: '260px 260px',
-      groutColor: 'rgba(100, 100, 100, 0.2)',
-      glossOpacity: 0.08,
-      finishLabel: 'Honed Industrial Concrete',
+      textureUrl: '/products/mat-stone.jpg',
+      tileScale: '340px 340px',
+      groutColor: 'rgba(100, 100, 100, 0.25)',
+      glossOpacity: 0.1,
+      finishLabel: 'Honed Industrial Concrete Slab',
     };
   }
 
   // 7. Stone / Grigio / Slate / Outdoor Paver (Model 66008, Model 6203, Model 6071, Grigio Milano)
+  if (
+    name.includes('paver') ||
+    name.includes('grigio') ||
+    name.includes('slate') ||
+    name.includes('outdoor') ||
+    (product.destinations as string[] | undefined)?.includes('Outdoor')
+  ) {
+    return {
+      textureUrl: '/products/mat-stone.jpg',
+      tileScale: '340px 340px',
+      groutColor: 'rgba(70, 70, 70, 0.35)',
+      glossOpacity: 0.12,
+      finishLabel: 'Architectural Grigio Paver Stone',
+    };
+  }
+
+  // Default: Model 66008 Matte Porcelain (authentic top-down material scan)
   return {
-    textureUrl: 'https://images.unsplash.com/photo-1597848212624-a19eb35e2651?q=80&w=1200&auto=format&fit=crop',
-    tileScale: '240px 240px',
-    groutColor: 'rgba(70, 70, 70, 0.35)',
-    glossOpacity: 0.12,
-    finishLabel: 'Architectural Honed Slate Stone',
+    textureUrl: '/products/mat-stone.jpg',
+    tileScale: '340px 340px',
+    groutColor: 'rgba(80, 80, 80, 0.3)',
+    glossOpacity: 0.14,
+    finishLabel: 'Model 66008 Honed Matte Porcelain',
   };
 }
