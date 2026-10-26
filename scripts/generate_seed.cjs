@@ -77,7 +77,7 @@ async function seed() {
       storeName: 'BIKOMAX ARCHITECTURAL SUPPLIES LTD',
       storeTagline: 'Flawless • Functional • Refined',
       supportEmail: 'orders@bikomax.co.ke',
-      supportPhone: '+254 20 230 859',
+      supportPhone: '+254 720 230 859',
       storeAddress: "Unit G48, Rupa's Godowns, Eldoret, Kenya",
       currency: 'KES',
       currencySymbol: 'KES',
@@ -85,7 +85,7 @@ async function seed() {
       taxInclusive: true
     },
     social: {
-      whatsapp: '25420230859'
+      whatsapp: '254720230859'
     },
     isDeleted: false,
     updatedAt: new Date()

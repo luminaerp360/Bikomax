@@ -81,15 +81,26 @@ export const SpcFlooringSection: React.FC<SpcFlooringSectionProps> = ({
     },
   ];
 
-  // Retrieve actual SPC flooring planks from catalog
+  // Retrieve actual SPC flooring planks from catalog without duplicates
   const spcItems = products.filter(
     (p) =>
       p.category === 'SPC Flooring' ||
       p.name.toUpperCase().includes('SPC') ||
       p.ref.toUpperCase().includes('SPC')
   );
-  const flooringPlanks = spcItems.filter((p) => !p.name.toUpperCase().includes('SKIRTING'));
-  const availablePlanks = flooringPlanks.length > 0 ? flooringPlanks : fallbackPlanks;
+  const rawPlanks = spcItems.filter((p) => !p.name.toUpperCase().includes('SKIRTING'));
+  
+  // Strict deduplication by normalized finish key (J5011, J5015, J5012)
+  const uniquePlanksMap = new Map<string, Product>();
+  for (const plank of rawPlanks) {
+    const match = plank.name.match(/J\d{4}/i);
+    const key = match ? match[0].toUpperCase() : plank.name.trim().toLowerCase();
+    if (!uniquePlanksMap.has(key)) {
+      uniquePlanksMap.set(key, plank);
+    }
+  }
+  const uniqueFlooringPlanks = Array.from(uniquePlanksMap.values());
+  const availablePlanks = uniqueFlooringPlanks.length > 0 ? uniqueFlooringPlanks : fallbackPlanks;
 
   const [selectedSpcIndex, setSelectedSpcIndex] = useState(0);
   const activePlank = availablePlanks[selectedSpcIndex] || availablePlanks[0];

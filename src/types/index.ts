@@ -21,7 +21,7 @@ export interface Product {
   featured?: boolean;
   look?: 'Marble' | 'Wood' | 'Stone' | 'Concrete' | 'Sugar Effect' | 'Pattern' | 'Color';
   destinations?: ('Living' | 'Bathroom' | 'Kitchen' | 'Bedroom' | 'Outdoor' | 'Commercial')[];
-  technology?: 'Porcelain' | 'Ceramic' | 'XXL' | '2cm' | 'Sanitaryware' | 'Electrical';
+  technology?: 'Porcelain' | 'Ceramic' | 'XXL' | '2cm' | '18mm' | 'Sanitaryware' | 'Electrical';
   collection?: string;
   surfaceType?: 'Floor' | 'Wall' | 'Floor & Wall';
   thickness?: string;

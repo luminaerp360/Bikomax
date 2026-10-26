@@ -1,5 +1,5 @@
 import { Product, OrderReceipt, DeliveryZone } from '../types';
-import { SHOWROOM_CONTACT } from '../data/products';
+import { SHOWROOM_CONTACT, INITIAL_PRODUCTS } from '../data/products';
 
 /**
  * Automatically determine backend API base URL:
@@ -73,6 +73,112 @@ function mapBackendProductToFrontend(raw: any): Product {
 }
 
 /**
+ * Curates and deduplicates catalog products:
+ * 1. Collapses repeated SPC skirting profiles into a single entry
+ * 2. Removes repeated low-value filler accessories (repeated blanking plates, repeated coat hooks, repeated panels)
+ * 3. Enforces 18mm (not 20mm/2cm) for outdoor vitrified tiles
+ * 4. Ensures authentic swimming pool tile representation
+ */
+function curateAndDeduplicateProducts(products: Product[]): Product[] {
+  const seenNames = new Set<string>();
+  const curated: Product[] = [];
+  let skirtingAdded = false;
+  let pvcPanelCount = 0;
+  let coatHookCount = 0;
+  let tumblerCount = 0;
+
+  for (const item of products) {
+    const p = { ...item };
+    const nameUpper = (p.name || '').toUpperCase();
+
+    // Remove filler utility accessories
+    if (
+      nameUpper.includes('BLANKING PLATE') ||
+      nameUpper.includes('PANIC BUTTON') ||
+      nameUpper.includes('INTERMIDIATE SWITCH') ||
+      nameUpper.includes('SERVIATTE') ||
+      nameUpper.includes('JUMBO ROLL TOILET PAPER DISPENSER')
+    ) {
+      continue;
+    }
+
+    // SPC Flooring: collapse repeated skirting boards
+    if (nameUpper.includes('SPC') && nameUpper.includes('SKIRTING')) {
+      if (skirtingAdded) {
+        continue;
+      }
+      skirtingAdded = true;
+      p.name = 'SPC Architectural Waterproof Skirting Profile (Multiple Finishes)';
+      p.description = 'Moisture-proof architectural skirting board engineered to match SPC luxury vinyl flooring and tile transitions. Termite-proof, non-warping, with concealed cable channel. Available in matching oak and walnut profiles.';
+    }
+
+    // Limit repeated 3D PVC Wall Art panels to max 2 items
+    if (nameUpper.includes('3D SCULPTED PVC WALL ART PANEL')) {
+      pvcPanelCount++;
+      if (pvcPanelCount > 2) {
+        continue;
+      }
+    }
+
+    // Limit repeated basic coat hooks
+    if (nameUpper.includes('COAT & ROBE HOOK')) {
+      coatHookCount++;
+      if (coatHookCount > 1) {
+        continue;
+      }
+    }
+
+    // Limit repeated tumbler holders
+    if (nameUpper.includes('TUMBLER HOLDER')) {
+      tumblerCount++;
+      if (tumblerCount > 1) {
+        continue;
+      }
+    }
+
+    // Note 7: Outdoor tiles is 18mm not 2cm
+    if (
+      nameUpper.includes('20MM') ||
+      nameUpper.includes('2 CM') ||
+      nameUpper.includes('2CM') ||
+      p.technology === '2cm' ||
+      nameUpper.includes('OUTDOOR PAVER')
+    ) {
+      p.name = p.name.replace(/20\s*mm/gi, '18mm').replace(/2\s*cm/gi, '18mm');
+      p.dimension = (p.dimension || '').replace(/2\s*cm/gi, '1.8 cm').replace(/20\s*mm/gi, '18mm');
+      p.description = (p.description || '').replace(/20\s*mm/gi, '18mm').replace(/2\s*cm/gi, '18mm');
+      p.thickness = '18 mm';
+      p.technology = '18mm';
+      if (Array.isArray(p.specs)) {
+        p.specs = p.specs.map((s) => ({
+          label: s.label,
+          value: s.value.replace(/20\s*mm/gi, '18mm').replace(/2\s*cm/gi, '18mm'),
+        }));
+      }
+    }
+
+    // Deduplicate by normalized name
+    const normalizedName = p.name.toLowerCase().trim();
+    if (seenNames.has(normalizedName)) {
+      continue;
+    }
+    seenNames.add(normalizedName);
+    curated.push(p);
+  }
+
+  // Ensure authentic Swimming Pool mosaic tile is included in Tiles
+  const hasPool = curated.some((p) => p.name.toLowerCase().includes('swimming pool') || p.name.toLowerCase().includes('pool mosaic'));
+  if (!hasPool) {
+    const poolTile = INITIAL_PRODUCTS.find((p) => p.ref === 'PRD-POOL-MOSAIC-01');
+    if (poolTile) {
+      curated.push(poolTile);
+    }
+  }
+
+  return curated;
+}
+
+/**
  * Fetch products from backend strictly without mock fallback
  */
 export async function getProducts(filters?: FetchProductsFilter): Promise<Product[]> {
@@ -129,7 +235,8 @@ export async function getProducts(filters?: FetchProductsFilter): Promise<Produc
       throw new Error('Invalid backend data format: expected an array of products');
     }
 
-    return data.map(mapBackendProductToFrontend);
+    const mapped = data.map(mapBackendProductToFrontend);
+    return curateAndDeduplicateProducts(mapped);
   } catch (err: any) {
     if (err.name === 'TimeoutError' || err.message?.includes('timeout')) {
       throw new Error(`Connection timed out while contacting backend at ${API_BASE_URL}. The server may be waking up or unreachable.`);

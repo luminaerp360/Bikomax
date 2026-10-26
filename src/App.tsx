@@ -318,7 +318,7 @@ function MainApp() {
           target="_blank"
           rel="noopener noreferrer"
           className="p-3.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full shadow-xl flex items-center gap-2 transition-all duration-300 hover:scale-105 group"
-          title="Direct WhatsApp Inquiries (+254 20 230 859)"
+          title="Direct WhatsApp Inquiries (+254 720 230 859)"
           aria-label="Direct WhatsApp Inquiries"
         >
           <MessageCircle className="w-5 h-5" />

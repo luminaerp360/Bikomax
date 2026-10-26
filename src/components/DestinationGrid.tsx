@@ -41,20 +41,20 @@ export const DestinationGrid: React.FC<DestinationGridProps> = ({ onSelectDestin
               </span>
             </div>
 
-            {/* Card 2: Commercial (Square/Landscape) */}
+            {/* Card 2: Sintered Stones (Square/Landscape) */}
             <div
               onClick={() => onSelectDestination('Commercial')}
               className="relative h-[220px] sm:h-[260px] md:h-[280px] lg:h-[300px] rounded-xs overflow-hidden group cursor-pointer shadow-xs hover:shadow-md transition-shadow"
             >
               <img
                 src="/products/tile-nero-marquina.jpg"
-                alt="Commercial"
+                alt="Sintered Stones"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                 loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-transparent" />
               <span className="absolute bottom-5 left-6 text-white text-lg sm:text-xl font-medium font-sans tracking-wide drop-shadow-md">
-                Commercial
+                Sintered Stones
               </span>
             </div>
           </div>
@@ -142,8 +142,8 @@ export const DestinationGrid: React.FC<DestinationGridProps> = ({ onSelectDestin
               className="relative h-[186px] sm:h-[220px] md:h-[240px] lg:h-[260px] rounded-xs overflow-hidden group cursor-pointer shadow-xs hover:shadow-md transition-shadow"
             >
               <img
-                src="/products/room-carol-marina.jpg"
-                alt="Swimming Pool"
+                src="/products/pool-tiles-luxury.jpg"
+                alt="Swimming Pool Tiles"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                 loading="lazy"
               />

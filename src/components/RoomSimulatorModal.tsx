@@ -31,6 +31,7 @@ export interface RoomSimulatorModalProps {
 export interface SimRoomScene {
   id: string;
   name: string;
+  environment: 'indoor' | 'outdoor';
   category: 'Living' | 'Bathroom' | 'Kitchen' | 'Outdoor' | 'Commercial';
   defaultTileRef: string;
   defaultWidth: number;
@@ -46,11 +47,12 @@ const ROOM_SCENES: SimRoomScene[] = [
   {
     id: 'living',
     name: 'Open Living Pavilion',
+    environment: 'indoor',
     category: 'Living',
     defaultTileRef: 'PRD-102948-CG',
     defaultWidth: 6.0,
     defaultLength: 5.5,
-    description: 'Expansive open-concept architectural living pavilion with natural ambient lighting and low-profile modern furniture.',
+    description: 'Expansive indoor open-concept architectural living pavilion with natural ambient lighting and low-profile modern furniture.',
     baseImage: '/products/room-living-sim.jpg',
     floorPolygon: 'polygon(0% 59%, 100% 59%, 100% 100%, 0% 100%)',
     perspectiveAngle: 58,
@@ -59,11 +61,12 @@ const ROOM_SCENES: SimRoomScene[] = [
   {
     id: 'bathroom-spa',
     name: 'Master En-Suite Spa',
+    environment: 'indoor',
     category: 'Bathroom',
     defaultTileRef: 'PRD-636920-2982',
     defaultWidth: 4.2,
     defaultLength: 3.8,
-    description: 'Minimalist luxury master spa bathroom with freestanding soaking tub, warm timber slatted wall, and walk-in shower.',
+    description: 'Minimalist luxury indoor master spa bathroom with freestanding soaking tub, warm timber slatted wall, and walk-in shower.',
     baseImage: '/products/room-bathroom-sim.jpg',
     floorPolygon: 'polygon(0% 63%, 100% 63%, 100% 100%, 0% 100%)',
     perspectiveAngle: 54,
@@ -72,11 +75,12 @@ const ROOM_SCENES: SimRoomScene[] = [
   {
     id: 'kitchen',
     name: 'Contemporary Chef Kitchen',
+    environment: 'indoor',
     category: 'Kitchen',
     defaultTileRef: 'PRD-304958-TZ',
     defaultWidth: 5.2,
     defaultLength: 4.5,
-    description: 'Modern open-plan culinary kitchen with light oak waterfall island, quartz countertops, and clean floor space.',
+    description: 'Modern indoor open-plan culinary kitchen with light oak waterfall island, quartz countertops, and clean floor space.',
     baseImage: '/products/room-kitchen-sim.jpg',
     floorPolygon: 'polygon(0% 67%, 100% 67%, 100% 100%, 0% 100%)',
     perspectiveAngle: 56,
@@ -85,15 +89,30 @@ const ROOM_SCENES: SimRoomScene[] = [
   {
     id: 'outdoor',
     name: 'Villa Pool Terrace',
+    environment: 'outdoor',
     category: 'Outdoor',
-    defaultTileRef: 'PRD-492019-GP',
+    defaultTileRef: 'PRD-339102-7744',
     defaultWidth: 8.0,
     defaultLength: 6.0,
-    description: '20mm monolithic vitrified stoneware engineered for sun-drenched outdoor pergolas, lounge patios, and pool decking.',
+    description: '18mm monolithic vitrified stoneware engineered for sun-drenched outdoor pergolas, lounge patios, and pool decking.',
     baseImage: '/products/room-terrace-sim.jpg',
     floorPolygon: 'polygon(0% 56%, 100% 56%, 100% 100%, 0% 100%)',
     perspectiveAngle: 57,
     originY: '56%',
+  },
+  {
+    id: 'pool-patio',
+    name: 'Alfresco Pool Deck',
+    environment: 'outdoor',
+    category: 'Outdoor',
+    defaultTileRef: 'PRD-POOL-MOSAIC-01',
+    defaultWidth: 10.0,
+    defaultLength: 6.5,
+    description: 'Architectural outdoor infinity pool terrace and waterline border featuring chlorine-proof crystal glass mosaics and 18mm vitrified pavers.',
+    baseImage: '/products/room-outdoor-pool-deck.jpg',
+    floorPolygon: 'polygon(0% 48%, 100% 48%, 100% 100%, 0% 100%)',
+    perspectiveAngle: 54,
+    originY: '48%',
   },
 ];
 
@@ -261,12 +280,16 @@ export const RoomSimulatorModal: React.FC<RoomSimulatorModalProps> = ({
                 {lightingMode === 'day' ? (
                   <>
                     <Sun className="w-3.5 h-3.5 text-amber-400" />
-                    <span className="hidden sm:inline text-[11px]">Natural Sun</span>
+                    <span className="hidden sm:inline text-[11px]">
+                      {activeRoom.environment === 'outdoor' ? 'Natural Sun' : 'Daylight'}
+                    </span>
                   </>
                 ) : (
                   <>
                     <Moon className="w-3.5 h-3.5 text-indigo-400" />
-                    <span className="hidden sm:inline text-[11px]">Warm Glow</span>
+                    <span className="hidden sm:inline text-[11px]">
+                      {activeRoom.environment === 'outdoor' ? 'Pool Glow' : 'Warm Glow'}
+                    </span>
                   </>
                 )}
               </button>
@@ -305,27 +328,61 @@ export const RoomSimulatorModal: React.FC<RoomSimulatorModalProps> = ({
               
               {/* Scene Navigation Strip (Top of Stage) */}
               <div className="absolute top-4 left-4 right-4 z-20 flex flex-wrap items-center justify-between gap-2 pointer-events-none">
-                <div className="flex items-center gap-1.5 bg-black/80 backdrop-blur-md p-1 border border-neutral-800 rounded-xs pointer-events-auto shadow-xl">
-                  {ROOM_SCENES.map((room) => {
-                    const isActive = selectedRoomId === room.id;
-                    return (
-                      <button
-                        key={room.id}
-                        type="button"
-                        onClick={() => {
-                          setSelectedRoomId(room.id);
-                          setSelectedTileRef(room.defaultTileRef);
-                        }}
-                        className={`px-3 py-1 text-[11px] font-mono uppercase tracking-wider transition-all cursor-pointer rounded-2xs ${
-                          isActive
-                            ? 'bg-amber-500 text-neutral-950 font-bold shadow-xs'
-                            : 'text-neutral-400 hover:text-white hover:bg-neutral-800/60'
-                        }`}
-                      >
-                        {room.name.split(' ')[0]}
-                      </button>
-                    );
-                  })}
+                <div className="flex flex-wrap items-center gap-1.5 bg-black/85 backdrop-blur-md p-1 border border-neutral-800 rounded-xs pointer-events-auto shadow-xl">
+                  {/* Indoor Group */}
+                  <div className="flex items-center gap-1 pr-1.5 border-r border-neutral-700/60">
+                    <span className="text-[9px] font-mono uppercase tracking-widest text-neutral-400 font-bold px-1 hidden md:inline">
+                      Indoor:
+                    </span>
+                    {ROOM_SCENES.filter((r) => r.environment === 'indoor').map((room) => {
+                      const isActive = selectedRoomId === room.id;
+                      return (
+                        <button
+                          key={room.id}
+                          type="button"
+                          onClick={() => {
+                            setSelectedRoomId(room.id);
+                            setSelectedTileRef(room.defaultTileRef);
+                          }}
+                          className={`px-2.5 py-1 text-[11px] font-mono uppercase tracking-wider transition-all cursor-pointer rounded-2xs ${
+                            isActive
+                              ? 'bg-amber-500 text-neutral-950 font-bold shadow-xs'
+                              : 'text-neutral-400 hover:text-white hover:bg-neutral-800/60'
+                          }`}
+                        >
+                          {room.name.split(' ')[0]}
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {/* Outdoor Group */}
+                  <div className="flex items-center gap-1 pl-0.5">
+                    <span className="text-[9px] font-mono uppercase tracking-widest text-emerald-400 font-bold px-1 hidden md:inline">
+                      Outdoor:
+                    </span>
+                    {ROOM_SCENES.filter((r) => r.environment === 'outdoor').map((room) => {
+                      const isActive = selectedRoomId === room.id;
+                      return (
+                        <button
+                          key={room.id}
+                          type="button"
+                          onClick={() => {
+                            setSelectedRoomId(room.id);
+                            setSelectedTileRef(room.defaultTileRef);
+                            setActiveLookFilter('Outdoor & Pool');
+                          }}
+                          className={`px-2.5 py-1 text-[11px] font-mono uppercase tracking-wider transition-all cursor-pointer rounded-2xs flex items-center gap-1 ${
+                            isActive
+                              ? 'bg-emerald-500 text-neutral-950 font-bold shadow-xs'
+                              : 'text-neutral-400 hover:text-emerald-300 hover:bg-neutral-800/60'
+                          }`}
+                        >
+                          <span>{room.id === 'pool-patio' ? 'Pool Deck' : 'Patio Pavers'}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
 
                 {/* Compare Before/After Toggle */}
@@ -518,12 +575,12 @@ export const RoomSimulatorModal: React.FC<RoomSimulatorModalProps> = ({
                 </div>
 
                 <div className="flex flex-wrap gap-1">
-                  {['All', 'Marble', 'Wood', 'Stone', 'Pattern'].map((look) => (
+                  {['All', 'Outdoor & Pool', 'Marble', 'Wood', 'Stone', 'Pattern'].map((look) => (
                     <button
                       key={look}
                       type="button"
                       onClick={() => setActiveLookFilter(look)}
-                      className={`px-3 py-1 text-xs font-mono uppercase tracking-wider rounded-2xs transition-all cursor-pointer ${
+                      className={`px-2.5 py-1 text-xs font-mono uppercase tracking-wider rounded-2xs transition-all cursor-pointer ${
                         activeLookFilter === look
                           ? 'bg-amber-500 text-neutral-950 font-bold'
                           : 'bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white'
@@ -538,7 +595,20 @@ export const RoomSimulatorModal: React.FC<RoomSimulatorModalProps> = ({
               {/* Tile Products Grid List */}
               <div className="flex-1 overflow-y-auto p-4 space-y-2.5 divide-y divide-neutral-800/40">
                 {tileProducts
-                  .filter((p) => activeLookFilter === 'All' || p.look?.toLowerCase() === activeLookFilter.toLowerCase())
+                  .filter((p) => {
+                    if (activeLookFilter === 'All') return true;
+                    if (activeLookFilter === 'Outdoor & Pool') {
+                      return (
+                        p.destinations?.includes('Outdoor') ||
+                        p.technology === '18mm' ||
+                        (p.name || '').toLowerCase().includes('outdoor') ||
+                        (p.name || '').toLowerCase().includes('paver') ||
+                        (p.name || '').toLowerCase().includes('pool') ||
+                        (p.name || '').toLowerCase().includes('mosaic')
+                      );
+                    }
+                    return p.look?.toLowerCase() === activeLookFilter.toLowerCase();
+                  })
                   .map((tile) => {
                     const isSelected = selectedTileRef === tile.ref;
                     return (

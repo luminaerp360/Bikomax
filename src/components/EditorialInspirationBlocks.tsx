@@ -171,7 +171,7 @@ export const EditorialInspirationBlocks: React.FC<EditorialInspirationBlocksProp
         </div>
       </div>
 
-      {/* Block 4: 2 CM Outdoor Collections (Text Left, Image Right - Reversed) */}
+      {/* Block 4: 18mm Outdoor Collections (Text Left, Image Right - Reversed) */}
       <div className="border-b border-neutral-200/80 bg-[#FAF9F7]">
         <div className="w-full grid grid-cols-1 lg:grid-cols-12 min-h-[500px]">
           {/* Editorial Content */}
@@ -182,22 +182,22 @@ export const EditorialInspirationBlocks: React.FC<EditorialInspirationBlocksProp
             </div>
 
             <h3 className="text-3xl sm:text-4xl font-light font-heading text-neutral-950 leading-tight">
-              <strong>2 CM Outdoor Pavers.</strong>
+              <strong>18mm Outdoor Pavers.</strong>
               <br />
               Enduring strength for terraces & pools.
             </h3>
 
             <p className="text-sm text-neutral-600 leading-relaxed font-normal">
-              20mm monolithic vitrified stoneware engineered to withstand vehicular loads, intense tropical sunlight, and pool chemicals. R11 anti-slip surface for safe barefoot walking even when wet.
+              18mm monolithic vitrified stoneware engineered to withstand vehicular loads, intense tropical sunlight, and pool chemicals. R11 anti-slip surface for safe barefoot walking even when wet.
             </p>
 
             <div className="pt-2">
               <button
                 type="button"
-                onClick={() => onNavigateToCategory('2cm')}
+                onClick={() => onNavigateToCategory('18mm')}
                 className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-neutral-950 hover:text-amber-600 transition-colors border-b-2 border-neutral-950 hover:border-amber-600 pb-1 cursor-pointer group"
               >
-                <span>Discover 2 CM Outdoor Pavers</span>
+                <span>Discover 18mm Outdoor Pavers</span>
                 <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
               </button>
             </div>
@@ -207,14 +207,14 @@ export const EditorialInspirationBlocks: React.FC<EditorialInspirationBlocksProp
           <div className="lg:col-span-7 relative overflow-hidden bg-neutral-950 min-h-[340px] lg:min-h-full order-1 lg:order-2 group">
             <img
               src="/products/tile-paver-grigio.jpg"
-              alt="2 CM Outdoor Stoneware Collections"
+              alt="18mm Outdoor Stoneware Collections"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out"
               loading="lazy"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
             <div className="absolute bottom-6 left-6 text-white">
               <span className="text-[10px] font-mono tracking-widest uppercase bg-black/60 px-2.5 py-1 backdrop-blur-xs border border-white/20">
-                Grigio Milano 20mm Anti-Slip R11
+                Grigio Milano 18mm Anti-Slip R11
               </span>
             </div>
           </div>

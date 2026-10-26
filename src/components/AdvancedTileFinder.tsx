@@ -79,7 +79,7 @@ export const AdvancedTileFinder: React.FC<AdvancedTileFinderProps> = ({
                 <option value="Porcelain">Porcelain Stoneware</option>
                 <option value="Ceramic">Glazed Ceramic</option>
                 <option value="XXL">XXL Grand Slabs</option>
-                <option value="2cm">2 CM Outdoor Pavers</option>
+                <option value="18mm">18mm Outdoor Pavers</option>
               </select>
             </div>
 
@@ -99,7 +99,7 @@ export const AdvancedTileFinder: React.FC<AdvancedTileFinderProps> = ({
                 <option value="Kitchen">Kitchen & Dining</option>
                 <option value="Bedroom">Bedroom & Lounge</option>
                 <option value="Outdoor">Outdoor & Pool</option>
-                <option value="Commercial">Commercial & Lobbies</option>
+                <option value="Commercial">Sintered Stones</option>
               </select>
             </div>
 
@@ -138,8 +138,8 @@ export const AdvancedTileFinder: React.FC<AdvancedTileFinderProps> = ({
                 <option value="60x120 cm">60×120 cm Large Format</option>
                 <option value="80x80 cm">80×80 cm Square Slab</option>
                 <option value="120x240 cm">120×240 cm Master Slab</option>
-                <option value="20x120 cm">20×120 cm Parquet Plank</option>
-                <option value="60x60x2 cm">60×60×2 cm 20mm Paver</option>
+                <option value="60x60x1.8 cm">60×60×1.8 cm 18mm Outdoor Paver</option>
+                <option value="30x30 cm">30×30 cm Swimming Pool Mosaic Sheet</option>
               </select>
             </div>
 

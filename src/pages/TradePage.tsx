@@ -339,7 +339,7 @@ export const TradePage: React.FC = () => {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-4 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer"
               >
-                <MessageCircle className="w-4 h-4" /> Message +254 20 230 859
+                <MessageCircle className="w-4 h-4" /> Message +254 720 230 859
               </a>
             </AnimatedReveal>
           </div>

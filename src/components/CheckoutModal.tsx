@@ -566,7 +566,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                         <div className="flex items-center justify-between gap-2 flex-wrap">
                           <span className="font-bold text-xs uppercase tracking-wider text-[#0A0A0A] flex items-center gap-1.5 font-heading">
                             <MessageCircle className="w-4 h-4 text-emerald-600 shrink-0" />
-                            WhatsApp Order Concierge (+254 20 230 859)
+                            WhatsApp Order Concierge (+254 720 230 859)
                           </span>
                           <span className="text-[10px] font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5">
                             Fastest • Instant Stock Check

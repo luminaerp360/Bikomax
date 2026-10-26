@@ -31,6 +31,7 @@ interface RoomVisualizerSectionProps {
 interface RoomScene {
   id: string;
   name: string;
+  environment: 'indoor' | 'outdoor';
   category: string;
   description: string;
   defaultTileRef: string;
@@ -46,8 +47,9 @@ const ROOM_SCENES: RoomScene[] = [
   {
     id: 'living',
     name: 'Open Living Pavilion',
+    environment: 'indoor',
     category: 'Living Room',
-    description: 'Expansive open-concept architectural living pavilion with natural ambient lighting and low-profile modern furniture.',
+    description: 'Expansive indoor open-concept architectural living pavilion with natural ambient lighting and low-profile modern furniture.',
     defaultTileRef: 'PRD-102948-CG',
     defaultWidth: 6.0,
     defaultLength: 5.5,
@@ -59,8 +61,9 @@ const ROOM_SCENES: RoomScene[] = [
   {
     id: 'bathroom-spa',
     name: 'Master En-Suite Spa',
+    environment: 'indoor',
     category: 'Bathroom',
-    description: 'Minimalist luxury master spa bathroom with freestanding soaking tub, warm timber slatted wall, and walk-in shower.',
+    description: 'Minimalist luxury indoor master spa bathroom with freestanding soaking tub, warm timber slatted wall, and walk-in shower.',
     defaultTileRef: 'PRD-636920-2982',
     defaultWidth: 4.2,
     defaultLength: 3.8,
@@ -72,8 +75,9 @@ const ROOM_SCENES: RoomScene[] = [
   {
     id: 'kitchen',
     name: 'Contemporary Chef Kitchen',
+    environment: 'indoor',
     category: 'Kitchen',
-    description: 'Modern open-plan culinary kitchen with light oak waterfall island, quartz countertops, and clean floor space.',
+    description: 'Modern indoor open-plan culinary kitchen with light oak waterfall island, quartz countertops, and clean floor space.',
     defaultTileRef: 'PRD-304958-TZ',
     defaultWidth: 5.2,
     defaultLength: 4.5,
@@ -85,15 +89,27 @@ const ROOM_SCENES: RoomScene[] = [
   {
     id: 'outdoor',
     name: 'Villa Pool Terrace',
+    environment: 'outdoor',
     category: 'Outdoor',
-    description: '20mm monolithic vitrified stoneware engineered for sun-drenched outdoor pergolas, lounge patios, and pool decking.',
-    defaultTileRef: 'PRD-492019-GP',
+    description: '18mm monolithic vitrified stoneware engineered for sun-drenched outdoor pergolas, lounge patios, and pool decking.',
+    defaultTileRef: 'PRD-339102-7744',
     defaultWidth: 8.0,
     defaultLength: 6.0,
     baseImage: '/products/room-terrace-sim.jpg',
     floorPolygon: 'polygon(0% 56%, 100% 56%, 100% 100%, 0% 100%)',
     perspectiveAngle: 57,
     originY: '56%',
+  },
+  {
+    id: 'pool-patio',
+    name: 'Alfresco Pool Deck',
+    environment: 'outdoor',
+    category: 'Outdoor',
+    description: 'Architectural outdoor infinity pool terrace and waterline border featuring chlorine-proof crystal glass mosaics and 18mm vitrified pavers.',
+    baseImage: '/products/room-outdoor-pool-deck.jpg',
+    floorPolygon: 'polygon(0% 48%, 100% 48%, 100% 100%, 0% 100%)',
+    perspectiveAngle: 54,
+    originY: '48%',
   },
 ];
 
@@ -119,8 +135,26 @@ export const RoomVisualizerSection: React.FC<RoomVisualizerSectionProps> = ({
 
   const currentRoom =
     ROOM_SCENES.find((r) => r.id === selectedRoomId) || ROOM_SCENES[0];
+
+  const displayedTiles = React.useMemo(() => {
+    if (currentRoom.environment === 'outdoor') {
+      const outdoorTiles = tileProducts.filter(
+        (p) =>
+          p.destinations?.includes('Outdoor') ||
+          p.technology === '18mm' ||
+          (p.name || '').toLowerCase().includes('outdoor') ||
+          (p.name || '').toLowerCase().includes('pool') ||
+          (p.name || '').toLowerCase().includes('paver') ||
+          (p.name || '').toLowerCase().includes('mosaic')
+      );
+      const otherTiles = tileProducts.filter((p) => !outdoorTiles.includes(p));
+      return [...outdoorTiles, ...otherTiles].slice(0, 6);
+    }
+    return tileProducts.slice(0, 6);
+  }, [tileProducts, currentRoom]);
+
   const currentTile =
-    tileProducts.find((t) => t.ref === selectedTileRef) || tileProducts[0];
+    tileProducts.find((t) => t.ref === selectedTileRef) || displayedTiles[0] || tileProducts[0];
 
   const activeTexture = getSeamlessTileTexture(currentTile);
 
@@ -279,24 +313,54 @@ export const RoomVisualizerSection: React.FC<RoomVisualizerSectionProps> = ({
 
             {/* Top Stage Bar: Room Selector Tabs + Action Badges */}
             <div className="relative z-10 flex flex-wrap items-center justify-between gap-2">
-              <div className="flex flex-wrap items-center gap-1.5 bg-black/60 backdrop-blur-md p-1 border border-white/20">
-                {ROOM_SCENES.map((room) => (
-                  <button
-                    key={room.id}
-                    type="button"
-                    onClick={() => {
-                      setSelectedRoomId(room.id);
-                      setSelectedTileRef(room.defaultTileRef);
-                    }}
-                    className={`px-3 py-1.5 text-xs font-mono uppercase tracking-wider transition-all cursor-pointer ${
-                      selectedRoomId === room.id
-                        ? 'bg-white text-neutral-950 font-bold shadow-md'
-                        : 'text-neutral-300 hover:text-white hover:bg-white/10'
-                    }`}
-                  >
-                    {room.name.split(' ')[0]}
-                  </button>
-                ))}
+              <div className="flex flex-wrap items-center gap-1.5 bg-black/75 backdrop-blur-md p-1 border border-white/20">
+                {/* Indoor Scenes */}
+                <div className="flex items-center gap-1 pr-1.5 border-r border-white/20">
+                  <span className="text-[9px] font-mono uppercase tracking-widest text-neutral-400 font-bold px-1 hidden sm:inline">
+                    Indoor:
+                  </span>
+                  {ROOM_SCENES.filter((r) => r.environment === 'indoor').map((room) => (
+                    <button
+                      key={room.id}
+                      type="button"
+                      onClick={() => {
+                        setSelectedRoomId(room.id);
+                        setSelectedTileRef(room.defaultTileRef);
+                      }}
+                      className={`px-2.5 py-1 text-xs font-mono uppercase tracking-wider transition-all cursor-pointer ${
+                        selectedRoomId === room.id
+                          ? 'bg-white text-neutral-950 font-bold shadow-md'
+                          : 'text-neutral-300 hover:text-white hover:bg-white/10'
+                      }`}
+                    >
+                      {room.name.split(' ')[0]}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Outdoor Scenes */}
+                <div className="flex items-center gap-1 pl-0.5">
+                  <span className="text-[9px] font-mono uppercase tracking-widest text-emerald-400 font-bold px-1 hidden sm:inline">
+                    Outdoor:
+                  </span>
+                  {ROOM_SCENES.filter((r) => r.environment === 'outdoor').map((room) => (
+                    <button
+                      key={room.id}
+                      type="button"
+                      onClick={() => {
+                        setSelectedRoomId(room.id);
+                        setSelectedTileRef(room.defaultTileRef);
+                      }}
+                      className={`px-2.5 py-1 text-xs font-mono uppercase tracking-wider transition-all cursor-pointer flex items-center gap-1 ${
+                        selectedRoomId === room.id
+                          ? 'bg-emerald-500 text-neutral-950 font-bold shadow-md'
+                          : 'text-neutral-300 hover:text-emerald-300 hover:bg-white/10'
+                      }`}
+                    >
+                      <span>{room.id === 'pool-patio' ? 'Pool Deck' : 'Patio Pavers'}</span>
+                    </button>
+                  ))}
+                </div>
               </div>
 
               {/* Quick Lighting & Fullscreen Action */}
@@ -397,7 +461,7 @@ export const RoomVisualizerSection: React.FC<RoomVisualizerSectionProps> = ({
 
               {/* Swatch Tiles Grid */}
               <div className="grid grid-cols-2 gap-2.5">
-                {tileProducts.slice(0, 6).map((tile) => {
+                {displayedTiles.map((tile) => {
                   const isSelected = selectedTileRef === tile.ref;
                   return (
                     <button

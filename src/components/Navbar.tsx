@@ -322,10 +322,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                         <li>
                           <button
                             type="button"
-                            onClick={() => handleFilterClick({ technology: '2cm' })}
+                            onClick={() => handleFilterClick({ technology: '18mm', destination: 'Outdoor' })}
                             className="hover:text-amber-600 hover:translate-x-1 transition-all text-left block"
                           >
-                            20mm Outdoor Pavers
+                            18mm Outdoor Pavers
                           </button>
                         </li>
                       </ul>

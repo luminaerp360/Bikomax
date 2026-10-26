@@ -29,6 +29,23 @@ export function getSeamlessTileTexture(product?: Product | null): SeamlessTileTe
   const finish = (product.finish || '').toLowerCase();
   const ref = (product.ref || '').toLowerCase();
 
+  // 0. Swimming Pool / Glass Mosaic Tile
+  if (
+    name.includes('pool') ||
+    name.includes('mosaic') ||
+    look.includes('pool') ||
+    look.includes('mosaic') ||
+    ref.includes('pool')
+  ) {
+    return {
+      textureUrl: '/products/mat-pool-mosaic.jpg',
+      tileScale: '180px 180px',
+      groutColor: 'rgba(255, 255, 255, 0.45)',
+      glossOpacity: 0.38,
+      finishLabel: 'Cobalt Crystal Pool Glass Mosaic',
+    };
+  }
+
   // 1. Black / Obsidian Marble (Nero Marquina, Ankara Noir, etc.)
   if (
     name.includes('marquina') ||
@@ -121,7 +138,7 @@ export function getSeamlessTileTexture(product?: Product | null): SeamlessTileTe
       tileScale: '340px 340px',
       groutColor: 'rgba(70, 70, 70, 0.35)',
       glossOpacity: 0.12,
-      finishLabel: 'Architectural Grigio Paver Stone',
+      finishLabel: '18mm Architectural Grigio Paver Stone',
     };
   }
 

@@ -137,17 +137,38 @@ export const CataloguePage: React.FC<CataloguePageProps> = ({
             return false;
           }
         }
-        // Technology (e.g. Porcelain, Ceramic, XXL, 2cm)
-        if (activeTech !== 'All' && product.technology !== activeTech) {
-          return false;
+        // Technology (e.g. Porcelain, Ceramic, XXL, 18mm)
+        if (activeTech !== 'All') {
+          if (activeTech === '18mm') {
+            const is18mm = product.technology === '18mm' || product.technology === '2cm' || product.thickness === '18 mm' || product.name.toLowerCase().includes('18mm') || product.name.toLowerCase().includes('paver');
+            if (!is18mm) return false;
+          } else if (product.technology !== activeTech) {
+            return false;
+          }
         }
         // Look (e.g. Marble, Wood, Stone, Concrete, Pattern, Color)
         if (activeLook !== 'All' && product.look !== activeLook) {
           return false;
         }
-        // Destination (e.g. Living, Bathroom, Kitchen)
-        if (activeDest !== 'All' && !product.destinations?.includes(activeDest as any)) {
-          return false;
+        // Destination (e.g. Living, Bathroom, Kitchen, Outdoor, Sintered Stones)
+        if (activeDest !== 'All') {
+          if (activeDest === 'Commercial') {
+            const isSintered =
+              product.destinations?.includes('Commercial') ||
+              (product.material || '').toLowerCase().includes('sintered') ||
+              product.name.toLowerCase().includes('sintered') ||
+              product.technology === 'XXL';
+            if (!isSintered) return false;
+          } else if (activeDest === 'Outdoor') {
+            const isOutdoor =
+              product.destinations?.includes('Outdoor') ||
+              product.name.toLowerCase().includes('outdoor') ||
+              product.name.toLowerCase().includes('paver') ||
+              product.name.toLowerCase().includes('pool');
+            if (!isOutdoor) return false;
+          } else if (!product.destinations?.includes(activeDest as any)) {
+            return false;
+          }
         }
         // Dimension
         if (activeDimension !== 'All' && product.dimension !== activeDimension) {
@@ -307,121 +328,27 @@ export const CataloguePage: React.FC<CataloguePageProps> = ({
         )}
       </div>
 
-      {/* SECTION A: TYPE / SURFACE */}
-      <div className="py-4">
-        <button
-          type="button"
-          onClick={() => toggleSection('type')}
-          className="w-full flex items-center justify-between font-bold text-neutral-900 uppercase tracking-wider text-[11px] cursor-pointer"
-        >
-          <span>Type</span>
-          {openSections.type ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
-        </button>
-
-        {openSections.type && (
-          <div className="mt-3 space-y-2.5 pl-1">
-            {[
-              { id: 'All', label: 'All Types' },
-              { id: 'Floor', label: 'Floor' },
-              { id: 'Wall', label: 'Wall' },
-              { id: 'Floor & Wall', label: 'Floor & Wall' },
-            ].map((type) => {
-              const isSelected = activeSurfaceType === type.id;
-              return (
-                <label
-                  key={type.id}
-                  onClick={() => setActiveSurfaceType(type.id)}
-                  className="flex items-center gap-2.5 text-neutral-600 hover:text-neutral-950 cursor-pointer select-none transition-colors"
-                >
-                  <span
-                    className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center transition-all ${
-                      isSelected
-                        ? 'border-neutral-950 bg-neutral-950'
-                        : 'border-neutral-300 hover:border-neutral-500'
-                    }`}
-                  >
-                    {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
-                  </span>
-                  <span className={isSelected ? 'font-bold text-neutral-950' : 'font-normal'}>
-                    {type.label}
-                  </span>
-                </label>
-              );
-            })}
-          </div>
-        )}
-      </div>
-
-      {/* SECTION B: LOOKS */}
-      <div className="py-4">
-        <button
-          type="button"
-          onClick={() => toggleSection('looks')}
-          className="w-full flex items-center justify-between font-bold text-neutral-900 uppercase tracking-wider text-[11px] cursor-pointer"
-        >
-          <span>Looks</span>
-          {openSections.looks ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
-        </button>
-
-        {openSections.looks && (
-          <div className="mt-3 space-y-2.5 pl-1">
-            {[
-              { id: 'All', label: 'All Looks' },
-              { id: 'Color', label: 'Color & Gloss' },
-              { id: 'Marble', label: 'Marble' },
-              { id: 'Wood', label: 'Wood & Parquet' },
-              { id: 'Stone', label: 'Stone' },
-              { id: 'Concrete', label: 'Concrete & Minimal' },
-              { id: 'Pattern', label: 'Pattern & Terrazzo' },
-              { id: 'Sugar Effect', label: 'Sugar Crystal / 5G' },
-            ].map((item) => {
-              const isSelected = activeLook === item.id;
-              return (
-                <label
-                  key={item.id}
-                  onClick={() => handleSetLook(item.id)}
-                  className="flex items-center gap-2.5 text-neutral-600 hover:text-neutral-950 cursor-pointer select-none transition-colors"
-                >
-                  <span
-                    className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center transition-all ${
-                      isSelected
-                        ? 'border-amber-500 bg-amber-500'
-                        : 'border-neutral-300 hover:border-neutral-500'
-                    }`}
-                  >
-                    {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
-                  </span>
-                  <span className={isSelected ? 'font-bold text-amber-600' : 'font-normal'}>
-                    {item.label}
-                  </span>
-                </label>
-              );
-            })}
-          </div>
-        )}
-      </div>
-
-      {/* SECTION C: DESTINATION OF USE */}
-      <div className="py-4">
+      {/* SECTION 1: SPACE / DESTINATION */}
+      <div className="py-3.5">
         <button
           type="button"
           onClick={() => toggleSection('destination')}
           className="w-full flex items-center justify-between font-bold text-neutral-900 uppercase tracking-wider text-[11px] cursor-pointer"
         >
-          <span>Destination of Use</span>
+          <span>Space / Application</span>
           {openSections.destination ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
         </button>
 
         {openSections.destination && (
-          <div className="mt-3 space-y-2.5 pl-1">
+          <div className="mt-2.5 space-y-2 pl-1">
             {[
-              { id: 'All', label: 'All Destinations' },
-              { id: 'Bathroom', label: 'Bathroom' },
+              { id: 'All', label: 'All Spaces' },
               { id: 'Living', label: 'Living Room' },
+              { id: 'Bathroom', label: 'Bathroom & En-Suite' },
               { id: 'Kitchen', label: 'Kitchen' },
               { id: 'Bedroom', label: 'Bedroom' },
-              { id: 'Outdoor', label: 'Outdoor' },
-              { id: 'Commercial', label: 'Commercial' },
+              { id: 'Outdoor', label: 'Outdoor & Pool' },
+              { id: 'Commercial', label: 'Sintered Stones' },
             ].map((item) => {
               const isSelected = activeDest === item.id;
               return (
@@ -449,43 +376,45 @@ export const CataloguePage: React.FC<CataloguePageProps> = ({
         )}
       </div>
 
-      {/* SECTION D: TECHNOLOGY / SUBSTRATE */}
-      <div className="py-4">
+      {/* SECTION 2: LOOKS & STYLE */}
+      <div className="py-3.5">
         <button
           type="button"
-          onClick={() => toggleSection('technology')}
+          onClick={() => toggleSection('looks')}
           className="w-full flex items-center justify-between font-bold text-neutral-900 uppercase tracking-wider text-[11px] cursor-pointer"
         >
-          <span>Technology</span>
-          {openSections.technology ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+          <span>Style & Finish</span>
+          {openSections.looks ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
         </button>
 
-        {openSections.technology && (
-          <div className="mt-3 space-y-2.5 pl-1">
+        {openSections.looks && (
+          <div className="mt-2.5 space-y-2 pl-1">
             {[
-              { id: 'All', label: 'All Technologies' },
-              { id: 'Porcelain', label: 'Porcelain Stoneware' },
-              { id: 'Ceramic', label: 'Glazed Ceramic' },
-              { id: 'XXL', label: 'XXL Slabs' },
-              { id: '2cm', label: '2 CM Outdoor' },
+              { id: 'All', label: 'All Finishes' },
+              { id: 'Marble', label: 'Marble & Onyx' },
+              { id: 'Wood', label: 'Wood & Parquet' },
+              { id: 'Stone', label: 'Natural Stone' },
+              { id: 'Concrete', label: 'Minimalist Concrete' },
+              { id: 'Pattern', label: 'Pattern & Terrazzo' },
+              { id: 'Color', label: 'Architectural Glaze' },
             ].map((item) => {
-              const isSelected = activeTech === item.id;
+              const isSelected = activeLook === item.id;
               return (
                 <label
                   key={item.id}
-                  onClick={() => handleSetTech(item.id)}
+                  onClick={() => handleSetLook(item.id)}
                   className="flex items-center gap-2.5 text-neutral-600 hover:text-neutral-950 cursor-pointer select-none transition-colors"
                 >
                   <span
                     className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center transition-all ${
                       isSelected
-                        ? 'border-neutral-950 bg-neutral-950'
+                        ? 'border-amber-500 bg-amber-500'
                         : 'border-neutral-300 hover:border-neutral-500'
                     }`}
                   >
                     {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
                   </span>
-                  <span className={isSelected ? 'font-bold text-neutral-950' : 'font-normal'}>
+                  <span className={isSelected ? 'font-bold text-amber-600' : 'font-normal'}>
                     {item.label}
                   </span>
                 </label>
@@ -495,45 +424,47 @@ export const CataloguePage: React.FC<CataloguePageProps> = ({
         )}
       </div>
 
-      {/* SECTION E: FORMATS */}
-      <div className="py-4">
-        <button
-          type="button"
-          onClick={() => toggleSection('formats')}
-          className="w-full flex items-center justify-between font-bold text-neutral-900 uppercase tracking-wider text-[11px] cursor-pointer"
-        >
-          <span>Formats</span>
-          {openSections.formats ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
-        </button>
+      {/* SECTION 3: TILE FORMATS / SIZES (Only displayed for applicable categories) */}
+      {(selectedCategory === 'All' || selectedCategory === 'Tiles' || selectedCategory === 'SPC Flooring') && availableDimensions.length > 0 && (
+        <div className="py-3.5">
+          <button
+            type="button"
+            onClick={() => toggleSection('formats')}
+            className="w-full flex items-center justify-between font-bold text-neutral-900 uppercase tracking-wider text-[11px] cursor-pointer"
+          >
+            <span>Tile Size / Dimensions</span>
+            {openSections.formats ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+          </button>
 
-        {openSections.formats && (
-          <div className="mt-3 space-y-2.5 pl-1">
-            {availableDimensions.map((dim) => {
-              const isSelected = activeDimension === dim;
-              return (
-                <label
-                  key={dim}
-                  onClick={() => setActiveDimension(dim)}
-                  className="flex items-center gap-2.5 text-neutral-600 hover:text-neutral-950 cursor-pointer select-none transition-colors"
-                >
-                  <span
-                    className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center transition-all ${
-                      isSelected
-                        ? 'border-neutral-950 bg-neutral-950'
-                        : 'border-neutral-300 hover:border-neutral-500'
-                    }`}
+          {openSections.formats && (
+            <div className="mt-2.5 space-y-2 pl-1">
+              {availableDimensions.map((dim) => {
+                const isSelected = activeDimension === dim;
+                return (
+                  <label
+                    key={dim}
+                    onClick={() => setActiveDimension(dim)}
+                    className="flex items-center gap-2.5 text-neutral-600 hover:text-neutral-950 cursor-pointer select-none transition-colors"
                   >
-                    {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
-                  </span>
-                  <span className={isSelected ? 'font-bold text-neutral-950' : 'font-normal'}>
-                    {dim === 'All' ? 'All Formats' : dim}
-                  </span>
-                </label>
-              );
-            })}
-          </div>
-        )}
-      </div>
+                    <span
+                      className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center transition-all ${
+                        isSelected
+                          ? 'border-neutral-950 bg-neutral-950'
+                          : 'border-neutral-300 hover:border-neutral-500'
+                      }`}
+                    >
+                      {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
+                    </span>
+                    <span className={isSelected ? 'font-bold text-neutral-950' : 'font-normal'}>
+                      {dim === 'All' ? 'All Formats' : dim}
+                    </span>
+                  </label>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      )}
 
     </div>
   );
@@ -766,15 +697,13 @@ export const CataloguePage: React.FC<CataloguePageProps> = ({
                   
                   {[
                     { label: 'All', active: activeTech === 'All' && activeLook === 'All' && activeDest === 'All', action: () => { handleSetTech('All'); handleSetLook('All'); handleSetDest('All'); } },
-                    { label: 'Porcelain', active: activeTech === 'Porcelain', action: () => handleSetTech(activeTech === 'Porcelain' ? 'All' : 'Porcelain') },
-                    { label: 'Ceramic Wall', active: activeTech === 'Ceramic', action: () => handleSetTech(activeTech === 'Ceramic' ? 'All' : 'Ceramic') },
-                    { label: 'XXL Slabs', active: activeTech === 'XXL', action: () => handleSetTech(activeTech === 'XXL' ? 'All' : 'XXL') },
-                    { label: '2cm Outdoor', active: activeTech === '2cm', action: () => handleSetTech(activeTech === '2cm' ? 'All' : '2cm') },
                     { label: 'Marble Look', active: activeLook === 'Marble', action: () => handleSetLook(activeLook === 'Marble' ? 'All' : 'Marble') },
                     { label: 'Wood Parquet', active: activeLook === 'Wood', action: () => handleSetLook(activeLook === 'Wood' ? 'All' : 'Wood') },
-                    { label: 'Color Glaze', active: activeLook === 'Color', action: () => handleSetLook(activeLook === 'Color' ? 'All' : 'Color') },
+                    { label: '18mm Outdoor', active: activeTech === '18mm' || activeDest === 'Outdoor', action: () => handleSetDest(activeDest === 'Outdoor' ? 'All' : 'Outdoor') },
+                    { label: 'Sintered Stones', active: activeDest === 'Commercial', action: () => handleSetDest(activeDest === 'Commercial' ? 'All' : 'Commercial') },
                     { label: 'Bathroom', active: activeDest === 'Bathroom', action: () => handleSetDest(activeDest === 'Bathroom' ? 'All' : 'Bathroom') },
                     { label: 'Living Room', active: activeDest === 'Living', action: () => handleSetDest(activeDest === 'Living' ? 'All' : 'Living') },
+                    { label: 'Kitchen', active: activeDest === 'Kitchen', action: () => handleSetDest(activeDest === 'Kitchen' ? 'All' : 'Kitchen') },
                   ].map((chip) => (
                     <button
                       key={chip.label}
