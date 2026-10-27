@@ -473,7 +473,7 @@ export const CataloguePage: React.FC<CataloguePageProps> = ({
     <div className="bg-[#FAFAFA] text-neutral-950 font-sans min-h-screen pb-28">
       {/* 1. SEAMLESS CENTERED CATEGORY NAVIGATION BAR */}
       <section className="bg-white border-b border-neutral-200/90 sticky top-0 z-20">
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 sm:py-3">
+        <div className="w-full px-4 sm:px-6 lg:px-8 py-2.5 sm:py-3">
           <div className="flex items-center justify-center">
             
             {/* Category Pills Centered */}
@@ -511,7 +511,7 @@ export const CataloguePage: React.FC<CataloguePageProps> = ({
       </section>
 
       {/* 2. MAIN 2-COLUMN LAYOUT (DESKTOP SIDEBAR + RESPONSIVE PRODUCT-FIRST MOBILE) */}
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6">
+      <div className="w-full px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6">
         
         {/* Breadcrumbs matching Image 2 */}
         <div className="text-xs text-neutral-500 py-2 flex items-center gap-1.5 font-sans mb-4">
@@ -539,10 +539,10 @@ export const CataloguePage: React.FC<CataloguePageProps> = ({
           {/* ========================================================
               LEFT SIDEBAR: DESKTOP ONLY (Matching Image 2)
              ======================================================== */}
-          <aside className="hidden lg:block w-72 shrink-0 bg-white border border-neutral-200/90 p-5 shadow-2xs lg:sticky lg:top-24">
+          <aside className="hidden lg:flex lg:flex-col w-72 shrink-0 bg-white border border-neutral-200/90 shadow-2xs lg:sticky lg:top-24 max-h-[calc(100vh-7rem)] overflow-hidden rounded-xs">
             
             {/* Sidebar Title & Reset All button */}
-            <div className="flex items-center justify-between pb-4 border-b border-neutral-100">
+            <div className="flex items-center justify-between p-4 pb-3 border-b border-neutral-100 shrink-0 bg-white">
               <div className="flex items-center gap-2">
                 <SlidersHorizontal className="w-4 h-4 text-neutral-800" />
                 <h2 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-900 font-heading">
@@ -560,11 +560,13 @@ export const CataloguePage: React.FC<CataloguePageProps> = ({
               </button>
             </div>
 
-            {/* Desktop Filter Accordions */}
-            {renderFilterAccordions()}
+            {/* Desktop Filter Accordions (Independently Scrollable with Custom Scrollbar) */}
+            <div className="flex-1 overflow-y-auto overscroll-contain px-4 py-1 custom-scrollbar">
+              {renderFilterAccordions()}
+            </div>
 
-            {/* Filter Action Button */}
-            <div className="pt-4 mt-2 border-t border-neutral-100 space-y-2.5">
+            {/* Filter Action Buttons (Pinned at Bottom for Instant Access) */}
+            <div className="p-4 pt-3 border-t border-neutral-100 space-y-2 shrink-0 bg-white shadow-[0_-4px_12px_-2px_rgba(0,0,0,0.03)]">
               <button
                 type="button"
                 onClick={() => {}}
@@ -860,9 +862,9 @@ export const CataloguePage: React.FC<CataloguePageProps> = ({
             ) : viewMode === 'gallery-view' ? (
               
               /* ========================================================
-                  3-COLUMN ARCHITECTURAL GALLERY
+                  3/4-COLUMN ARCHITECTURAL GALLERY
                  ======================================================== */
-              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-7">
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6 sm:gap-7">
                 {filteredProducts.map((product) => {
                   return (
                     <article
@@ -929,7 +931,7 @@ export const CataloguePage: React.FC<CataloguePageProps> = ({
               /* ========================================================
                   DETAILED SPEC & CALCULATOR VIEW MODE
                  ======================================================== */
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 sm:gap-8">
                 {filteredProducts.map((product) => {
                   const isSelected = selectedProductRefs.has(product.ref);
                   return (

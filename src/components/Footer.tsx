@@ -103,10 +103,6 @@ export const Footer: React.FC<FooterProps> = ({
             <p className="text-xs text-neutral-400 max-w-sm leading-relaxed mt-2">
               Distributor of premium architectural building supplies. We supply architects, developers, contractors, and discerning homeowners across Eldoret, the North Rift, and Western Kenya.
             </p>
-            <div className="pt-2 text-[11px] text-neutral-500 font-mono space-y-1">
-              <div>Lipa na M-Pesa Paybill: {SHOWROOM_CONTACT.paybill} · Acc: {SHOWROOM_CONTACT.paybillAccount}</div>
-              <div>Showroom Buy Goods Till: {SHOWROOM_CONTACT.tillNumber}</div>
-            </div>
           </div>
 
           {/* Site Pages */}

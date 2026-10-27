@@ -205,3 +205,22 @@
     width: 100%;
   }
 }
+
+/* Elegant Architectural Slim Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #D4D4D8;
+  border-radius: 9999px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #A1A1AA;
+}
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #D4D4D8 transparent;
+}
